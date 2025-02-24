@@ -1,0 +1,288 @@
+/* resources/assets/css/dashboard.css */
+
+:root {
+    --primary-color: #9D2449;
+    --text-muted: #6c757d;
+    --primary-dark: #7a1c38;
+    --primary-color-rgb: 157, 36, 73;
+    --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+    /* Extended color palette */
+    --surface-0: #ffffff;
+    --surface-1: #f8f9fa;
+    --surface-2: #e9ecef;
+    --text-primary: #2c3e50;
+    --text-secondary: #6c757d;
+    --border-subtle: rgba(157, 36, 73, 0.08);
+    --hover-bg: rgba(157, 36, 73, 0.04);
+}
+
+
+/* Estilos globales */
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--surface-1);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.7;
+}
+
+/* Header */
+.header {
+    background: var(--surface-0);
+    border-bottom: 1px solid var(--border-subtle);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    height: 64px;
+}
+
+.header .navbar-brand {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: -0.3px;
+}
+
+.header .nav-link {
+    color: var(--text-secondary) !important;
+    font-weight: 500;
+    font-size: 0.925rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    margin: 0 0.25rem;
+}
+
+.header .nav-link:hover {
+    color: var(--primary-color) !important;
+    background-color: var(--hover-bg);
+}
+
+.header .nav-link .badge {
+    background: var(--primary-color);
+    padding: 0.25em 0.6em;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    background-color: var(--surface-0);
+    border-right: 1px solid var(--border-subtle);
+    padding: 1.5rem 0;
+    overflow-y: auto;
+}
+
+.sidebar .nav-link {
+    color: var(--text-secondary);
+    padding: 0.875rem 1.5rem;
+    font-size: 0.925rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0.25rem 0.75rem;
+}
+
+.sidebar .nav-link:hover {
+    background-color: var(--hover-bg);
+    color: var(--primary-color);
+    transform: translateX(3px);
+}
+
+.sidebar .nav-link.active {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 12px rgba(157, 36, 73, 0.2);
+}
+
+.sidebar .nav-link i {
+    font-size: 1.1rem;
+    width: 24px;
+    text-align: center;
+    opacity: 0.85;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 250px;
+    margin-top: 64px;
+    padding: 2rem;
+    flex: 1;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: var(--box-shadow);
+    transition: all 0.3s ease;
+    background: var(--surface-0);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card-header {
+    background: var(--surface-0);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1.25rem;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+
+.stats-card {
+    padding: 1.75rem;
+    border-radius: 12px;
+    background: var(--surface-0);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-subtle);
+}
+
+.stats-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.stats-card .icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--hover-bg);
+    color: var(--primary-color);
+    margin-bottom: 1.25rem;
+}
+
+.stats-card .number {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+}
+
+.stats-card .label {
+    font-size: 0.925rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    border: none;
+    padding: 0.675rem 1.25rem;
+    font-size: 0.925rem;
+    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(157, 36, 73, 0.2);
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(157, 36, 73, 0.3);
+}
+
+.search-bar {
+    position: relative;
+    max-width: 300px;
+}
+
+.search-bar input {
+    padding: 0.675rem 1rem 0.675rem 2.5rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    font-size: 0.925rem;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.search-bar input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(157, 36, 73, 0.1);
+}
+
+.search-bar i {
+    position: absolute;
+    left: 0.875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+/* Footer */
+footer {
+    background-color: var(--surface-0);
+    padding: 1.25rem 0;
+    margin-top: auto;
+    margin-left: 250px;
+    border-top: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+.content {
+    background-color: transparent; /* Fondo transparente */
+    padding: 20px; /* Añade un poco de espacio interno */
+    color: #000; /* Color del texto (ajusta según tu diseño) */
+}
+
+/* Badge Styles */
+.badge-subtle {
+    background: var(--hover-bg);
+    color: var(--primary-color);
+    font-weight: 500;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    .main-content, footer {
+        margin-left: 0;
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--surface-1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(157, 36, 73, 0.2);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(157, 36, 73, 0.3);
+}

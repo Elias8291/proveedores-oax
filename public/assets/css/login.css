@@ -1,0 +1,473 @@
+/* Authentication container */
+.auth-container {
+    background: white;
+    padding: 3rem;
+    border-radius: 24px;
+    box-shadow: var(--box-shadow);
+    max-width: 560px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.auth-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 45px rgba(157, 36, 73, 0.1);
+}
+
+/* Decorative top border with gradient animation */
+.auth-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        var(--primary-color),
+        var(--primary-dark),
+        var(--primary-color)
+    );
+    background-size: 200% 100%;
+    animation: gradientMove 3s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 100% 0;
+    }
+    50% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+/* Header styles */
+.auth-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.auth-header img {
+    width: 260px;
+    height: auto;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    transition: all 0.3s ease;
+}
+
+.auth-header img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.15));
+}
+
+.auth-header h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.auth-header h1::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--primary-color),
+        transparent
+    );
+    transform: scaleX(0.6);
+    transition: transform 0.3s ease;
+}
+
+.auth-header h1:hover::after {
+    transform: scaleX(1);
+}
+
+/* Form styles */
+.form-label {
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.form-control {
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(var(--primary-color-rgb), 0.1);
+    background: white;
+    outline: none;
+}
+
+.form-control:hover {
+    border-color: #d1d5db;
+    background: white;
+}
+
+/* Aplica color primario solo a los botones dentro del formulario de inicio de sesión */
+form .btn-primary {
+    background: var(--primary-color) !important;
+    border: none;
+    border-radius: 12px;
+    padding: 0.875rem 1.5rem;
+    font-weight: 500;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+form .btn-primary:hover {
+    background: var(--primary-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark); /* Color oscuro del primario */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Additional button states for focus (for input and button focus) */
+.btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb), 0.25);
+}
+
+/* Estilos para las pestañas (tabs) */
+.nav-tabs {
+    border: none;
+    background: transparent;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem; /* Espacio entre las pestañas */
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    color: var(--text-muted); /* Color de texto muted */
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background-color: transparent; /* Fondo transparente */
+    position: relative;
+}
+
+.nav-tabs .nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color); /* Línea decorativa */
+    transform: translateX(-50%);
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--primary-color); /* Color primario en hover */
+}
+
+.nav-tabs .nav-link:hover::after {
+    width: 100%; /* Línea decorativa se expande en hover */
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--primary-color); /* Color primario en la pestaña activa */
+    font-weight: 600; /* Texto más grueso en la pestaña activa */
+}
+
+.nav-tabs .nav-link.active::after {
+    width: 100%; /* Línea decorativa visible en la pestaña activa */
+}
+
+.next-button,
+.back-button,
+.submit-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Next button specific styles */
+.next-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    background: var(--primary-color);
+    border: none;
+    min-width: 120px;
+}
+
+.next-button:hover {
+    transform: translateX(5px);
+    background: var(--primary-dark);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.2);
+}
+
+/* Back button specific styles */
+.back-button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: 1px solid #d1d5db;
+    color: #6b7280;
+}
+
+.back-button:hover {
+    background: #f3f4f6;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateX(-5px);
+}
+
+/* Submit button specific styles */
+.submit-button {
+    min-width: 120px;
+    background: var(--primary-color);
+    border: none;
+}
+
+.submit-button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.2);
+}
+
+/* Section container */
+.position-relative {
+    min-height: 280px;
+}
+
+:root {
+    --text-muted: #6c757d;
+    --border-color: #e0e0e0;
+    --hover-border-color: #b3b3b3;
+    --focus-border-color: #9d2449;
+    --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    --input-bg: #f9fafb;
+    --input-hover-bg: #ffffff;
+    --input-focus-shadow: 0 0 0 4px rgba(157, 36, 73, 0.1);
+}
+
+/* Estilos generales para los inputs con iconos */
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.input-group-text {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 2px solid var(--border-color);
+    border-right: none; /* Elimina el borde derecho para que combine con el input */
+    color: var(--text-muted); /* Color de texto muted */
+    padding: 0.75rem 1rem;
+    border-radius: 12px 0 0 12px;
+    transition: all 0.3s ease;
+}
+
+.input-group-text i {
+    font-size: 1rem;
+}
+
+.input-group:hover .input-group-text {
+    border-color: var(--hover-border-color); /* Borde más oscuro en hover */
+    color: #000000; /* Color de texto más oscuro en hover */
+}
+
+.form-control {
+    border: 2px solid var(--border-color);
+    border-radius: 0 12px 12px 0;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--input-bg);
+    width: 100%;
+    box-shadow: var(--box-shadow); /* Sombra sutil */
+}
+
+.form-control:focus {
+    border-color: var(--focus-border-color); /* Borde morado en focus */
+    box-shadow: var(--input-focus-shadow); /* Sombra de enfoque */
+    background: var(--input-hover-bg);
+    outline: none;
+}
+
+.form-control:hover {
+    border-color: var(--hover-border-color); /* Borde más oscuro en hover */
+    background: var(--input-hover-bg);
+}
+
+/* Estilos para el checkbox personalizado */
+.form-check-input {
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: 0.25em;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.form-check-input:checked {
+    background-color: var(--focus-border-color); /* Color morado */
+    border-color: var(--focus-border-color);
+}
+
+.form-check-input:focus {
+    box-shadow: var(--input-focus-shadow); /* Sombra de enfoque */
+}
+
+.form-check-label {
+    margin-left: 0.5rem;
+    color: var(--text-muted); /* Texto en color muted */
+    font-weight: 500;
+}
+
+/* Estilos para el botón de inicio de sesión (sin color primario) */
+.btn-primary {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.875rem 1.5rem;
+    font-weight: 500;
+    color: var(--text-muted); /* Texto en color muted */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--box-shadow); /* Sombra sutil */
+}
+
+.btn-primary:hover {
+    background-color: #f9fafb; /* Fondo más claro en hover */
+    border-color: var(--hover-border-color); /* Borde más oscuro en hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra en hover */
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+/* Estilos para los labels */
+.form-label {
+    font-weight: 500; /* Texto semi-negrita */
+    color: #374151; /* Color de texto oscuro */
+    margin-bottom: 0.5rem; /* Espacio debajo del label */
+    display: block; /* Asegura que el label esté en una línea separada */
+    transition: color 0.3s ease; /* Transición suave para el color */
+}
+
+/* Estilos para los inputs */
+.floating-input {
+    margin-bottom: 1.5rem; /* Espacio debajo del input */
+    position: relative;
+}
+
+.form-control {
+    border: 2px solid var(--border-color); /* Borde sutil */
+    border-radius: 12px; /* Bordes redondeados */
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--input-bg); /* Fondo claro */
+    width: 100%;
+    box-shadow: var(--box-shadow); /* Sombra sutil */
+}
+
+.form-control:focus {
+    border-color: var(--focus-border-color); /* Borde morado en focus */
+    box-shadow: var(--input-focus-shadow); /* Sombra de enfoque */
+    background: var(--input-hover-bg); /* Fondo blanco en focus */
+    outline: none;
+}
+
+.form-control:hover {
+    border-color: var(--hover-border-color); /* Borde más oscuro en hover */
+    background: var(--input-hover-bg); /* Fondo blanco en hover */
+}
+
+/* Estilos para el select */
+.form-control select {
+    appearance: none; /* Elimina el estilo por defecto del select */
+    background: var(--input-bg); /* Fondo claro */
+}
+
+/* Estilos para los botones */
+.next-button, .submit-button {
+    background-color: var(--primary-color); /* Color primario */
+    border: none;
+    border-radius: 12px;
+    padding: 0.875rem 1.5rem;
+    font-weight: 500;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--box-shadow); /* Sombra sutil */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.next-button:hover, .submit-button:hover {
+    background-color: var(--primary-dark); /* Color primario oscuro en hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.2); /* Sombra en hover */
+}
+
+.next-button:active, .submit-button:active {
+    transform: translateY(0);
+}
+
+/* Estilos para el ícono del botón Siguiente */
+.next-button svg {
+    margin-left: 0.5rem; /* Espacio entre el texto y el ícono */
+    transition: transform 0.3s ease;
+}
+
+.next-button:hover svg {
+    transform: translateX(5px); /* Efecto de movimiento en hover */
+}
+/* Estilos para el select */
+.form-control select {
+    appearance: none; /* Elimina el estilo por defecto del select */
+    background: var(--input-bg); /* Fondo claro */
+    cursor: pointer; /* Cambia el cursor a pointer */
+}
+
+/* Estilos para el placeholder del select */
+.form-control select option[disabled] {
+    color: var(--text-muted); /* Color de texto muted */
+}

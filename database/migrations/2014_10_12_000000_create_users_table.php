@@ -1,78 +1,32 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Illuminate\View\View;
-
-class RegisteredUserController extends Controller
-{
-    public function create(): View
+return new class extends Migration {
+    public function up(): void
     {
-        return view('auth.register');
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 255);
+            $table->string('last_name', 255);
+            $table->string('second_last_name', 255)->nullable();
+            $table->string('username', 255)->unique();
+            $table->string('email', 255)->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password', 255);
+            $table->string('plain_password', 255);
+            $table->enum('status', ['Activo', 'Inactivo'])->default('Activo');
+            $table->rememberToken();
+            $table->timestamp('last_login')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
-    public function store(Request $request): RedirectResponse
+    public function down(): void
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'first_lastname' => ['required', 'string', 'max:255'],
-            'second_lastname' => ['nullable', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'email_confirmation' => ['required', 'same:email'],
-            'tipo_persona' => ['required', 'string', 'in:fisica,moral'],
-            'razon_social' => ['required', 'string', 'max:255'],
-            'rfc' => ['required', 'string', 'max:13'],
-        ]);
-
-        $username = $this->generateUniqueUsername($request->name, $request->first_lastname);
-        $password = $this->generateRandomPassword();
-
-        $user = User::create([
-            'name' => $request->name,
-            'last_name' => $request->first_lastname,
-            'second_last_name' => $request->second_lastname,
-            'email' => $request->email,
-            'username' => $username,
-            'password' => Hash::make($password),
-            'plain_password' => $password, // Store plain password temporarily for email
-            'status' => 'Activo'
-        ]);
-
-        // Here you would typically send an email with the generated credentials
-        // event(new UserRegistered($user)); // Create this event to handle email sending
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        Schema::dropIfExists('users');
     }
-
-    private function generateUniqueUsername($firstName, $lastName): string
-    {
-        $baseUsername = strtolower(Str::slug($firstName . '.' . $lastName));
-        $username = $baseUsername;
-        $counter = 1;
-
-        while (User::where('username', $username)->exists()) {
-            $username = $baseUsername . $counter;
-            $counter++;
-        }
-
-        return $username;
-    }
-
-    private function generateRandomPassword(): string
-    {
-        return Str::random(12); 
-    }
-}
+};

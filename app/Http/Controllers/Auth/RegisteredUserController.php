@@ -16,7 +16,8 @@ use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Validation\ValidationException;
 use App\Mail\CredentialsEmail;
-use App\Mail\UserCredentials; 
+use App\Mail\UserCredentials;
+
 class RegisteredUserController extends Controller
 {
     public function create(): View
@@ -26,7 +27,7 @@ class RegisteredUserController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        try{
+        try {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'last_name' => ['required', 'string', 'max:255'],
@@ -55,9 +56,8 @@ class RegisteredUserController extends Controller
 
             event(new Registered($user));
 
-            return redirect(RouteServiceProvider::HOME);
-        }
-        catch (ValidationException $e) {
+            return redirect()->route('welcome')->with('success', 'Usuario registrado con éxito. Revisa tu correo electrónico para tu nombre de usuario y contraseña temporal.');
+        } catch (ValidationException $e) {
             return redirect()
                 ->back()
                 ->withErrors($e->errors())
@@ -98,6 +98,6 @@ class RegisteredUserController extends Controller
     // Generate a random password of 8 characters
     private function generateRandomPassword()
     {
-        return Str::random(8); // Random password with 8 characters
+        return Str::random(8); 
     }
 }

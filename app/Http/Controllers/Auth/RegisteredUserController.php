@@ -39,7 +39,7 @@ class RegisteredUserController extends Controller
             // Generate username and password
             $username = $this->generateUniqueUsername($request->name, $request->last_name);
             $password = $this->generateRandomPassword();
-            
+
             // Save the user
             $user = User::create([
                 'name' => $request->name,
@@ -73,31 +73,41 @@ class RegisteredUserController extends Controller
     }
 
     // Modify username generation to include letters and numbers
+    // Modify username generation to follow the requested pattern
     private function generateUniqueUsername($firstName, $lastName)
-    {
-        $baseUsername = strtolower(Str::slug($firstName . '.' . $lastName));
-        $username = $baseUsername . $this->generateRandomString(3); // Append 3 random characters
-        $counter = 1;
+{
+    // Obtener las dos primeras letras del nombre y apellido
+    $firstNamePart = strtoupper(substr($firstName, 0, 2));
+    $lastNamePart = strtoupper(substr($lastName, 0, 2));
 
-        // Ensure the username is unique
-        while (User::where('username', $username)->exists()) {
-            $username = $baseUsername . $this->generateRandomString(3) . $counter;
-            $counter++;
-        }
+    // Generar un número aleatorio de 3 dígitos
+    $number = rand(100, 999);
 
-        return $username;
+    $baseUsername = $firstNamePart . $lastNamePart . $number;
+    $username = $baseUsername;
+    $counter = 1;
+
+    // Verificar si el nombre de usuario ya existe
+    while (User::where('username', $username)->exists()) {
+        $extraNumber = rand(1000, 9999); // Ahora 4 dígitos en lugar de 3
+        $extraLetter = $this->generateRandomString(1); // Agregar una letra aleatoria
+        $username = $firstNamePart . $lastNamePart . $extraNumber . $extraLetter;
+        $counter++;
     }
 
-    // Generate a random alphanumeric string (3 characters in this case)
-    private function generateRandomString($length = 3)
-    {
-        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        return substr(str_shuffle($characters), 0, $length);
-    }
+    return $username;
+}
+
+// Generar una letra aleatoria
+private function generateRandomString($length = 1)
+{
+    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    return substr(str_shuffle($characters), 0, $length);
+}
 
     // Generate a random password of 8 characters
     private function generateRandomPassword()
     {
-        return Str::random(8); 
+        return Str::random(8);
     }
 }

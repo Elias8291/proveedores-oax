@@ -15,24 +15,27 @@
         <div style="padding: 30px;">
             <p style="font-size: 18px; margin-bottom: 20px; color: #800000;">Estimado proveedor,</p>
             
-            <p style="margin-bottom: 15px;">Le damos la bienvenida a nuestra página web de proveedores. Agradecemos sinceramente su interés en formar parte de nuestra dependencia y en registrar su información para continuar con el proceso de inscripción.</p>
+            <p style="margin-bottom: 15px;">¡Bienvenido/a al Registro de Padrón de Proveedores del Estado de Oaxaca!
+
+                Nos complace darte la bienvenida a nuestra aplicación web. Registra tu información para continuar con el proceso de inscripción y obtener acceso a nuestra plataforma.</p>
 
             
-            <div style="background-color: #f5f9fc; border-left: 4px solid #800000; padding: 15px; margin: 20px 0;">
-                <p style="margin-top: 0;"><strong>Sus datos de acceso son los siguientes:</strong></p>
-                <ul style="padding-left: 20px;">
-                    <li style="margin-bottom: 10px; list-style-type: none;">📋 <strong>Nombre de usuario:</strong> {{ $username }}</li>
-                    <li style="margin-bottom: 10px; list-style-type: none;">🔑 <strong>Contraseña temporal:</strong> {{ $password }}</li>
-                </ul>
-            </div>
+                <div style="background-color: #f5f9fc; border-left: 4px solid #800000; padding: 15px; margin: 20px 0;">
+                    <p style="margin-top: 0;"><strong>Tus datos de acceso son los siguientes:</strong></p>
+                    <ul style="padding-left: 20px;">
+                        <li style="margin-bottom: 10px;">📋 <strong>Nombre de usuario:</strong> {{ $username }}</li>
+                        <li style="margin-bottom: 10px;">🔑 <strong>Contraseña temporal:</strong> {{ $password }}</li>
+                    </ul>
+                </div>
+                
             
-            <p style="margin-bottom: 15px;">Por seguridad, le recomendamos cambiar su contraseña al iniciar sesión por primera vez.</p>
+            <p style="margin-bottom: 15px;">1. Inicia sesión con tu usuario y contraseña. 2. Cambia tu contraseña en tu primer acceso por motivos de seguridad.</p>
             
             <div style="text-align: center; margin: 25px 0;">
                 <a href="#" style="display: inline-block; background-color: #800000; color: white; padding: 12px 25px; text-decoration: none; border-radius: 4px; font-weight: 500;">Iniciar Sesión Ahora</a>
             </div>
             
-            <p style="margin-bottom: 15px;">Puede continuar con sus trámites en nuestra página web en cualquier momento. Estamos comprometidos a brindarle una experiencia eficiente y satisfactoria.</p>
+            <p style="margin-bottom: 15px;">Puede continuar con sus trámites en nuestra aplicaciónn web en cualquier momento. Estamos comprometidos a brindarle una experiencia eficiente y satisfactoria.</p>
             
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
                 <p style="margin-bottom: 15px;">Gracias por confiar en nosotros. Esperamos que su experiencia sea satisfactoria.</p>

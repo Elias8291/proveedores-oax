@@ -9,7 +9,7 @@
     <div style="max-width: 650px; margin: 0 auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
         <div style="background: linear-gradient(135deg, #800000 0%, #a52a2a 100%); color: white; padding: 25px; text-align: center;">
             <img src="cid:logoSe" alt="Logo Secretaría de Administración" style="width: 100px; height: auto; margin-bottom: 15px;" />
-            <h1 style="margin: 0 auto; font-size: 24px; font-weight: 600; max-width: 90%;">Bienvenido a nuestra Página Web de Proveedores</h1>
+            <h1 style="margin: 0 auto; font-size: 24px; font-weight: 600; max-width: 90%;">Bienvenido a nuestra aplicación Web de Proveedores</h1>
         </div>
         
         <div style="padding: 30px;">

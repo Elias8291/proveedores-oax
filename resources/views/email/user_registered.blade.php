@@ -15,7 +15,7 @@
         <div style="padding: 30px;">
             <p style="font-size: 18px; margin-bottom: 20px; color: #800000;">Estimado proveedor,</p>
             
-            <p style="margin-bottom: 15px;">¡Bienvenido/a al Registro de Padrón de Proveedores del Estado de Oaxaca!
+            <p style="margin-bottom: 15px;">¡BIENVENIDO/A AL REGISTRO DE PADRÓN DE PROVEEDORES DEL ESTADO DE OAXACA!
 
                 Nos complace darte la bienvenida a nuestra aplicación web. Registra tu información para continuar con el proceso de inscripción y obtener acceso a nuestra plataforma.</p>
 

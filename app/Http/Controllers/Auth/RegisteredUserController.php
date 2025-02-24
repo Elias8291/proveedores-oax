@@ -10,10 +10,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Validation\ValidationException;
+use App\Mail\CredentialsEmail;
+use App\Mail\UserCredentials; 
 class RegisteredUserController extends Controller
 {
     public function create(): View
@@ -24,32 +27,35 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         try{
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'second_last_name' => ['nullable', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'email_confirmation' => ['required', 'same:email'],
-        ]);
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'last_name' => ['required', 'string', 'max:255'],
+                'second_last_name' => ['nullable', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+                'email_confirmation' => ['required', 'same:email'],
+            ]);
 
-        // Generate username and password
-        $username = $this->generateUniqueUsername($request->name, $request->last_name);
-        $password = $this->generateRandomPassword();
-        
-        // Save the user
-        $user = User::create([
-            'name' => $request->name,
-            'last_name' => $request->last_name,
-            'second_last_name' => $request->second_last_name,
-            'email' => $request->email,
-            'username' => $username,
-            'password' => Hash::make($password), // Save the encrypted password
-            'plain_password' => $password, // Save the plain password
-        ]);
+            // Generate username and password
+            $username = $this->generateUniqueUsername($request->name, $request->last_name);
+            $password = $this->generateRandomPassword();
+            
+            // Save the user
+            $user = User::create([
+                'name' => $request->name,
+                'last_name' => $request->last_name,
+                'second_last_name' => $request->second_last_name,
+                'email' => $request->email,
+                'username' => $username,
+                'password' => Hash::make($password), // Save the encrypted password
+                'plain_password' => $password, // Save the plain password
+            ]);
 
-        event(new Registered($user));
+            // Send credentials email
+            $this->sendCredentialsEmail($user, $username, $password);
 
-        return redirect(RouteServiceProvider::HOME);
+            event(new Registered($user));
+
+            return redirect(RouteServiceProvider::HOME);
         }
         catch (ValidationException $e) {
             return redirect()
@@ -58,7 +64,12 @@ class RegisteredUserController extends Controller
                 ->withInput()
                 ->with('register_tab', true);  // This will ensure the register tab is active
         }
-    
+    }
+
+    // Send email with credentials
+    private function sendCredentialsEmail($user, $username, $password)
+    {
+        Mail::to($user->email)->send(new UserCredentials($user, $username, $password));
     }
 
     // Modify username generation to include letters and numbers

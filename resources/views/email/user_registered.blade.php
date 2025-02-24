@@ -32,7 +32,7 @@
             <p style="margin-bottom: 15px;">1. Inicia sesión con tu usuario y contraseña. 2. Cambia tu contraseña en tu primer acceso por motivos de seguridad.</p>
             
             <div style="text-align: center; margin: 25px 0;">
-                <a href="#" style="display: inline-block; background-color: #800000; color: white; padding: 12px 25px; text-decoration: none; border-radius: 4px; font-weight: 500;">Iniciar Sesión Ahora</a>
+                <a href="http://127.0.0.1:8000" style="display: inline-block; background-color: #800000; color: white; padding: 12px 25px; text-decoration: none; border-radius: 4px; font-weight: 500;">Iniciar Sesión Ahora</a>
             </div>
             
             <p style="margin-bottom: 15px;">Puede continuar con sus trámites en nuestra aplicaciónn web en cualquier momento. Estamos comprometidos a brindarle una experiencia eficiente y satisfactoria.</p>

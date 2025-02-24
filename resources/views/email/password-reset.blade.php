@@ -87,32 +87,35 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Restablecer tu contraseña</h1>
+            <h1>Solicitud de Restablecimiento de Contraseña</h1>
         </div>
         
         <div class="content">
-            <p>Estimado usuario,</p>
+            <p>Hola,</p>
             
-            <p>Hemos recibido una solicitud para restablecer tu contraseña. Si no fuiste tú, por favor ignora este mensaje.</p>
+            <p>Recibimos una solicitud para restablecer tu contraseña. Si no realizaste esta solicitud, puedes ignorar este mensaje con seguridad.</p>
 
-            <p>Para restablecer tu contraseña, haz clic en el siguiente enlace:</p>
+            <p>Para restablecer tu contraseña y recuperar el acceso a tu cuenta, haz clic en el siguiente botón:</p>
 
             <div style="text-align: center; margin: 25px 0;">
                 <a href="{{ $resetUrl }}" class="btn">Restablecer contraseña</a>
             </div>
 
-            <p>Si tienes problemas con el enlace, copia y pega el siguiente URL en tu navegador:</p>
+            <p>Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:</p>
             <p><a href="{{ $resetUrl }}">{{ $resetUrl }}</a></p>
             
+            <p>Si necesitas asistencia adicional, no dudes en contactarnos a través de nuestros canales oficiales.</p>
+
             <p>Atentamente,<br>
             <strong>Secretaría de Administración</strong><br>
             Gobierno del Estado de Oaxaca</p>
         </div>
         
         <div class="footer">
-            <p>Este es un mensaje automático, por favor no respondas. Si necesitas ayuda, contáctanos a través de nuestros canales oficiales.</p>
+            <p>Este es un mensaje automático, por favor no respondas. Para soporte, contáctanos a través de nuestros medios oficiales.</p>
             <p>&copy; 2025 Secretaría de Administración - Gobierno del Estado de Oaxaca. Todos los derechos reservados.</p>
         </div>
     </div>
 </body>
 </html>
+

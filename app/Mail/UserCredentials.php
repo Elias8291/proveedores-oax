@@ -8,9 +8,10 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Spatie\Permission\Traits\HasRoles;
 
 class UserCredentials extends Mailable
-{
+{  use HasRoles;
     use Queueable, SerializesModels;
 
     public $user;
@@ -43,7 +44,7 @@ class UserCredentials extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.user_registered', // Nombre de la vista Blade
+            view: 'email.user_registered', 
         );
     }
 }

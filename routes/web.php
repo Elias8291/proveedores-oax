@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,8 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
+// Cambia esta línea para que use la vista admin.home
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $userName = auth()->user()->name; // Obtener el nombre del usuario autenticado
+    return view('admin.home', ['userName' => $userName]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -31,6 +35,8 @@ Route::middleware('auth')->group(function () {
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
 Route::post('register', [RegisteredUserController::class, 'store']);
 Route::post('/check-email-exists', [\App\Http\Controllers\Auth\EmailCheckController::class, 'checkExists']);
-
+Route::get('/admin/home', function () {
+    return view('admin.home');
+})->name('admin.home');
+Route::resource('users', UserController::class);
 require __DIR__.'/auth.php';
-

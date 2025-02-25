@@ -202,6 +202,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return isValid;
     };
+    // Función para convertir el texto en mayúsculas
+const convertToUpperCase = (event) => {
+    event.target.value = event.target.value.toUpperCase();
+};
+
+// Aplicar la conversión a los campos requeridos
+nameInput.addEventListener('input', convertToUpperCase);
+lastNameInput.addEventListener('input', convertToUpperCase);
+rfcInput.addEventListener('input', convertToUpperCase);
+razonSocialInput.addEventListener('input', convertToUpperCase);
+
 
     // Validaciones en tiempo real para la sección 1
     nameInput.addEventListener('input', () => validateName(nameInput));

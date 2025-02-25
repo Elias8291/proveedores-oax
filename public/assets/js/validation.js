@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const rfcInput = document.getElementById('rfc');
     const razonSocialInput = document.getElementById('razon_social');
     const tipoPersonaInput = document.getElementById('tipo_persona');
+    const secondLastNameInput = document.getElementById('second_last_name');
+
     let emailCheckTimeout;
     let isEmailDuplicate = false; // Variable para rastrear si el correo está duplicado
 
@@ -48,6 +50,33 @@ document.addEventListener('DOMContentLoaded', function () {
         error.textContent = message;
         error.style.color = 'red';
     };
+
+    secondLastNameInput.addEventListener('keypress', preventNumbers);
+    secondLastNameInput.addEventListener('paste', (event) => {
+        const pasteData = (event.clipboardData || window.clipboardData).getData('text');
+        if (/\d/.test(pasteData)) {
+            event.preventDefault();
+        }
+    });
+    
+    // Validación del segundo apellido: letras, espacios, acentos y ñ (puede quedar vacío)
+    const validateSecondLastName = (input) => {
+        clearError(input);
+        if (input.value.trim() !== '') { // Validar solo si hay entrada
+            const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]{2,}$/;
+            if (!regex.test(input.value)) {
+                showError(input, 'El segundo apellido debe contener solo letras y tener al menos 2 caracteres.');
+                return false;
+            }
+        }
+        return true;
+    };
+    const convertSecondLastNameToUpperCase = (event) => {
+        event.target.value = event.target.value.toUpperCase();
+    };
+    
+    // Aplicar la conversión a mayúsculas al segundo apellido
+    secondLastNameInput.addEventListener('input', convertSecondLastNameToUpperCase);
 
     // Función para quitar el mensaje de error
     const clearError = (input) => {
@@ -218,7 +247,8 @@ razonSocialInput.addEventListener('input', convertToUpperCase);
     nameInput.addEventListener('input', () => validateName(nameInput));
     lastNameInput.addEventListener('input', () => validateLastName(lastNameInput));
     emailInput.addEventListener('input', () => {
-        validateEmail(emailInput);
+        clearError(emailInput); // Limpiar el mensaje de error al escribir
+        validateEmail(emailInput); // Validar el correo
         if (confirmEmailInput.value) validateConfirmEmail(confirmEmailInput);
         clearTimeout(emailCheckTimeout);
         emailCheckTimeout = setTimeout(() => {

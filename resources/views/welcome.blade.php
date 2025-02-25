@@ -32,4 +32,37 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white" id="successModalLabel">Registro Exitoso</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <div class="success-icon-container mb-4">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="confetti-left"></div>
+                    <div class="confetti-right"></div>
+                    <p id="successMessage" class="mb-0 fs-5">{{ session('success') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success px-4" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+    });
+</script>
+@endif
 @endsection

@@ -56,13 +56,13 @@ class RegisteredUserController extends Controller
 
             event(new Registered($user));
 
-            return redirect()->route('welcome')->with('success', 'Usuario registrado con éxito. Revisa tu correo electrónico para tu nombre de usuario y contraseña temporal.');
+            return redirect()->route('welcome')->with('success', 'Sus nombre de usaurio y contraseña han sido enviadas al correo ' . $user->email . '. Revise su cuenta.');
         } catch (ValidationException $e) {
             return redirect()
                 ->back()
                 ->withErrors($e->errors())
                 ->withInput()
-                ->with('register_tab', true);  // This will ensure the register tab is active
+                ->with('register_tab', true);  
         }
     }
 
@@ -75,35 +75,35 @@ class RegisteredUserController extends Controller
     // Modify username generation to include letters and numbers
     // Modify username generation to follow the requested pattern
     private function generateUniqueUsername($firstName, $lastName)
-{
-    // Obtener las dos primeras letras del nombre y apellido
-    $firstNamePart = strtoupper(substr($firstName, 0, 2));
-    $lastNamePart = strtoupper(substr($lastName, 0, 2));
+    {
+        // Obtener las dos primeras letras del nombre y apellido
+        $firstNamePart = strtoupper(substr($firstName, 0, 2));
+        $lastNamePart = strtoupper(substr($lastName, 0, 2));
 
-    // Generar un número aleatorio de 3 dígitos
-    $number = rand(100, 999);
+        // Generar un número aleatorio de 3 dígitos
+        $number = rand(100, 999);
 
-    $baseUsername = $firstNamePart . $lastNamePart . $number;
-    $username = $baseUsername;
-    $counter = 1;
+        $baseUsername = $firstNamePart . $lastNamePart . $number;
+        $username = $baseUsername;
+        $counter = 1;
 
-    // Verificar si el nombre de usuario ya existe
-    while (User::where('username', $username)->exists()) {
-        $extraNumber = rand(1000, 9999); // Ahora 4 dígitos en lugar de 3
-        $extraLetter = $this->generateRandomString(1); // Agregar una letra aleatoria
-        $username = $firstNamePart . $lastNamePart . $extraNumber . $extraLetter;
-        $counter++;
+        // Verificar si el nombre de usuario ya existe
+        while (User::where('username', $username)->exists()) {
+            $extraNumber = rand(1000, 9999); // Ahora 4 dígitos en lugar de 3
+            $extraLetter = $this->generateRandomString(1); // Agregar una letra aleatoria
+            $username = $firstNamePart . $lastNamePart . $extraNumber . $extraLetter;
+            $counter++;
+        }
+
+        return $username;
     }
 
-    return $username;
-}
-
-// Generar una letra aleatoria
-private function generateRandomString($length = 1)
-{
-    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    return substr(str_shuffle($characters), 0, $length);
-}
+    // Generar una letra aleatoria
+    private function generateRandomString($length = 1)
+    {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        return substr(str_shuffle($characters), 0, $length);
+    }
 
     // Generate a random password of 8 characters
     private function generateRandomPassword()

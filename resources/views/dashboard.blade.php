@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/conten.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/formulario.css') }}">
 </head>
 <body>
     @include('layouts.header')

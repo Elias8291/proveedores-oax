@@ -19,6 +19,9 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+Route::get('/formulario1', function () {
+    return view('formularios.formulario1');
+})->name('formulario1');
 
 // Cambia esta línea para que use la vista admin.home
 Route::get('/dashboard', function () {

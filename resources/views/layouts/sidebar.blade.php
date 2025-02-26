@@ -11,7 +11,7 @@
             Ciudadanos
             <span class="badge badge-subtle ms-auto">14</span>
         </a>
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('formulario1') }}">
             <i class="fas fa-file-alt"></i>
             Trámites
         </a>

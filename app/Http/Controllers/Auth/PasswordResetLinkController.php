@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -7,6 +6,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
+use App\Models\User; // Importa el modelo User
+use App\Models\PersonData; // Importa el modelo PersonData
 
 class PasswordResetLinkController extends Controller
 {
@@ -27,11 +28,28 @@ class PasswordResetLinkController extends Controller
     {
         $request->validate([
             'email' => ['required', 'email'],
+            'rfc' => ['required', 'string', 'max:13'], 
         ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
+    
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return back()->withErrors([
+                'email' => 'El correo electrónico no está registrado.',
+            ])->withInput($request->only('email', 'rfc'));
+        }
+
+        $personData = PersonData::where('user_id', $user->id)
+                                ->where('rfc', $request->rfc)
+                                ->first();
+
+        if (!$personData) {
+            return back()->withErrors([
+                'rfc' => 'El RFC no coincide con el correo electronico.',
+            ])->withInput($request->only('email', 'rfc'));
+        }
+
         $status = Password::sendResetLink(
             $request->only('email')
         );

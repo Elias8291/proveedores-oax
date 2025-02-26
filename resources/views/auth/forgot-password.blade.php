@@ -15,7 +15,7 @@
             <div class="login-header text-center mb-4">
                 <img src="{{ asset('assets/images/logo_p.png') }}" alt="Logo" class="mb-3" style="max-width: 290px;">
                 <h2 class="h4 font-weight-bold">Recuperación de Contraseña</h2>
-                <p class="text-muted">Introduce tu correo electrónico para recibir un enlace de recuperación.</p>
+                <p class="text-muted">Introduce tu correo electrónico y RFC para recibir un enlace de recuperación.</p>
             </div>
 
             <form method="POST" action="{{ route('password.email') }}">
@@ -25,6 +25,13 @@
                     <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}"
                         required autofocus placeholder="tu@correo.com">
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="rfc" class="form-label">RFC</label>
+                    <input type="text" class="form-control" id="rfc" name="rfc" value="{{ old('rfc') }}"
+                        required placeholder="Ingresa tu RFC">
+                    <x-input-error :messages="$errors->get('rfc')" class="mt-2" />
                 </div>
 
                 <div class="mb-3">

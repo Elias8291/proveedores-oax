@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\PersonData;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -17,6 +18,7 @@ use Illuminate\View\View;
 use Illuminate\Validation\ValidationException;
 use App\Mail\CredentialsEmail;
 use App\Mail\UserCredentials;
+use Illuminate\Support\Facades\DB;
 
 class RegisteredUserController extends Controller
 {
@@ -34,37 +36,71 @@ class RegisteredUserController extends Controller
                 'second_last_name' => ['nullable', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
                 'email_confirmation' => ['required', 'same:email'],
+                'tipo_persona' => ['required', 'string', 'in:fisica,moral'],
+                'razon_social' => ['required', 'string', 'max:255'],
+                'rfc' => ['required', 'string', 'max:13', 'unique:person_data,rfc'],
             ]);
 
-            // Generate username and password
             $username = $this->generateUniqueUsername($request->name, $request->last_name);
             $password = $this->generateRandomPassword();
 
-            // Save the user
-            $user = User::create([
-                'name' => $request->name,
-                'last_name' => $request->last_name,
-                'second_last_name' => $request->second_last_name,
-                'email' => $request->email,
-                'username' => $username,
-                'password' => Hash::make($password), // Save the encrypted password
-                'plain_password' => $password, // Save the plain password
-            ]);
+            DB::beginTransaction();
 
-            // Send credentials email
-            $this->sendCredentialsEmail($user, $username, $password);
+            try {
+                $user = new User([
+                    'name' => $request->name,
+                    'last_name' => $request->last_name,
+                    'second_last_name' => $request->second_last_name,
+                    'email' => $request->email,
+                    'username' => $username,
+                    'password' => Hash::make($password),
+                    'plain_password' => $password,
+                ]);
 
-            event(new Registered($user));
+                if (!$user->isValid()) {
+                    throw new \Exception('El usuario no es válido.');
+                }
 
-            return redirect()->route('welcome')->with('success', 'Sus nombre de usaurio y contraseña han sido enviadas al correo ' . $user->email . '. Revise su cuenta.');
+                $personData = new PersonData([
+                    'user_id' => $user->id,
+                    'legal_person' => $request->tipo_persona,
+                    'rfc' => $request->rfc,
+                    'business_name' => $request->razon_social,
+                    'status' => 'pendiente',
+                ]);
+
+                if (!$personData->isValid()) {
+                    throw new \Exception('Los datos de la persona no son válidos.');
+                }
+
+                $user->save();
+                $personData->user_id = $user->id;
+                $personData->save();
+
+                DB::commit();
+
+                $this->sendCredentialsEmail($user, $username, $password);
+
+                event(new Registered($user));
+
+                return redirect()->route('welcome')->with('success', 'Su nombre de usuario y contraseña han sido enviados al correo ' . $user->email . '. Revise su cuenta.');
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect()
+                    ->back()
+                    ->withErrors(['error' => 'Hubo un problema al registrar los datos. Por favor, inténtelo de nuevo.'])
+                    ->withInput()
+                    ->with('register_tab', true);
+            }
         } catch (ValidationException $e) {
             return redirect()
                 ->back()
                 ->withErrors($e->errors())
                 ->withInput()
-                ->with('register_tab', true);  
+                ->with('register_tab', true);
         }
     }
+
 
     // Send email with credentials
     private function sendCredentialsEmail($user, $username, $password)
@@ -72,25 +108,21 @@ class RegisteredUserController extends Controller
         Mail::to($user->email)->send(new UserCredentials($user, $username, $password));
     }
 
-    // Modify username generation to include letters and numbers
     // Modify username generation to follow the requested pattern
     private function generateUniqueUsername($firstName, $lastName)
     {
-        // Obtener las dos primeras letras del nombre y apellido
+        
         $firstNamePart = strtoupper(substr($firstName, 0, 2));
         $lastNamePart = strtoupper(substr($lastName, 0, 2));
-
-        // Generar un número aleatorio de 3 dígitos
         $number = rand(100, 999);
 
         $baseUsername = $firstNamePart . $lastNamePart . $number;
         $username = $baseUsername;
         $counter = 1;
 
-        // Verificar si el nombre de usuario ya existe
         while (User::where('username', $username)->exists()) {
-            $extraNumber = rand(1000, 9999); // Ahora 4 dígitos en lugar de 3
-            $extraLetter = $this->generateRandomString(1); // Agregar una letra aleatoria
+            $extraNumber = rand(1000, 9999); 
+            $extraLetter = $this->generateRandomString(1); 
             $username = $firstNamePart . $lastNamePart . $extraNumber . $extraLetter;
             $counter++;
         }
@@ -109,5 +141,11 @@ class RegisteredUserController extends Controller
     private function generateRandomPassword()
     {
         return Str::random(8);
+    }
+    public function checkRFCExists(Request $request)
+    {
+        $rfc = $request->input('rfc');
+        $exists = PersonData::where('rfc', $rfc)->exists();
+        return response()->json(['exists' => $exists]);
     }
 }

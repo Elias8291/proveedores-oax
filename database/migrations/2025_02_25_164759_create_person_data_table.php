@@ -19,7 +19,7 @@ class CreatePersonDataTable extends Migration
             $table->string('web_page', 100)->nullable();
             $table->enum('status', ['Pendiente', 'Validado', 'Rechazado'])->default('Pendiente');
             $table->foreignId('activity_id')->nullable()->constrained('economic_activities');
-            $table->foreignId('classification_id')->constrained('classifications')->onDelete('cascade');
+            $table->foreignId('classification_id')->nullable()->constrained('classifications')->onDelete('cascade');
             $table->foreignId('address_id')->nullable()->constrained('addresses')->onDelete('cascade');
             $table->foreignId('representative_id')->nullable()->constrained('representatives')->onDelete('set null');
             $table->timestamps();

@@ -10,28 +10,26 @@ document.addEventListener('DOMContentLoaded', function () {
     const secondLastNameInput = document.getElementById('second_last_name');
 
     let emailCheckTimeout;
-    let isEmailDuplicate = false; // Variable para rastrear si el correo está duplicado
+    let isEmailDuplicate = false;
+    let rfcCheckTimeout;
+    let isRFCDuplicate = false;
 
-    // Función para prevenir la entrada de números en los campos
     const preventNumbers = (event) => {
-        // Si el carácter es un número, prevenir su ingreso
         if (/\d/.test(event.key)) {
             event.preventDefault();
         }
     };
 
-    // Aplicar prevención de números a los campos de nombre y apellido
     nameInput.addEventListener('keypress', preventNumbers);
     lastNameInput.addEventListener('keypress', preventNumbers);
 
-    // También prevenir paste de números
     nameInput.addEventListener('paste', (event) => {
         const pasteData = (event.clipboardData || window.clipboardData).getData('text');
         if (/\d/.test(pasteData)) {
             event.preventDefault();
         }
     });
-    
+
     lastNameInput.addEventListener('paste', (event) => {
         const pasteData = (event.clipboardData || window.clipboardData).getData('text');
         if (/\d/.test(pasteData)) {
@@ -39,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Función para mostrar error junto al campo
     const showError = (input, message) => {
         let error = input.nextElementSibling;
         if (!error || !error.classList.contains('error-message')) {
@@ -58,11 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
         }
     });
-    
-    // Validación del segundo apellido: letras, espacios, acentos y ñ (puede quedar vacío)
+
     const validateSecondLastName = (input) => {
         clearError(input);
-        if (input.value.trim() !== '') { // Validar solo si hay entrada
+        if (input.value.trim() !== '') {
             const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]{2,}$/;
             if (!regex.test(input.value)) {
                 showError(input, 'El segundo apellido debe contener solo letras y tener al menos 2 caracteres.');
@@ -71,14 +67,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return true;
     };
+
     const convertSecondLastNameToUpperCase = (event) => {
         event.target.value = event.target.value.toUpperCase();
     };
-    
-    // Aplicar la conversión a mayúsculas al segundo apellido
+
     secondLastNameInput.addEventListener('input', convertSecondLastNameToUpperCase);
 
-    // Función para quitar el mensaje de error
     const clearError = (input) => {
         let error = input.nextElementSibling;
         if (error && error.classList.contains('error-message')) {
@@ -86,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // Validación del nombre: letras, espacios, acentos y ñ
     const validateName = (input) => {
         clearError(input);
         const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]{2,}$/;
@@ -97,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     };
 
-    // Validación del apellido: letras, espacios, acentos y ñ
     const validateLastName = (input) => {
         clearError(input);
         const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]{2,}$/;
@@ -108,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     };
 
-    // Validación del correo electrónico
     const validateEmail = (input) => {
         clearError(input);
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -119,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     };
 
-    // Función para verificar si el correo ya existe
     const checkEmailExists = (email) => {
         return new Promise((resolve, reject) => {
             clearError(emailInput);
@@ -128,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Mostrar indicador de carga
             const loadingSpinner = document.createElement('div');
             loadingSpinner.className = 'email-loading-spinner';
             loadingSpinner.innerHTML = '<small class="text-muted"><i class="fas fa-spinner fa-spin"></i> Verificando...</small>';
@@ -137,7 +127,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if (existingSpinner) existingSpinner.remove();
             inputGroup.parentNode.insertBefore(loadingSpinner, inputGroup.nextSibling);
 
-            // Petición AJAX para verificar si el correo existe
             fetch('/check-email-exists', {
                 method: 'POST',
                 headers: {
@@ -150,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 loadingSpinner.remove();
                 if (data.exists) {
-                    showError(emailInput, 'Este correo electrónico ya está registrado. Por favor utiliza otro.');
+                    showError(emailInput, 'Este correo electrónico ya está registrado para otro usaurio. Por favor utiliza otro.');
                     isEmailDuplicate = true;
                     resolve(false);
                 } else {
@@ -166,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
-    // Validación de confirmación del correo
     const validateConfirmEmail = (input) => {
         clearError(input);
         if (input.value !== emailInput.value) {
@@ -176,11 +164,10 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     };
 
-    // Validación del RFC según el tipo de persona
     const validateRFC = (input) => {
         clearError(input);
-        const rfcRegexFisica = /^([A-ZÑ&]{4})(\d{6})([A-Z0-9]{3})$/i; // Persona física
-        const rfcRegexMoral = /^([A-ZÑ&]{3})(\d{6})([A-Z0-9]{3})$/i; // Persona moral
+        const rfcRegexFisica = /^([A-ZÑ&]{4})(\d{6})([A-Z0-9]{3})$/i;
+        const rfcRegexMoral = /^([A-ZÑ&]{3})(\d{6})([A-Z0-9]{3})$/i;
 
         if (tipoPersonaInput.value === 'fisica') {
             if (!rfcRegexFisica.test(input.value)) {
@@ -199,7 +186,50 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     };
 
-    // Validación de la Razón Social: mínimo 2 caracteres
+    const checkRFCExists = (rfc) => {
+        return new Promise((resolve, reject) => {
+            clearError(rfcInput);
+            if (!validateRFC(rfcInput)) {
+                resolve(false);
+                return;
+            }
+
+            const loadingSpinner = document.createElement('div');
+            loadingSpinner.className = 'rfc-loading-spinner';
+            loadingSpinner.innerHTML = '<small class="text-muted"><i class="fas fa-spinner fa-spin"></i> Verificando RFC...</small>';
+            const inputGroup = rfcInput.closest('.input-group');
+            let existingSpinner = inputGroup.parentNode.querySelector('.rfc-loading-spinner');
+            if (existingSpinner) existingSpinner.remove();
+            inputGroup.parentNode.insertBefore(loadingSpinner, inputGroup.nextSibling);
+
+            fetch('/check-rfc-exists', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({ rfc: rfc })
+            })
+            .then(response => response.json())
+            .then(data => {
+                loadingSpinner.remove();
+                if (data.exists) {
+                    showError(rfcInput, 'Este RFC ya está registrado para otro usuario. Por favor utiliza otro.');
+                    isRFCDuplicate = true;
+                    resolve(false);
+                } else {
+                    isRFCDuplicate = false;
+                    resolve(true);
+                }
+            })
+            .catch(error => {
+                loadingSpinner.remove();
+                console.error('Error al verificar el RFC:', error);
+                reject(error);
+            });
+        });
+    };
+
     const validateRazonSocial = (input) => {
         clearError(input);
         if (input.value.trim().length < 2) {
@@ -209,7 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     };
 
-    // Validación de la sección 2 (tipo de persona, razón social y RFC)
     const validateSection2 = () => {
         let isValid = true;
         if (tipoPersonaInput) {
@@ -231,31 +260,28 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return isValid;
     };
-    // Función para convertir el texto en mayúsculas
-const convertToUpperCase = (event) => {
-    event.target.value = event.target.value.toUpperCase();
-};
 
-// Aplicar la conversión a los campos requeridos
-nameInput.addEventListener('input', convertToUpperCase);
-lastNameInput.addEventListener('input', convertToUpperCase);
-rfcInput.addEventListener('input', convertToUpperCase);
-razonSocialInput.addEventListener('input', convertToUpperCase);
+    const convertToUpperCase = (event) => {
+        event.target.value = event.target.value.toUpperCase();
+    };
 
+    nameInput.addEventListener('input', convertToUpperCase);
+    lastNameInput.addEventListener('input', convertToUpperCase);
+    rfcInput.addEventListener('input', convertToUpperCase);
+    razonSocialInput.addEventListener('input', convertToUpperCase);
 
-    // Validaciones en tiempo real para la sección 1
     nameInput.addEventListener('input', () => validateName(nameInput));
     lastNameInput.addEventListener('input', () => validateLastName(lastNameInput));
     emailInput.addEventListener('input', () => {
-        clearError(emailInput); // Limpiar el mensaje de error al escribir
-        validateEmail(emailInput); // Validar el correo
+        clearError(emailInput);
+        validateEmail(emailInput);
         if (confirmEmailInput.value) validateConfirmEmail(confirmEmailInput);
         clearTimeout(emailCheckTimeout);
         emailCheckTimeout = setTimeout(() => {
             if (emailInput.value.trim() !== '' && validateEmail(emailInput)) {
                 checkEmailExists(emailInput.value);
             }
-        }, 500); // Esperar 500ms después de que el usuario deje de escribir
+        }, 500);
     });
     emailInput.addEventListener('blur', () => {
         if (emailInput.value.trim() !== '' && validateEmail(emailInput)) {
@@ -265,12 +291,17 @@ razonSocialInput.addEventListener('input', convertToUpperCase);
     });
     confirmEmailInput.addEventListener('input', () => validateConfirmEmail(confirmEmailInput));
 
-    // Validaciones en tiempo real para la sección 2
     if (rfcInput) {
         rfcInput.addEventListener('input', () => {
             let maxLen = tipoPersonaInput.value === 'fisica' ? 13 : (tipoPersonaInput.value === 'moral' ? 12 : 15);
             if (rfcInput.value.length > maxLen) rfcInput.value = rfcInput.value.slice(0, maxLen);
             validateRFC(rfcInput);
+            clearTimeout(rfcCheckTimeout);
+            rfcCheckTimeout = setTimeout(() => {
+                if (rfcInput.value.trim() !== '' && validateRFC(rfcInput)) {
+                    checkRFCExists(rfcInput.value);
+                }
+            }, 500);
         });
     }
     if (razonSocialInput) {
@@ -289,7 +320,6 @@ razonSocialInput.addEventListener('input', convertToUpperCase);
         });
     }
 
-    // Función para pasar a la siguiente sección
     window.nextSection = async function() {
         const isNameValid = validateName(nameInput);
         const isLastNameValid = validateLastName(lastNameInput);
@@ -309,7 +339,6 @@ razonSocialInput.addEventListener('input', convertToUpperCase);
         document.getElementById('section2').style.display = 'block';
     };
 
-    // Validación final al enviar el formulario
     if (form) {
         form.addEventListener('submit', function (event) {
             const isNameValid = validateName(nameInput);
@@ -324,7 +353,6 @@ razonSocialInput.addEventListener('input', convertToUpperCase);
         });
     }
 
-    // Función para regresar a la sección anterior
     window.prevSection = function() {
         document.getElementById('section1').style.display = 'block';
         document.getElementById('section2').style.display = 'none';

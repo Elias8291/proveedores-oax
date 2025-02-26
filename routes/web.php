@@ -38,5 +38,7 @@ Route::post('/check-email-exists', [\App\Http\Controllers\Auth\EmailCheckControl
 Route::get('/admin/home', function () {
     return view('admin.home');
 })->name('admin.home');
+
+Route::post('/check-rfc-exists', [RegisteredUserController::class, 'checkRFCExists']);
 Route::resource('users', UserController::class);
 require __DIR__.'/auth.php';

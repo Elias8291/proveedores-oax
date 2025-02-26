@@ -11,7 +11,7 @@ use App\Notifications\CustomResetPasswordNotification;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use Notifiable;
+
     protected $fillable = [
         'name',
         'last_name',
@@ -20,6 +20,8 @@ class User extends Authenticatable
         'email',
         'password',
         'plain_password',
+        'status',        
+        'last_login',     
     ];
 
     protected $hidden = [
@@ -30,6 +32,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'last_login' => 'datetime', // Asegúrate de incluir last_login aquí
     ];
 
     public function getAuthIdentifierName()
@@ -40,5 +43,16 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new CustomResetPasswordNotification($token));
+    }
+
+    public function isValid(): bool
+    {
+        return $this->name && $this->email && $this->username && $this->password;
+    }
+
+    public function updateLastLogin(): void
+    {
+        $this->last_login = now();
+        $this->save();
     }
 }

@@ -19,36 +19,39 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-    public function store(LoginRequest $request): RedirectResponse
-    {
-        $credentials = $request->only('username', 'password');
+   public function store(LoginRequest $request): RedirectResponse
+{
+    $credentials = $request->only('username', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended(RouteServiceProvider::HOME);
-        }
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
 
-        $user = User::where('username', $request->username)->first();
+        $user = Auth::user();
+        $user->last_login = now(); // Set the current timestamp
+        $user->save(); // Save the model to the database
 
-        if (!$user) {
-            return back()->withErrors([
-                'username' => trans('auth.user_failed'),
-            ])->withInput();
-        }
+        return redirect()->intended(RouteServiceProvider::HOME);
+    }
 
+    $user = User::where('username', $request->username)->first();
+
+    if (!$user) {
         return back()->withErrors([
-            'password' => trans('auth.password'),
+            'username' => trans('auth.user_failed'),
         ])->withInput();
     }
 
-    public function destroy(Request $request): RedirectResponse
-    {
-        Auth::guard('web')->logout();
+    return back()->withErrors([
+        'password' => trans('auth.password'),
+    ])->withInput();
+}
+public function destroy(Request $request): RedirectResponse
+{
+    Auth::guard('web')->logout(); // Cierra la sesión del usuario
 
-        $request->session()->invalidate();
+    $request->session()->invalidate(); // Invalida la sesión
+    $request->session()->regenerateToken(); // Regenera el token de CSRF
 
-        $request->session()->regenerateToken();
-
-        return redirect('/');
-    }
+    return redirect('/'); // Redirige al usuario a la página de inicio
+}
 }

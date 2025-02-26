@@ -2,32 +2,87 @@
 @section('title', 'Inicio - Panel Administrativo')
 @section('content')
 
-<div class="container mt-4">
-    <div class="card shadow-sm border-0">
-        <div class="card-body p-4 welcome-card">
-            <h2 class="mb-3 text-primary">¡Bienvenido al Panel Administrativo, {{ $userName }}!</h2>
-            <p class="text-muted">
-                En este panel podrás gestionar de manera eficiente los trámites relacionados con el padrón de proveedores.
-                Aquí puedes realizar las siguientes acciones:
-            </p>
-            <!-- Lista de acciones -->
-            <ul class="list-group list-group-flush mb-4">
-                <li class="list-group-item">
-                    <i class="fas fa-user-plus me-2 text-success"></i>
-                    <strong>Registro de Proveedores:</strong> Agrega nuevos proveedores al padrón.
-                </li>
-                <li class="list-group-item">
-                    <i class="fas fa-sync-alt me-2 text-warning"></i>
-                    <strong>Renovación de Proveedores:</strong> Actualiza la vigencia de los proveedores existentes.
-                </li>
-                <li class="list-group-item">
-                    <i class="fas fa-edit me-2 text-info"></i>
-                    <strong>Actualización de Datos:</strong> Modifica la información de los proveedores registrados.
-                </li>
-            </ul>
-            <!-- Botones de acción -->
-            
+<div class="container mt-3">
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-3 welcome-card">
+                    <h2 class="text-primary">¡Bienvenido al Padrón de Proveedores, {{ $userName }}!</h2>
+                    <p class="text-muted">
+                        En este panel podrás gestionar de manera eficiente los trámites relacionados con el padrón de proveedores.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Tarjeta 1: Registro de proveedores -->
+        <div class="col-md-4 mb-3">
+            <div class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>Registro de proveedores</h3>
+                <p>Da de alta nuevos proveedores en el sistema.</p>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2: Renovación de proveedores -->
+        <div class="col-md-4 mb-3">
+            <div class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>Renovación de proveedores</h3>
+                <p>Gestiona las renovaciones de proveedores existentes.</p>
+            </div>
+        </div>
+
+        <!-- Tarjeta 3: Actualización de proveedores -->
+        <div class="col-md-4 mb-3">
+            <div class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <h3>Actualización de proveedores</h3>
+                <p>Modifica y actualiza la información de proveedores.</p>
+            </div>
+        </div>
+
+        <!-- Tarjeta 4: Consulta de proveedores -->
+        <div class="col-md-4 mb-3">
+            <div class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h3>Consulta de proveedores</h3>
+                <p>Busca y consulta información de proveedores registrados.</p>
+            </div>
+        </div>
+
+        <!-- Tarjeta 5: Evaluación de proveedores -->
+        <div class="col-md-4 mb-3">
+            <div class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Evaluación de proveedores</h3>
+                <p>Califica y evalúa el desempeño de los proveedores.</p>
+            </div>
+        </div>
+
+        <!-- Tarjeta 6: Reportes de proveedores -->
+        <div class="col-md-4 mb-3">
+            <div class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>Reportes de proveedores</h3>
+                <p>Genera informes y estadísticas de los proveedores.</p>
+            </div>
         </div>
     </div>
 </div>
+
 @endsection

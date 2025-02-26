@@ -11,55 +11,136 @@ body {
     margin: 0 auto;
 }
 
-/* Estilos para la tarjeta de bienvenida */
+/* Estilos para la tarjeta de bienvenida - REDUCIDO */
 .welcome-card {
-    border-radius: 12px;
+    border-radius: 10px;
     background: linear-gradient(to right, #ffffff, #f8f9fa);
     transition: all 0.3s ease;
+    padding: 20px !important; /* Reducción del padding */
 }
 
 .welcome-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-3px); /* Reducido de -5px */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08) !important;
 }
 
-/* Estilos para el encabezado */
+/* Estilos para el encabezado - REDUCIDO */
 .welcome-card h2 {
-    font-weight: 700;
+    font-weight: 600; /* Reducido de 700 */
     color: #3f51b5;
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0; /* Reducido de 2px */
+    padding-bottom: 8px; /* Reducido de 12px */
+    font-size: 1.4rem !important; /* Tamaño de fuente reducido */
+    margin-bottom: 10px; /* Espacio reducido */
 }
 
-/* Estilos para la lista de acciones */
-.list-group-item {
-    border-left: none;
-    border-right: none;
-    padding: 16px;
-    transition: all 0.2s ease;
-    border-radius: 6px;
-    margin-bottom: 5px;
-    border: 1px solid #f0f0f0;
+.welcome-card p {
+    font-size: 0.9rem; /* Texto más pequeño */
+    margin-bottom: 0; /* Eliminar margen inferior */
 }
 
-.list-group-item:hover {
-    background-color: #f5f7ff;
-    transform: translateX(5px);
-}
-
-.list-group-item i {
-    font-size: 18px;
-    width: 24px;
+/* Estilos para las tarjetas de acción - REDUCIDO */
+.action-card {
+    background-color: #fff;
+    border-radius: 10px; /* Reducido de 12px */
+    padding: 20px; /* Reducido de 30px */
     text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
 }
 
-.list-group-item strong {
-    margin-right: 8px;
+.action-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px; /* Reducido de 5px */
+    background-color: #741d10;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-6px); /* Reducido de -10px */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08); /* Sombra menos intensa */
+}
+
+.action-card:hover:before {
+    opacity: 1;
+}
+
+.action-icon {
+    width: 60px; /* Reducido de 80px */
+    height: 60px; /* Reducido de 80px */
+    margin: 0 auto 15px; /* Reducido de 20px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f7ff;
+    border-radius: 50%;
+    color: #000000; /* Cambiado de #741d10 a #000000 para iconos negros */
+    font-size: 24px; /* Reducido de 32px */
+    transition: all 0.3s ease;
+}
+
+.action-card:hover .action-icon {
+    background-color: #741d10;
+    color: #fff; /* Mantiene el color blanco al hacer hover */
+    transform: scale(1.05); /* Reducido de 1.1 */
+}
+
+.action-card h3 {
+    font-size: 16px; /* Reducido de 18px */
+    margin-bottom: 10px; /* Reducido de 15px */
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.action-card p {
+    color: #718096;
+    margin-bottom: 15px; /* Reducido de 20px */
+    font-size: 13px; /* Reducido de 14px */
+    line-height: 1.5; /* Reducido de 1.6 */
+}
+
+.card-link {
+    display: inline-block;
+    color: #741d10;
+    font-weight: 500; /* Reducido de 600 */
+    text-decoration: none;
+    padding: 6px 0; /* Reducido de 8px */
+    position: relative;
+    transition: all 0.3s ease;
+    font-size: 13px; /* Texto más pequeño */
+}
+
+.card-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px; /* Reducido de 2px */
+    bottom: 0;
+    left: 0;
+    background-color: #741d10;
+    transition: all 0.3s ease;
+}
+
+.card-link:hover {
+    color: #741d10;
+}
+
+.card-link:hover:after {
+    width: 100%;
 }
 
 /* Colores personalizados */
 .text-primary {
-    color: #950b0b !important;
+    color: #741d10 !important;
 }
 
 .text-success {
@@ -74,28 +155,29 @@ body {
     color: #2196f3 !important;
 }
 
-/* Estilos para botones (si deseas agregarlos más tarde) */
+/* Estilos para botones - REDUCIDO */
 .btn-primary {
-    background-color: #3f51b5;
-    border-color: #3f51b5;
-    padding: 10px 20px;
-    border-radius: 6px;
+    background-color: #741d10;
+    border-color: #741d10;
+    padding: 8px 16px; /* Reducido de 10px 20px */
+    border-radius: 5px; /* Reducido de 6px */
     font-weight: 500;
     transition: all 0.3s ease;
+    font-size: 0.9rem; /* Tamaño de fuente reducido */
 }
 
 .btn-primary:hover {
-    background-color: #303f9f;
-    border-color: #303f9f;
+    background-color: #590c01;
+    border-color: #590c01;
     transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(63, 81, 181, 0.3);
+    box-shadow: 0 4px 8px rgba(116, 29, 16, 0.25); /* Sombra reducida */
 }
 
-/* Animaciones para mejorar UX */
+/* Animaciones para mejorar UX - SUAVIZADO */
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px); /* Reducido de 20px */
     }
     to {
         opacity: 1;
@@ -104,17 +186,44 @@ body {
 }
 
 .card {
-    animation: fadeIn 0.5s ease-out forwards;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    animation: fadeIn 0.4s ease-out forwards; /* Reducido de 0.5s */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04) !important; /* Sombra reducida */
+}
+
+/* Reducción del espacio entre filas para un diseño más compacto */
+.row {
+    margin-bottom: 15px; /* Espacio entre filas */
 }
 
 /* Media queries para responsividad */
 @media (max-width: 768px) {
     .welcome-card {
-        padding: 15px !important;
+        padding: 12px !important; /* Aún más reducido en móviles */
     }
     
     .welcome-card h2 {
-        font-size: 1.5rem;
+        font-size: 1.2rem !important; /* Más pequeño en móviles */
     }
+    
+    .action-card {
+        padding: 15px;
+        margin-bottom: 15px; /* Reducido de 20px */
+    }
+    
+    .action-icon {
+        width: 50px; /* Reducido de 60px */
+        height: 50px; /* Reducido de 60px */
+        font-size: 20px; /* Reducido de 24px */
+    }
+}
+
+/* Ajuste para dar un aspecto más compacto */
+.mb-4 {
+    margin-bottom: 1rem !important; /* Reducido de 1.5rem */
+}
+
+/* Ajuste para las columnas - hacerlas más compactas */
+.col-md-4 {
+    padding-left: 8px; /* Reducido de 15px por defecto */
+    padding-right: 8px; /* Reducido de 15px por defecto */
 }

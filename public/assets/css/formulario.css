@@ -1,289 +1,573 @@
-/* formulario-elegante.css */
+/* Variables de colores mejorados */
 :root {
-  --primary-gradient: linear-gradient(135deg, #750f0f 0%, #a00d0d 100%);
-  --accent-color: #cebe60;
-  --text-color: #2d3748;
-  --text-light: #718096;
-  --light-bg: #f8f9fc;
-  --border-color: #e2e8f0;
-  --error-color: #e53e3e;
-  --success-color: #38a169;
-  --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  --border-radius: 12px;
-  --input-radius: 8px;
-  --transition: all 0.3s ease;
+  --guinda-primary: #9F2241; /* Color guinda más vibrante */
+  --guinda-dark: #7A1930; /* Tono oscuro de guinda más profundo */
+  --guinda-light: #C64D69; /* Tono claro de guinda más suave */
+  --amarillo-oaxaca: #F5B700; /* Amarillo más brillante */
+  --naranja-oaxaca: #E85F37; /* Naranja más cálido */
+  --ocre-oaxaca: #D68227; /* Ocre ajustado */
+  --verde-oaxaca: #4D8B31; /* Verde más fresco */
+  --beige-oaxaca: #F9F5EA; /* Beige más suave */
+  --text-dark: #2C2926; /* Texto oscuro más contrastante */
+  --text-light: #6D6A67; /* Texto claro más legible */
+  --white: #FFFFFF;
+  --light-gray: #FAF7F2;
+  --medium-gray: #EEEAE0;
+  --border-color: #E1DDD3;
+  --error-color: #E63946;
+  --success-color: #2A9D8F;
+  --box-shadow: 0 4px 16px rgba(159, 34, 65, 0.08);
+  --box-shadow-hover: 0 8px 24px rgba(159, 34, 65, 0.12);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Estilos base */
-.container {
-  max-width: 750px;
-  margin: 2rem auto;
-  padding: 0;
-}
-
+/* Estilos del formulario - NO AFECTAN AL BACKGROUND DEL DASHBOARD */
 .form-container {
-  background-color: #fff;
-  border-radius: var(--border-radius);
+  background-color: var(--white);
+  border-radius: 16px;
   box-shadow: var(--box-shadow);
-  overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.05);
-}
-
-/* Encabezados */
-h1 {
-  font-size: 1.6rem;
-  color: #fff;
-  background: var(--primary-gradient);
-  padding: 1.5rem 2rem;
-  margin: 0;
-  letter-spacing: 0.5px;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
   position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(159, 34, 65, 0.1);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-h1::after {
+.form-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, var(--guinda-primary), var(--naranja-oaxaca), var(--amarillo-oaxaca));
+}
+
+/* Encabezados mejorados con estilo Oaxaca */
+.form-container h1 {
+  color: var(--guinda-primary);
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.form-container h1::after {
   content: "";
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: var(--accent-color);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--guinda-primary), var(--naranja-oaxaca));
+  border-radius: 3px;
 }
 
-h2 {
-  font-size: 1.25rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  font-weight: 600;
+.form-section h2 {
+  color: var(--guinda-dark);
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
   display: flex;
   align-items: center;
 }
 
-h2::before {
+.form-section h2::before {
   content: "";
   display: inline-block;
-  width: 4px;
-  height: 16px;
-  background-color: var(--accent-color);
-  margin-right: 8px;
-  border-radius: 2px;
+  width: 5px;
+  height: 20px;
+  margin-right: 10px;
+  background: linear-gradient(180deg, var(--guinda-primary), var(--naranja-oaxaca));
+  border-radius: 3px;
 }
 
 .subtitle {
-  font-size: 0.9rem;
   color: var(--text-light);
+  font-size: 0.85rem;
   margin-bottom: 1.2rem;
   font-style: italic;
+  text-align: center;
 }
 
-/* Secciones del formulario */
-.form-section {
-  padding: 1.75rem 2rem;
-  border-bottom: 1px solid var(--border-color);
-  background-color: #fff;
-  transition: var(--transition);
-}
-
-.form-section:hover {
-  background-color: rgba(248, 249, 252, 0.7);
-}
-
-/* Grupos y filas */
-.form-group {
-  margin-bottom: 1.2rem;
-  position: relative;
-}
-
-.form-row {
+/* Contenedor de secciones con estilo Oaxaca */
+.form-sections-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.2rem;
-  margin-bottom: 0.75rem;
+  gap: 25px;
+  margin-bottom: 2rem;
+  justify-content: center;
 }
 
-.half {
-  flex: 1 1 calc(50% - 0.6rem);
-  min-width: 180px;
-}
-
-.third {
-  flex: 1 1 calc(33.333% - 0.8rem);
-  min-width: 150px;
-}
-
-/* Etiquetas y campos */
-label {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--primary-color);
+.form-section {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+  background-color: var(--light-gray);
+  padding: 1.8rem;
+  border-radius: 12px;
   transition: var(--transition);
-}
-
-.form-control {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--input-radius);
-  font-size: 0.95rem;
-  transition: var(--transition);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-}
-
-.form-control:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(58, 90, 120, 0.15);
-  transform: translateY(-1px);
-}
-
-.form-control::placeholder {
-  color: #a0aec0;
-  font-size: 0.9rem;
-}
-
-/* Botones */
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  padding: 1.5rem 2rem;
-  background-color: var(--light-bg);
-}
-
-.btn-submit, .btn-reset {
-  padding: 0.75rem 1.75rem;
-  border: none;
-  border-radius: 30px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: var(--transition);
-  letter-spacing: 0.5px;
-}
-
-.btn-submit {
-  background: var(--primary-gradient);
-  color: white;
-  box-shadow: 0 4px 10px rgba(58, 90, 120, 0.3);
+  border: 1px solid rgba(159, 34, 65, 0.05);
   position: relative;
   overflow: hidden;
 }
 
-.btn-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(58, 90, 120, 0.4);
+.form-section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 4px;
+  background: linear-gradient(180deg, var(--guinda-primary), var(--naranja-oaxaca));
+  opacity: 0.8;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
-.btn-submit:active {
-  transform: translateY(0);
+.form-section:hover {
+  box-shadow: var(--box-shadow-hover);
+  transform: translateY(-3px);
+}
+
+/* Filas y grupos de formulario con estilo Oaxaca */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 1.2rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  flex: 1 1 100%;
+}
+
+.form-group.half {
+  flex: 1 1 calc(50% - 9px);
+  min-width: 120px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.2px;
+  padding-left: 0.5rem;
+  position: relative;
+}
+
+.form-group label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 12px;
+  background-color: var(--naranja-oaxaca);
+  border-radius: 2px;
+}
+
+/* Campos de entrada con estilo Oaxaca */
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--white);
+  transition: var(--transition);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--guinda-primary);
+  box-shadow: 0 0 0 3px rgba(159, 34, 65, 0.1);
+}
+
+.form-control::placeholder {
+  color: var(--text-light);
+  opacity: 0.7;
+}
+
+/* Select personalizado con estilo Oaxaca */
+.custom-select select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239F2241' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+
+/* Inputs con iconos con estilo Oaxaca */
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon .form-control {
+  padding-left: 2.8rem;
+}
+
+.input-with-icon::before {
+  position: absolute;
+  left: 1rem;
+  top: 2.4rem;
+  color: var(--guinda-primary);
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  opacity: 0.7;
+  transition: var(--transition);
+}
+
+.input-with-icon:hover::before {
+  opacity: 1;
+}
+
+.icon-phone::before {
+  content: "\f095";
+}
+
+.icon-email::before {
+  content: "\f0e0";
+}
+
+.icon-person::before {
+  content: "\f007";
+}
+
+.icon-id::before {
+  content: "\f2c2";
+}
+
+.icon-location::before {
+  content: "\f3c5";
+}
+
+/* Botones de acción con estilo Oaxaca */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid rgba(159, 34, 65, 0.08);
+}
+
+.btn-reset, .btn-submit {
+  padding: 0.8rem 2rem;
+  font-size: 0.95rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  min-width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-reset {
-  background-color: #fff;
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
+  background-color: var(--white);
+  color: var(--text-light);
+  border: 2px solid var(--border-color);
+  box-shadow: none;
 }
 
 .btn-reset:hover {
-  background-color: var(--light-bg);
-  color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: var(--medium-gray);
+  color: var(--text-dark);
+  border-color: var(--text-light);
 }
 
-/* Validación */
-.form-control.is-invalid {
+.btn-submit {
+  background: linear-gradient(45deg, var(--guinda-primary), var(--naranja-oaxaca));
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 4px 12px rgba(159, 34, 65, 0.3);
+}
+
+.btn-submit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(45deg, var(--naranja-oaxaca), var(--amarillo-oaxaca));
+  transition: all 0.5s;
+  z-index: -1;
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(159, 34, 65, 0.4);
+}
+
+.btn-submit:hover::before {
+  width: 100%;
+}
+
+/* Iconos para botones */
+.btn-reset::before, .btn-submit::after {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  margin: 0 8px;
+}
+
+.btn-reset::before {
+  content: "\f12d"; /* ícono de borrador */
+}
+
+.btn-submit::after {
+  content: "\f0a9"; /* ícono de flecha derecha */
+  margin-left: 8px;
+}
+
+/* Validación con estilo Oaxaca */
+.is-invalid {
   border-color: var(--error-color);
-  background-position: right calc(0.375em + 0.1875rem) center;
-  background-repeat: no-repeat;
-  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-  padding-right: calc(1.5em + 0.75rem);
-  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+  background-color: rgba(230, 57, 70, 0.02);
 }
 
-.form-control.is-valid {
-  border-color: var(--success-color);
-  background-position: right calc(0.375em + 0.1875rem) center;
-  background-repeat: no-repeat;
-  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-  padding-right: calc(1.5em + 0.75rem);
-  box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.1);
+.error-message {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  padding-left: 0.5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-/* Mejoras de accesibilidad y efectos */
-.form-control:focus-visible {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 1px;
+.error-message::before {
+  content: "\f071";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  margin-right: 5px;
+  font-size: 0.75rem;
 }
 
-/* Iconos en SVG para validación */
-.form-control.is-invalid {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23e53e3e' viewBox='0 0 16 16'%3E%3Cpath d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z'/%3E%3C/svg%3E");
+/* Mensajes de éxito */
+.success-message {
+  color: var(--success-color);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: rgba(42, 157, 143, 0.1);
+  border-radius: 6px;
 }
 
-.form-control.is-valid {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2338a169' viewBox='0 0 16 16'%3E%3Cpath d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/%3E%3C/svg%3E");
+.success-message::before {
+  content: "\f00c";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  margin-right: 8px;
+  font-size: 0.8rem;
 }
 
-/* Efecto de entrada de formulario */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* Checkbox y radio personalizados */
+.checkbox-container, .radio-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
 }
 
-.form-section {
-  animation: fadeIn 0.5s ease forwards;
+.checkbox-container input, .radio-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
 }
 
-.form-section:nth-child(2) {
-  animation-delay: 0.1s;
+.checkmark {
+  height: 20px;
+  width: 20px;
+  background-color: var(--white);
+  border: 2px solid var(--border-color);
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+  transition: var(--transition);
 }
 
-.form-section:nth-child(3) {
-  animation-delay: 0.2s;
+.checkbox-container .checkmark {
+  border-radius: 4px;
 }
 
-/* Mejoras responsivas */
+.radio-container .checkmark {
+  border-radius: 50%;
+}
+
+.checkbox-container:hover input ~ .checkmark,
+.radio-container:hover input ~ .checkmark {
+  border-color: var(--naranja-oaxaca);
+}
+
+.checkbox-container input:checked ~ .checkmark,
+.radio-container input:checked ~ .checkmark {
+  background-color: var(--guinda-primary);
+  border-color: var(--guinda-primary);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after,
+.radio-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.radio-container .checkmark:after {
+  top: 5px;
+  left: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+}
+
+/* Elementos de ayuda */
+.help-text {
+  color: var(--text-light);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  font-style: italic;
+}
+
+/* Adornos visuales específicos para el formulario */
+.form-decoration {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%239F2241' fill-opacity='0.05' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z'%3E%3C/path%3E%3C/svg%3E");
+  z-index: 0;
+  pointer-events: none;
+}
+
+.form-decoration-top-right {
+  top: 0;
+  right: 0;
+  transform: rotate(45deg);
+}
+
+.form-decoration-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: rotate(-135deg);
+}
+
+/* Media queries */
 @media (max-width: 768px) {
-  .container {
-    margin: 1rem auto;
-    padding: 0 1rem;
+  .form-container {
+    padding: 1.8rem;
+    border-radius: 12px;
+  }
+  
+  .form-sections-container {
+    flex-direction: column;
+    gap: 15px;
   }
   
   .form-section {
-    padding: 1.25rem 1.5rem;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    padding: 1.2rem;
+  }
+
+  .form-section::after {
+    width: 100%;
+    height: 4px;
+    top: auto;
+    bottom: 0;
+    border-radius: 0;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
   }
   
   .form-row {
-    gap: 0.8rem;
+    flex-direction: column;
+    gap: 0;
   }
   
-  h1 {
-    font-size: 1.4rem;
-    padding: 1.25rem 1.5rem;
-  }
-  
-  h2 {
-    font-size: 1.1rem;
-  }
-  
-  .btn-submit, .btn-reset {
-    padding: 0.7rem 1.5rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .half, .third {
+  .form-group.half {
     flex: 1 1 100%;
   }
   
   .form-actions {
     flex-direction: column;
+    align-items: center;
     gap: 0.8rem;
   }
   
-  .btn-submit, .btn-reset {
+  .btn-reset, .btn-submit {
     width: 100%;
+    max-width: 250px;
   }
+}
+
+/* Animaciones y efectos refinados */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes borderPulse {
+  0% { border-color: var(--guinda-primary); }
+  50% { border-color: var(--naranja-oaxaca); }
+  100% { border-color: var(--guinda-primary); }
+}
+
+.form-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.form-section {
+  animation: fadeIn 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.form-section:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+/* Efectos de focus y hover */
+.form-control:hover {
+  border-color: var(--ocre-oaxaca);
+}
+
+.form-control:focus {
+  animation: borderPulse 2s infinite;
 }

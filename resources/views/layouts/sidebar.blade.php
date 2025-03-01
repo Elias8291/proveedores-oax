@@ -2,13 +2,13 @@
 
 <div class="sidebar" id="sidebarMenu">
     <div class="nav flex-column">
-        <a class="nav-link active" href="#">
+        <a class="nav-link active"href="{{ route('admin.home') }}">
             <i class="fas fa-home"></i>
             Inicio
         </a>
         <a class="nav-link" href="#">
             <i class="fas fa-users"></i>
-            Ciudadanos
+             Usuarios
             <span class="badge badge-subtle ms-auto">14</span>
         </a>
         <a class="nav-link" href="{{ route('formulario1') }}">

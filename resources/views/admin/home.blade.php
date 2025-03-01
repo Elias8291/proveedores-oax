@@ -7,7 +7,9 @@
         <div class="col-12">
             <div class="card shadow-sm border-0">
                 <div class="card-body p-3 welcome-card">
-                    <h2 class="text-primary">¡Bienvenido al Padrón de Proveedores, {{ $userName }}!</h2>
+                    <h2 class="text-primary">
+                        ¡Bienvenido al Padrón de Proveedores, {{ Auth::user()->name }}!
+                    </h2>
                     <p class="text-muted">
                         En este panel podrás gestionar de manera eficiente los trámites relacionados con el padrón de proveedores.
                     </p>

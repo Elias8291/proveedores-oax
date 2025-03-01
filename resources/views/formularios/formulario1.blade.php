@@ -55,12 +55,12 @@
                         </div>
                         
                         <div class="form-row">
-                            <div class="form-group half input-with-icon icon-phone">
+                            <div class="form-group half">
                                 <label for="contacto_telefono">Teléfono</label>
                                 <input type="tel" id="contacto_telefono" name="contacto_telefono" class="form-control" placeholder="Ej: 951 172 94 30">
                             </div>
                             
-                            <div class="form-group half input-with-icon icon-email">
+                            <div class="form-group half">
                                 <label for="contacto_correo">Correo Electrónico</label>
                                 <input type="email" id="contacto_correo" name="contacto_correo" class="form-control" placeholder="Ej: contacto@correo.com">
                             </div>

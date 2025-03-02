@@ -358,3 +358,107 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('section2').style.display = 'none';
     };
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all form sections
+    const formSections = document.querySelectorAll('.form-section');
+    // Get progress steps
+    const progressSteps = document.querySelectorAll('.progress-step');
+    // Get navigation buttons
+    const prevBtn = document.querySelector('.btn-prev');
+    const nextBtn = document.querySelector('.btn-next');
+    const submitBtn = document.querySelector('.btn-submit');
+    const resetBtn = document.querySelector('.btn-reset');
+    
+    // Initialize current step
+    let currentStep = 0;
+    
+    // Hide all sections except the first one
+    for (let i = 1; i < formSections.length; i++) {
+      formSections[i].style.display = 'none';
+    }
+    
+    // Hide previous button initially
+    prevBtn.style.display = 'none';
+    
+    // Show appropriate buttons based on current step
+    function updateButtons() {
+      // Show/hide previous button
+      if (currentStep === 0) {
+        prevBtn.style.display = 'none';
+      } else {
+        prevBtn.style.display = 'block';
+      }
+      
+      // Show/hide next button and submit button
+      if (currentStep === formSections.length - 1) {
+        nextBtn.style.display = 'none';
+        submitBtn.parentElement.style.display = 'flex';
+      } else {
+        nextBtn.style.display = 'block';
+        submitBtn.parentElement.style.display = 'none';
+      }
+    }
+    
+    // Update progress tracker
+    function updateProgressTracker() {
+      // Remove active class from all steps
+      progressSteps.forEach((step, index) => {
+        step.classList.remove('active');
+        step.classList.remove('completed');
+        
+        if (index < currentStep) {
+          step.classList.add('completed');
+        } else if (index === currentStep) {
+          step.classList.add('active');
+        }
+      });
+    }
+    
+    // Handle next button click
+    nextBtn.addEventListener('click', function() {
+      if (currentStep < formSections.length - 1) {
+        // Hide current section
+        formSections[currentStep].style.display = 'none';
+        // Increment current step
+        currentStep++;
+        // Show next section
+        formSections[currentStep].style.display = 'block';
+        // Update buttons and progress tracker
+        updateButtons();
+        updateProgressTracker();
+        // Scroll to top of form
+        document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+    
+    // Handle previous button click
+    prevBtn.addEventListener('click', function() {
+      if (currentStep > 0) {
+        // Hide current section
+        formSections[currentStep].style.display = 'none';
+        // Decrement current step
+        currentStep--;
+        // Show previous section
+        formSections[currentStep].style.display = 'block';
+        // Update buttons and progress tracker
+        updateButtons();
+        updateProgressTracker();
+        // Scroll to top of form
+        document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+    
+    // Handle reset button click
+    resetBtn.addEventListener('click', function() {
+      // Reset to first step
+      currentStep = 0;
+      // Hide all sections except the first one
+      for (let i = 0; i < formSections.length; i++) {
+        formSections[i].style.display = i === 0 ? 'block' : 'none';
+      }
+      // Update buttons and progress tracker
+      updateButtons();
+      updateProgressTracker();
+    });
+  });

@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/conten.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/formulario.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="{{ asset('assets/js/formularios.js') }}"></script>
 </head>
 <body>
     @include('layouts.header')
@@ -31,5 +33,6 @@
             document.querySelector('.sidebar').classList.toggle('show');
         });
     </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </body>
 </html>

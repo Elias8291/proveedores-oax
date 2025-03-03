@@ -102,7 +102,7 @@
                                         <div class="form-group">
                                             <label class="form-label" for="contacto_telefono">Teléfono de Contacto</label>
                                             <input type="tel" id="contacto_telefono" name="contacto_telefono"
-                                                class="form-control" placeholder="Ej: (951) 172 9430">
+                                                class="form-control" placeholder="Ej: (951) 145 45 25">
                                         </div>
 
                                         <div class="form-group">

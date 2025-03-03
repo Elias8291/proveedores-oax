@@ -30,6 +30,7 @@ body::before {
     z-index: -1;
 }
 
+
 h1 {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold; /* Asegura que el texto esté en negritas */

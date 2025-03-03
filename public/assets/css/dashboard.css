@@ -74,7 +74,10 @@ a, button {
     padding: 0 1.5rem;
     box-shadow: var(--box-shadow-sm);
 }
-
+.navbar .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
 .navbar {
     padding: 0;
     height: 100%;
@@ -181,7 +184,6 @@ a, button {
     transition: all 0.3s ease;
     z-index: 999;
 }
-
 .sidebar .nav-link {
     color: var(--text-secondary);
     padding: 0.875rem 1.25rem;
@@ -234,14 +236,6 @@ a, button {
     color: white;
 }
 
-.sidebar-header {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin: 1.5rem 1.25rem 0.75rem;
-}
 
 /* Contenido principal */
 .main-content {
@@ -297,17 +291,7 @@ a, button {
     box-shadow: var(--box-shadow-lg);
 }
 
-.card-header {
-    background: var(--surface-0);
-    border-bottom: 1px solid var(--border-subtle);
-    padding: 1.5rem;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+
 
 .card-header-actions {
     display: flex;

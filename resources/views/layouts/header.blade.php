@@ -1,4 +1,3 @@
-<!-- resources/views/layouts/header.blade.php -->
 <header class="header shadow-sm">
     <nav class="navbar navbar-expand-lg h-100">
         <div class="container-fluid h-100">
@@ -11,8 +10,8 @@
                 <img src="{{ asset('assets/images/logo_p.png') }}" alt="Logo" class="logo-img" style="max-height: 40px; width: auto;">
             </a>
             
-            <!-- Opciones de usuario y notificaciones -->
-            <ul class="navbar-nav ms-auto align-items-center">
+            <!-- Opciones de usuario y notificaciones - visible solo en desktop -->
+            <ul class="navbar-nav ms-auto align-items-center d-none d-lg-flex">
                 <li class="nav-item me-3">
                     <a class="nav-link position-relative" href="#" title="Notificaciones">
                         <i class="fas fa-bell text-guinda"></i>
@@ -25,7 +24,7 @@
                             <span class="text-guinda">P</span>
                         </div>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end animate-fade-in shadow-sm border-light">     
+                    <ul class="dropdown-menu dropdown-menu-end animate-fade-in shadow-sm border-light">
                         <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2 text-guinda"></i>Mi perfil</a></li>
                         <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2 text-guinda"></i>Configuración</a></li>
                         <li><hr class="dropdown-divider"></li>

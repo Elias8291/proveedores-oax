@@ -6,41 +6,41 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
-class MunicipalitiesJsonSeeder extends Seeder
+class LocalitiesJsonSeeder extends Seeder
 {
     public function run()
     {
         // Ruta del archivo JSON
-        $jsonPath = public_path('json/municipalities.json');
+        $jsonPath = public_path('json/localities.json');
 
         if (File::exists($jsonPath)) {
             // Obtener el contenido del archivo JSON
             $jsonData = File::get($jsonPath);
             
             // Convertir el JSON en un arreglo
-            $municipalities = json_decode($jsonData, true);
+            $localities = json_decode($jsonData, true);
 
             // Verifica si el JSON fue decodificado correctamente
-            if ($municipalities === null) {
+            if ($localities === null) {
                 $this->command->error('Error al decodificar el JSON.');
                 return;
             }
 
             // Verifica el contenido del JSON para asegurarse de que tiene la estructura esperada
             $this->command->info('Contenido del JSON:');
-            $this->command->info(print_r($municipalities, true));
+            $this->command->info(print_r($localities, true));
 
             // Insertar los datos en la base de datos
-            foreach ($municipalities[0] as $municipality) {  // Accedemos a la primera capa del arreglo
-                // Verifica si 'state_id' está presente
-                if (!isset($municipality['state_id'])) {
-                    $this->command->error('Falta la clave "state_id" en el municipio: ' . print_r($municipality, true));
-                    continue;  // Salta al siguiente municipio si falta 'state_id'
+            foreach ($localities[0] as $locality) {  // Accedemos a la primera capa del arreglo
+                // Verifica si 'municipality_id' está presente
+                if (!isset($locality['municipality_id'])) {
+                    $this->command->error('Falta la clave "municipality_id" en la localidad: ' . print_r($locality, true));
+                    continue;  // Salta al siguiente municipio si falta 'municipality_id'
                 }
 
-                DB::table('municipalities')->insert([
-                    'state_id' => $municipality['state_id'],  // Insertamos 'state_id' desde el JSON
-                    'name' => $municipality['name'],          // Insertamos 'name' desde el JSON
+                DB::table('localidades')->insert([
+                    'municipality_id' => $locality['municipality_id'],  // Insertamos 'municipality_id' desde el JSON
+                    'name' => $locality['name'],          // Insertamos 'name' desde el JSON
                     'created_at' => now(),                    // Establecemos created_at
                     'updated_at' => now(),                    // Establecemos updated_at
                 ]);

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('settlements', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
+            $table->string('name', 405);
             $table->integer('zip_code');
             $table->foreignId('localidad_id')->constrained('localidades')->onDelete('cascade');
             $table->foreignId('settlement_type_id')->constrained('settlement_types')->onDelete('cascade');

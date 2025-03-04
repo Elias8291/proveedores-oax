@@ -69,34 +69,6 @@
                                 </div>
                             </div>
 
-                            <!-- Domicilio -->
-                            <div class="form-section">
-                                <h2 class="section-title">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    Domicilio
-                                </h2>
-                                <p class="section-subtitle">Ingrese la dirección donde se realizará el trámite</p>
-                                <div class="form-group">
-                                    <label class="form-label" for="calle">Calle</label>
-                                    <input type="text" id="calle" name="calle" class="form-control" placeholder="Ej: Av. Principal">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="numero">Número</label>
-                                    <input type="text" id="numero" name="numero" class="form-control" placeholder="Ej: 123">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="colonia">Colonia</label>
-                                    <input type="text" id="colonia" name="colonia" class="form-control" placeholder="Ej: Centro">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="codigo_postal">Código Postal</label>
-                                    <input type="text" id="codigo_postal" name="codigo_postal" class="form-control" placeholder="Ej: 68000">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Columna Derecha -->
-                        <div class="form-column">
                             <!-- Datos de Contacto -->
                             <div class="form-section">
                                 <h3 class="section-title">
@@ -120,6 +92,33 @@
                                     <input type="email" id="contacto_correo" name="contacto_correo" class="form-control" placeholder="Ej: contacto@empresa.com">
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Columna Derecha -->
+                        <div class="form-column">
+                            <!-- Domicilio -->
+                            <div class="form-section">
+                                <h2 class="section-title">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Domicilio
+                                </h2>
+                                <div class="form-group">
+                                    <label class="form-label" for="calle">Calle</label>
+                                    <input type="text" id="calle" name="calle" class="form-control" placeholder="Ej: Av. Principal">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="numero">Número</label>
+                                    <input type="text" id="numero" name="numero" class="form-control" placeholder="Ej: 123">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="colonia">Colonia</label>
+                                    <input type="text" id="colonia" name="colonia" class="form-control" placeholder="Ej: Centro">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="codigo_postal">Código Postal</label>
+                                    <input type="text" id="codigo_postal" name="codigo_postal" class="form-control" placeholder="Ej: 68000">
+                                </div>
+                            </div>
 
                             <!-- Ubicación en Mapa -->
                             <div class="form-section">
@@ -129,6 +128,11 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Form Navigation -->
+                    <div class="form-navigation">
+                        <button type="button" class="btn-next">Siguiente</button>
                     </div>
                 </form>
             </div>

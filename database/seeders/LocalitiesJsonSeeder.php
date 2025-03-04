@@ -10,43 +10,49 @@ class LocalitiesJsonSeeder extends Seeder
 {
     public function run()
     {
-        // Ruta del archivo JSON
         $jsonPath = public_path('json/localities.json');
 
         if (File::exists($jsonPath)) {
-            // Obtener el contenido del archivo JSON
             $jsonData = File::get($jsonPath);
-            
-            // Convertir el JSON en un arreglo
-            $localities = json_decode($jsonData, true);
+            $data = json_decode($jsonData, true);
 
-            // Verifica si el JSON fue decodificado correctamente
-            if ($localities === null) {
+            if ($data === null) {
                 $this->command->error('Error al decodificar el JSON.');
                 return;
             }
 
-            // Verifica el contenido del JSON para asegurarse de que tiene la estructura esperada
-            $this->command->info('Contenido del JSON:');
-            $this->command->info(print_r($localities, true));
+            if (!isset($data['Sheet1']) || !is_array($data['Sheet1'])) {
+                $this->command->error('La estructura del JSON no es la esperada. Se esperaba la clave "Sheet1".');
+                return;
+            }
 
-            // Insertar los datos en la base de datos
-            foreach ($localities[0] as $locality) {  // Accedemos a la primera capa del arreglo
-                // Verifica si 'municipality_id' está presente
+            $this->command->info('Contenido del JSON:');
+            $this->command->info(print_r($data['Sheet1'], true));
+
+            foreach ($data['Sheet1'] as $locality) {
                 if (!isset($locality['municipality_id'])) {
                     $this->command->error('Falta la clave "municipality_id" en la localidad: ' . print_r($locality, true));
-                    continue;  // Salta al siguiente municipio si falta 'municipality_id'
+                    continue;
+                }
+
+                // Verificar que el municipio exista en la base de datos
+                $municipalityExists = DB::table('municipalities')
+                    ->where('id', $locality['municipality_id'])
+                    ->exists();
+
+                if (!$municipalityExists) {
+                    $this->command->error('El municipio con id ' . $locality['municipality_id'] . ' no existe en la tabla municipalities.');
+                    continue;
                 }
 
                 DB::table('localidades')->insert([
-                    'municipality_id' => $locality['municipality_id'],  // Insertamos 'municipality_id' desde el JSON
-                    'name' => $locality['name'],          // Insertamos 'name' desde el JSON
-                    'created_at' => now(),                    // Establecemos created_at
-                    'updated_at' => now(),                    // Establecemos updated_at
+                    'municipality_id' => $locality['municipality_id'],
+                    'name'            => $locality['name'],
+                    'created_at'      => now(),
+                    'updated_at'      => now(),
                 ]);
             }
         } else {
-            // Si el archivo JSON no existe, muestra un mensaje de error
             $this->command->error('El archivo JSON no se encuentra en la ruta: ' . $jsonPath);
         }
     }

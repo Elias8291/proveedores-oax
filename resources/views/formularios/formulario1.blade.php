@@ -47,10 +47,7 @@
                                     <i class="fas fa-building"></i>
                                     Datos Generales
                                 </h2>
-                                <div class="form-group">
-                                    <label class="form-label" for="actividad_comercial">Actividad Comercial</label>
-                                    <input type="text" id="actividad_comercial" name="actividad_comercial" class="form-control" placeholder="Ej: Servicios Profesionales">
-                                </div>
+                               
                                 <div class="form-group custom-select">
                                     <label class="form-label" for="sector">Sector al que Pertenece</label>
                                     <select id="sector" name="sector" class="form-control">
@@ -64,12 +61,51 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label class="form-label" for="actividad_comercial">Actividad Comercial</label>
+                                    <input type="text" id="actividad_comercial" name="actividad_comercial" class="form-control" placeholder="Ej: Servicios Profesionales">
+                                </div>
+                                <div class="form-group">
                                     <label class="form-label" for="curp">CURP (Solo si es persona física)</label>
                                     <input type="text" id="curp" name="curp" class="form-control" placeholder="Ej: ABCD123456HDFXYZ01" maxlength="18">
                                 </div>
                             </div>
 
-                            <!-- Datos de Contacto -->
+                            <!-- Domicilio (Movido a la columna izquierda) -->
+                            <div class="form-section">
+                                <h2 class="section-title">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Domicilio
+                                </h2>
+                                <div class="form-group">
+                                    <label class="form-label" for="estado">Estado</label>
+                                    <input type="text" id="estado" name="estado" class="form-control" placeholder="Ej: Oaxaca">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="municipio">Municipio</label>
+                                    <input type="text" id="municipio" name="municipio" class="form-control" placeholder="Ej: Oaxaca de Juárez">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="colonia">Colonia</label>
+                                    <input type="text" id="colonia" name="colonia" class="form-control" placeholder="Ej: Centro">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="calle">Calle</label>
+                                    <input type="text" id="calle" name="calle" class="form-control" placeholder="Ej: Av. Principal">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="numero">Número</label>
+                                    <input type="text" id="numero" name="numero" class="form-control" placeholder="Ej: 123">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="codigo_postal">Código Postal</label>
+                                    <input type="text" id="codigo_postal" name="codigo_postal" class="form-control" placeholder="Ej: 68000">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Columna Derecha -->
+                        <div class="form-column">
+                            <!-- Datos de Contacto (Movido a la columna derecha) -->
                             <div class="form-section">
                                 <h3 class="section-title">
                                     <i class="fas fa-address-card"></i>
@@ -92,35 +128,8 @@
                                     <input type="email" id="contacto_correo" name="contacto_correo" class="form-control" placeholder="Ej: contacto@empresa.com">
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Columna Derecha -->
-                        <div class="form-column">
-                            <!-- Domicilio -->
-                            <div class="form-section">
-                                <h2 class="section-title">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    Domicilio
-                                </h2>
-                                <div class="form-group">
-                                    <label class="form-label" for="calle">Calle</label>
-                                    <input type="text" id="calle" name="calle" class="form-control" placeholder="Ej: Av. Principal">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="numero">Número</label>
-                                    <input type="text" id="numero" name="numero" class="form-control" placeholder="Ej: 123">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="colonia">Colonia</label>
-                                    <input type="text" id="colonia" name="colonia" class="form-control" placeholder="Ej: Centro">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label" for="codigo_postal">Código Postal</label>
-                                    <input type="text" id="codigo_postal" name="codigo_postal" class="form-control" placeholder="Ej: 68000">
-                                </div>
-                            </div>
-
-                            <!-- Ubicación en Mapa -->
+                            <!-- Ubicación en Mapa (Se mantiene en su lugar original) -->
                             <div class="form-section">
                                 <div class="form-group">
                                     <label class="form-label">Ubicación en el Mapa</label>

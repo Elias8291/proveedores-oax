@@ -395,4 +395,118 @@ $(document).ready(function() {
     });
 });
     </script>
+
+    <!-- Incluir la API de Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUqfgNQ2Q4AVy8OTNMfogJceDbA0FHZKs&callback=initMap" async defer></script>
+
+    <!-- Script para inicializar el mapa -->
+    <script>
+        function initMap() {
+            // Coordenadas iniciales (puedes cambiarlas según tu necesidad)
+            var initialLocation = { lat: 19.4326, lng: -99.1332 }; // Ciudad de México
+
+            // Crear el mapa
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12, // Nivel de zoom
+                center: initialLocation // Centro del mapa
+            });
+
+            // Agregar un marcador en la ubicación inicial
+            var marker = new google.maps.Marker({
+                position: initialLocation,
+                map: map,
+                title: 'Ubicación inicial'
+            });
+
+            // Opcional: Permitir al usuario hacer clic en el mapa para cambiar la ubicación del marcador
+            map.addListener('click', function(event) {
+                marker.setPosition(event.latLng);
+                // Aquí puedes obtener las coordenadas del marcador
+                console.log('Latitud:', event.latLng.lat());
+                console.log('Longitud:', event.latLng.lng());
+            });
+        }
+
+        $(document).ready(function() {
+    // Function to combine address components
+    function getFullAddress() {
+        var calle = $('#calle').val().trim();
+        var numero = $('#numero').val().trim();
+        var colonia = $('#colonia option:selected').text().trim();
+        var municipio = $('#municipio').val().trim();
+        var estado = $('#estado option:selected').text().trim();
+        var codigoPostal = $('#codigo_postal').val().trim();
+
+        // Combine address components
+        return `${calle} ${numero}, ${colonia}, ${municipio}, ${estado}, ${codigoPostal}, Mexico`;
+    }
+
+    // Add event listeners to trigger address search
+    $('#numero').on('blur', function() {
+        // Only search if all key fields are filled
+        if ($('#calle').val() && $('#numero').val() && $('#colonia').val() && 
+            $('#municipio').val() && $('#estado').val() && $('#codigo_postal').val()) {
+            
+            var fullAddress = getFullAddress();
+            searchAddressOnMap(fullAddress);
+        }
+    });
+
+    // Function to search and update map
+    function searchAddressOnMap(address) {
+        // Ensure Google Maps is loaded
+        if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+            console.error('Google Maps API not loaded');
+            return;
+        }
+
+        // Create geocoder
+        var geocoder = new google.maps.Geocoder();
+
+        // Geocode the address
+        geocoder.geocode({ 'address': address }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                // Get the map
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 16,
+                    center: results[0].geometry.location
+                });
+
+                // Add a marker
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    title: address,
+                    draggable: true // Make marker draggable
+                });
+
+                // Optional: Add an info window
+                var infowindow = new google.maps.InfoWindow({
+                    content: `<strong>Dirección:</strong> ${address}`
+                });
+
+                marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+                });
+
+                // Log coordinates for potential further use
+                console.log('Ubicación encontrada:', 
+                    results[0].geometry.location.lat(), 
+                    results[0].geometry.location.lng()
+                );
+
+                // Optional: Update input fields with precise coordinates
+                $('#latitude').val(results[0].geometry.location.lat());
+                $('#longitude').val(results[0].geometry.location.lng());
+            } else {
+                console.warn('No se pudo encontrar la dirección: ' + status);
+                
+                // Fallback to initial map if geocoding fails
+                initMap();
+            }
+        });
+    }
+});
+        
+    </script>
 @endsection

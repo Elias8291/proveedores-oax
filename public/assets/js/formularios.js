@@ -1,17 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Inicializar el mapa
-  var map = L.map('map').setView([17.065, -96.723], 13); // Coordenadas de Oaxaca de Juárez
-
-  // Añadir la capa de OpenStreetMap
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-
-  // Añadir un marcador
-  var marker = L.marker([17.065, -96.723], {
-      draggable: true
-  }).addTo(map);
-
+  
   // Función para obtener la dirección a partir de las coordenadas
   function getAddressFromCoordinates(lat, lng) {
       // Utilizar el servicio de geocodificación inversa de Nominatim

@@ -13,6 +13,6 @@ class EconomicActivity extends Model
 
     public function sector()
     {
-        return $this->belongsTo(EconomicSector::class);
+        return $this->belongsTo(EconomicSector::class, 'sector_id');
     }
 }

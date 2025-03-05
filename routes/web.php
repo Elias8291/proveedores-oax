@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EconomicActivityController;
+use App\Http\Controllers\SettlementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +46,13 @@ Route::get('/admin/home', function () {
 
 Route::post('/check-rfc-exists', [RegisteredUserController::class, 'checkRFCExists']);
 Route::resource('users', UserController::class);
+
+Route::get('/formulario1', [EconomicActivityController::class, 'showForm'])->name('formulario1');
+
+// Ruta para obtener actividades económicas por sector (AJAX)
+Route::get('/economic-activities/{sector}', [EconomicActivityController::class, 'getActivitiesBySector'])
+    ->name('economic_activities.by_sector');
+    Route::get('/settlements-by-zipcode', [SettlementController::class, 'getSettlementsByZipCode'])
+    ->name('settlements.by_zipcode');
+    
 require __DIR__.'/auth.php';

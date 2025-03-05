@@ -2,15 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EconomicActivity;
+use App\Models\EconomicSector;
 use Illuminate\Http\Request;
 
 class EconomicActivityController extends Controller
 {
-    // Método para mostrar todas las actividades
-    public function index()
+    /**
+     * Muestra el formulario de trámites.
+     */
+    public function showForm()
     {
-        $activities = EconomicActivity::all(); // Obtener todas las actividades
-        return response()->json($activities); // Retornar las actividades
+        // Obtener todos los sectores económicos
+        $sectors = EconomicSector::all();
+
+        // Pasar los sectores a la vista
+        return view('formularios.formulario1', compact('sectors'));
+    }
+
+    /**
+     * Obtiene las actividades económicas asociadas a un sector (para AJAX).
+     */
+    public function getActivitiesBySector(EconomicSector $sector)
+    {
+        // Obtener las actividades del sector
+        $activities = $sector->activities;
+
+        // Devolver las actividades en formato JSON
+        return response()->json($activities);
     }
 }

@@ -612,6 +612,106 @@ footer {
     background: rgba(249, 0, 0, 0.3);
 }
 
+.actividades-contenedor {
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.actividades-header {
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+    font-weight: 600;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.actividades-header i {
+    margin-right: 5px;
+    color: #6c757d;
+}
+
+.actividades-lista {
+    padding: 8px;
+    min-height: 60px;
+    max-height: 120px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-content: flex-start;
+}
+
+.actividad-item {
+    display: flex;
+    align-items: center;
+    background-color: #e9f4ff;
+    border: 1px solid #b8daff;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    color: #0056b3;
+    transition: all 0.2s ease;
+}
+
+.actividad-item:hover {
+    background-color: #d4ebff;
+}
+
+.actividad-item .eliminar {
+    margin-left: 8px;
+    height: 18px;
+    width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #dc3545;
+    color: white;
+    font-size: 0.75rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+.actividad-item .eliminar:hover {
+    opacity: 1;
+}
+
+.empty-message {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+/* Estilos para scrollbar */
+.actividades-lista::-webkit-scrollbar {
+    width: 6px;
+}
+
+.actividades-lista::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.actividades-lista::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+.actividades-lista::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+
 /* Diseño responsivo */
 @media (max-width: 1199px) {
     .sidebar {

@@ -413,3 +413,61 @@ body {
     width: 100%;
   }
 }
+
+/* Estilo para el título de la subsección */
+.subsection-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--neutral-mid);
+  position: relative;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+}
+
+.subsection-title i {
+  margin-right: 10px;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(157, 36, 73, 0.2);
+}
+
+/* Estilo para el contenedor de la subsección */
+.subsection-container {
+  background-color: rgba(157, 36, 73, 0.03);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--neutral-mid);
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* Ajustes para los grupos de formulario dentro de la subsección */
+.subsection-container .form-group {
+  margin-bottom: 10px;
+}
+
+.subsection-container .form-label {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.subsection-container .form-control {
+  background-color: white;
+  border: 1px solid var(--neutral-mid);
+  border-radius: var(--border-radius);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}

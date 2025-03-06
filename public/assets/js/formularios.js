@@ -139,19 +139,34 @@ $(document).ready(function () {
     window.initMap = initMap;
     
     let currentSection = 1;
+    
+    // Actualizar la barra de progreso
+    function updateProgressBar(section) {
+        $('.progress-step').removeClass('active');
+        $(`.progress-step:nth-child(${section})`).addClass('active');
+    }
 
     $('.btn-next').click(function () {
         if (currentSection === 1) {
             $('#section-1').hide();
             $('#section-2').show();
             $('.btn-prev').show();
-            $('.btn-next').hide();
-            $('.btn-submit').show();
+            $('.btn-next').show();
+            $('.btn-submit').hide();
             currentSection = 2;
+            updateProgressBar(2);
             
             if (map) {
                 google.maps.event.trigger(map, 'resize');
             }
+        } else if (currentSection === 2) {
+            $('#section-2').hide();
+            $('#section-3').show();
+            $('.btn-prev').show();
+            $('.btn-next').hide();
+            $('.btn-submit').show();
+            currentSection = 3;
+            updateProgressBar(3);
         }
     });
 
@@ -163,6 +178,19 @@ $(document).ready(function () {
             $('.btn-next').show();
             $('.btn-submit').hide();
             currentSection = 1;
+            updateProgressBar(1);
+        } else if (currentSection === 3) {
+            $('#section-3').hide();
+            $('#section-2').show();
+            $('.btn-prev').show();
+            $('.btn-next').show();
+            $('.btn-submit').hide();
+            currentSection = 2;
+            updateProgressBar(2);
+            
+            if (map) {
+                google.maps.event.trigger(map, 'resize');
+            }
         }
     });
 
@@ -269,5 +297,11 @@ $(document).ready(function () {
         if ($('#codigo_postal').val().length === 5 && $('#calle').val()) {
             searchAddress();
         }
+    });
+    
+    // Manejo de archivos para la sección 3
+    $('.custom-file-input').on('change', function() {
+        var fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').html(fileName);
     });
 });

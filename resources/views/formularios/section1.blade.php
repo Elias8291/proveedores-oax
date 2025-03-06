@@ -17,16 +17,9 @@
             </div>
             <div class="form-group">
                 <label class="form-label" for="actividad_comercial">Actividades Comerciales</label>
-                <div class="input-group">
-                    <select id="actividad_comercial" class="form-control">
-                        <option value="">Seleccione una actividad</option>
-                    </select>
-                    <div class="input-group-append">
-                        <button type="button" id="agregar_actividad" class="btn btn-primary">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
+                <select id="actividad_comercial" class="form-control">
+                    <option value="">Seleccione una actividad</option>
+                </select>
             </div>
             
             <!-- Contenedor distintivo para actividades seleccionadas -->
@@ -67,11 +60,169 @@
                 <label class="form-label" for="contacto_correo">Correo Electrónico</label>
                 <input type="email" id="contacto_correo" name="contacto_correo" class="form-control" placeholder="Ej: contacto@empresa.com">
             </div>
+            <div class="form-group">
+                <label class="form-label" for="contacto_web">Página Web</label>
+                <input type="url" id="contacto_web" name="contacto_web" class="form-control" placeholder="Ej: https://www.empresa.com">
+            </div>
         </div>
+        
     </div>
 </div>
 
+<!-- Estilo CSS para contenedor distintivo de actividades -->
+<style>
+.actividades-contenedor {
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    overflow: hidden;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+}
 
+.actividades-contenedor:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.actividades-header {
+    padding: 12px 15px;
+    background-color: #f1f8ff;
+    border-bottom: 1px solid #cce5ff;
+    font-weight: 600;
+    color: #0056b3;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+}
+
+.actividades-header i {
+    margin-right: 8px;
+    color: #0056b3;
+}
+
+.actividades-lista {
+    padding: 12px;
+    min-height: 80px;
+    max-height: 150px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-content: flex-start;
+    background-color: #fafbfc;
+}
+
+.actividad-item {
+    display: flex;
+    align-items: center;
+    background-color: #e9f4ff;
+    border: 1px solid #b8daff;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    color: #0056b3;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.actividad-item:hover {
+    background-color: #d4ebff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+}
+
+.actividad-item .eliminar {
+    margin-left: 10px;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #ff3547;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+}
+
+.actividad-item .eliminar:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    background-color: #dc3545;
+}
+
+.empty-message {
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+}
+
+/* Estilos para select */
+#actividad_comercial {
+    border: 1px solid #c1d7f0;
+    padding: 10px 12px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    transition: all 0.3s ease;
+}
+
+#actividad_comercial:focus {
+    border-color: #4c94eb;
+    box-shadow: 0 0 0 3px rgba(76, 148, 235, 0.15);
+}
+
+/* Estilos para scrollbar */
+.actividades-lista::-webkit-scrollbar {
+    width: 8px;
+}
+
+.actividades-lista::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 10px;
+}
+
+.actividades-lista::-webkit-scrollbar-thumb {
+    background: #c1d7f0;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.actividades-lista::-webkit-scrollbar-thumb:hover {
+    background: #4c94eb;
+}
+
+/* Estilos para la animación de agregar/quitar */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(5px); }
+}
+
+.actividad-item {
+    animation: fadeIn 0.3s ease-out;
+}
+
+.actividad-item.removing {
+    animation: fadeOut 0.3s ease-out;
+    pointer-events: none;
+}
+</style>
+
+<!-- JavaScript para la funcionalidad de selección múltiple -->
 <script>
 $(document).ready(function() {
     // Array para almacenar las actividades seleccionadas
@@ -80,6 +231,10 @@ $(document).ready(function() {
     // Evento para cargar actividades comerciales según el sector seleccionado
     $('#sector').change(function() {
         const sectorId = $(this).val();
+        
+        // Limpiar las actividades seleccionadas cuando se cambia de sector
+        actividadesSeleccionadas = [];
+        actualizarActividadesMostradas();
         
         if (sectorId) {
             $.ajax({
@@ -98,19 +253,10 @@ $(document).ready(function() {
         }
     });
     
-    // Agregar actividad al hacer clic en el botón o presionar Enter en el select
-    $('#agregar_actividad').click(agregarActividad);
-    $('#actividad_comercial').on('keydown', function(e) {
-        if (e.keyCode === 13) { // Enter key
-            e.preventDefault();
-            agregarActividad();
-        }
-    });
-    
-    function agregarActividad() {
-        const selectElement = $('#actividad_comercial');
-        const actividadId = selectElement.val();
-        const actividadNombre = selectElement.find('option:selected').text();
+    // Agregar actividad automáticamente al cambiar la selección
+    $('#actividad_comercial').change(function() {
+        const actividadId = $(this).val();
+        const actividadNombre = $(this).find('option:selected').text();
         
         if (actividadId && actividadNombre && actividadNombre !== 'Seleccione una actividad') {
             // Verificar si ya está en la lista
@@ -124,11 +270,11 @@ $(document).ready(function() {
                 // Actualizar la visualización
                 actualizarActividadesMostradas();
                 
-                // Limpiar la selección
-                selectElement.val('').focus();
+                // Volver a poner el select en valor vacío
+                $(this).val('');
             }
         }
-    }
+    });
     
     // Función para actualizar las actividades mostradas
     function actualizarActividadesMostradas() {
@@ -153,10 +299,21 @@ $(document).ready(function() {
     }
     
     // Delegación de eventos para eliminar actividades
-    $(document).on('click', '.actividad-item .eliminar', function() {
-        const actividadId = $(this).parent().data('id');
+    $(document).on('click', '.actividad-item .eliminar', function(e) {
+        e.stopPropagation(); // Evitar que el evento se propague
+        const item = $(this).closest('.actividad-item'); // Seleccionar el contenedor de la actividad
+        const actividadId = item.data('id');
+        
+        // Agregar clase para animación de salida
+        item.addClass('removing');
+        
+        // Eliminar inmediatamente del array
         actividadesSeleccionadas = actividadesSeleccionadas.filter(act => act.id !== actividadId);
-        actualizarActividadesMostradas();
+        
+        // Esperar a que termine la animación antes de actualizar la vista
+        setTimeout(function() {
+            actualizarActividadesMostradas();
+        }, 280);
     });
     
     // Inicializar la visualización

@@ -305,4 +305,79 @@
             $(this).next('.custom-file-label').html(fileName);
         });
         
+        $(document).ready(function() {
+            let actividadesSeleccionadas = [];
+    
+            $('#sector').change(function() {
+                const sectorId = $(this).val();
+                actividadesSeleccionadas = [];
+                actualizarActividadesMostradas();
+    
+                if (sectorId) {
+                    $.ajax({
+                        url: `/api/actividades/${sectorId}`,
+                        type: 'GET',
+                        success: function(data) {
+                            let options = '<option value="">Seleccione una actividad</option>';
+                            data.forEach(function(actividad) {
+                                options += `<option value="${actividad.id}" data-nombre="${actividad.name}">${actividad.name}</option>`;
+                            });
+                            $('#actividad_comercial').html(options);
+                        }
+                    });
+                } else {
+                    $('#actividad_comercial').html('<option value="">Seleccione una actividad</option>');
+                }
+            });
+    
+            $('#actividad_comercial').change(function() {
+                const actividadId = $(this).val();
+                const actividadNombre = $(this).find('option:selected').text();
+    
+                if (actividadId && actividadNombre && actividadNombre !== 'Seleccione una actividad') {
+                    if (!actividadesSeleccionadas.some(act => act.id === actividadId)) {
+                        actividadesSeleccionadas.push({ id: actividadId, nombre: actividadNombre });
+                        actualizarActividadesMostradas();
+                        $(this).val('');
+                    }
+                }
+            });
+    
+            function actualizarActividadesMostradas() {
+                const container = $('#actividades_seleccionadas');
+                container.empty();
+    
+                if (actividadesSeleccionadas.length === 0) {
+                    container.html('<div class="empty-message">No hay actividades seleccionadas</div>');
+                } else {
+                    actividadesSeleccionadas.forEach(function(actividad) {
+                        container.append(`
+                            <div class="actividad-item" data-id="${actividad.id}">
+                                <span class="actividad-nombre">${actividad.nombre}</span>
+                                <span class="eliminar"><i class="fas fa-times"></i></span>
+                            </div>
+                        `);
+                    });
+                }
+    
+                $('#actividades_comerciales_input').val(JSON.stringify(actividadesSeleccionadas.map(act => act.id)));
+            }
+    
+            $(document).on('click', '.actividad-item .eliminar', function(e) {
+                e.stopPropagation();
+                const item = $(this).closest('.actividad-item');
+                const actividadId = item.data('id');
+                const idToRemove = typeof actividadId === 'string' ? parseInt(actividadId, 10) : actividadId;
+    
+                item.addClass('removing');
+                actividadesSeleccionadas = actividadesSeleccionadas.filter(act => act.id !== idToRemove && act.id !== actividadId.toString());
+                $('#actividades_comerciales_input').val(JSON.stringify(actividadesSeleccionadas.map(act => act.id)));
+    
+                setTimeout(function() {
+                    actualizarActividadesMostradas();
+                }, 280);
+            });
+    
+            actualizarActividadesMostradas();
+        });
     });

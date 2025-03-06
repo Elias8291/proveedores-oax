@@ -471,3 +471,111 @@ body {
   padding: 8px 12px;
   font-size: 0.9rem;
 }
+
+
+.actividades-contenedor {
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+}
+.actividades-contenedor:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.actividades-header {
+  padding: 12px 15px;
+  background-color: #f1f8ff;
+  border-bottom: 1px solid #cce5ff;
+  font-weight: 600;
+  color: #0056b3;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+.actividades-header i {
+  margin-right: 8px;
+  color: #0056b3;
+}
+.actividades-lista {
+  padding: 12px;
+  min-height: 80px;
+  max-height: 150px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-content: flex-start;
+  background-color: #fafbfc;
+}
+.actividad-item {
+  display: flex;
+  align-items: center;
+  background-color: #e9f4ff;
+  border: 1px solid #b8daff;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  color: #0056b3;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.actividad-item:hover {
+  background-color: #d4ebff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+.empty-message {
+  color: #6c757d;
+  font-style: italic;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+#actividad_comercial {
+  border: 1px solid #c1d7f0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+#actividad_comercial:focus {
+  border-color: #4c94eb;
+  box-shadow: 0 0 0 3px rgba(76, 148, 235, 0.15);
+}
+.actividades-lista::-webkit-scrollbar {
+  width: 8px;
+}
+.actividades-lista::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+.actividades-lista::-webkit-scrollbar-thumb {
+  background: #c1d7f0;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+.actividades-lista::-webkit-scrollbar-thumb:hover {
+  background: #4c94eb;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(5px); }
+}
+.actividad-item {
+  animation: fadeIn 0.3s ease-out;
+}
+.actividad-item.removing {
+  animation: fadeOut 0.3s ease-out;
+  pointer-events: none;
+}

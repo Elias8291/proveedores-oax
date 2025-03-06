@@ -401,6 +401,8 @@ body {
   box-shadow: 0 0 0 3px rgba(157, 36, 73, 0.3);
 }
 
+
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .two-column-layout {

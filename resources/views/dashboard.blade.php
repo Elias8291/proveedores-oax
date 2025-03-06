@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/conten.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/formulario.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUqfgNQ2Q4AVy8OTNMfogJceDbA0FHZKs&callback=initMap" defer></script>
+   
+
     <script src="{{ asset('assets/js/formularios.js') }}"></script>
 </head>
 <body>

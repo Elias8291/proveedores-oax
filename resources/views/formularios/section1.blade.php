@@ -298,23 +298,31 @@ $(document).ready(function() {
         $('#actividades_comerciales_input').val(JSON.stringify(actividadesSeleccionadas.map(act => act.id)));
     }
     
-    // Delegación de eventos para eliminar actividades
-    $(document).on('click', '.actividad-item .eliminar', function(e) {
-        e.stopPropagation(); // Evitar que el evento se propague
-        const item = $(this).closest('.actividad-item'); // Seleccionar el contenedor de la actividad
-        const actividadId = item.data('id');
-        
-        // Agregar clase para animación de salida
-        item.addClass('removing');
-        
-        // Eliminar inmediatamente del array
-        actividadesSeleccionadas = actividadesSeleccionadas.filter(act => act.id !== actividadId);
-        
-        // Esperar a que termine la animación antes de actualizar la vista
-        setTimeout(function() {
-            actualizarActividadesMostradas();
-        }, 280);
-    });
+ // Delegación de eventos para eliminar actividades
+$(document).on('click', '.actividad-item .eliminar', function(e) {
+    e.stopPropagation(); // Evitar que el evento se propague
+    const item = $(this).closest('.actividad-item'); // Seleccionar el contenedor de la actividad
+    const actividadId = item.data('id');
+    
+    // Convertir a número si es necesario, ya que data-id podría estar siendo interpretado como string
+    const idToRemove = typeof actividadId === 'string' ? parseInt(actividadId, 10) : actividadId;
+    
+    // Agregar clase para animación de salida
+    item.addClass('removing');
+    
+    // Eliminar del array - asegurando la comparación correcta de tipos
+    actividadesSeleccionadas = actividadesSeleccionadas.filter(act => 
+        act.id !== idToRemove && act.id !== actividadId.toString()
+    );
+    
+    // Actualizar el campo oculto inmediatamente
+    $('#actividades_comerciales_input').val(JSON.stringify(actividadesSeleccionadas.map(act => act.id)));
+    
+    // Esperar a que termine la animación antes de actualizar la vista
+    setTimeout(function() {
+        actualizarActividadesMostradas();
+    }, 280);
+});
     
     // Inicializar la visualización
     actualizarActividadesMostradas();

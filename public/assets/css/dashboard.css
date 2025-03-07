@@ -804,3 +804,16 @@ footer {
 .animation-delay-3 { animation-delay: 0.3s; }
 .animation-delay-4 { animation-delay: 0.4s; }
 
+.formulario__input-error {
+    color: red;
+    font-size: 12px;
+    display: none;
+}
+
+.is-invalid {
+    border: 1px solid red;
+}
+
+.is-valid {
+    border: 1px solid green;
+}

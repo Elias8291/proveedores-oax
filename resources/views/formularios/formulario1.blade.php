@@ -1,5 +1,7 @@
 @extends('dashboard')
+
 @section('title', 'Formulario de Trámites')
+
 @section('content')
     <div class="container">
         <div class="form-container">
@@ -35,9 +37,8 @@
 
             <!-- Contenido del Formulario -->
             <div class="form-content">
-                <form action="#" method="POST">
+                <form action="#" method="POST" id="formulario">
                     @csrf
-
                     @include('formularios.section1') <!-- Sección 1 -->
                     @include('formularios.section2') <!-- Sección 2 -->
                     @include('formularios.section3') <!-- Sección 3 -->
@@ -52,4 +53,5 @@
             </div>
         </div>
     </div>
+
 @endsection

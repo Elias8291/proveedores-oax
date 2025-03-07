@@ -15,7 +15,6 @@
     --text-secondary: #4a5568;
 }
 
-/* Layout principal con panel lateral */
 .auth-page-wrapper {
     display: flex;
     min-height: 100vh;
@@ -24,7 +23,6 @@
     justify-content: center;
 }
 
-/* Contenedor del formulario e imagen */
 .auth-container {
     display: flex;
     background: white;
@@ -33,7 +31,7 @@
     overflow: hidden;
     max-width: 1200px;
     width: 100%;
-    margin: 2rem;
+    margin: 2rem auto;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -46,7 +44,6 @@
     box-shadow: 0 20px 50px rgba(157, 36, 73, 0.15);
 }
 
-/* Decorativo superior con animación mejorada */
 .auth-container::before {
     content: "";
     position: absolute;
@@ -65,167 +62,11 @@
     100% { background-position: 100% 0; }
 }
 
-/* Contenedor de la imagen (izquierda) */
-.auth-image-container {
-    flex: 0 0 50%;
-    position: relative;
-    overflow: hidden;
-    border-radius: 24px 0 0 24px;
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
-}
-
-.auth-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 1.2s ease-out, filter 0.8s ease;
-    filter: brightness(0.9) contrast(1.1);
-}
-
-/* Overlay gradient effect */
-.auth-image-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(157, 36, 73, 0.7) 0%, rgba(157, 36, 73, 0.3) 100%);
-    z-index: 1;
-    opacity: 0.7;
-    transition: opacity 0.5s ease, background 0.5s ease;
-}
-
-/* Hover effects */
-.auth-image-container:hover::before {
-    opacity: 0.8;
-    background: linear-gradient(135deg, rgba(157, 36, 73, 0.8) 0%, rgba(157, 36, 73, 0.4) 100%);
-}
-
-.auth-image-container:hover .auth-image {
-    transform: scale(1.08);
-    filter: brightness(1) contrast(1.15);
-}
-
-/* Content overlay with text */
-.auth-image-overlay {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    color: white;
-    text-align: center;
-}
-
-.auth-image-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.4rem;
-    font-weight: 700;
-    margin-bottom: 1.2rem;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    letter-spacing: -0.5px;
-}
-
-.auth-image-text {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.1rem;
-    max-width: 80%;
-    line-height: 1.6;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
-}
-
-/* Animate text on hover */
-.auth-image-container:hover .auth-image-title,
-.auth-image-container:hover .auth-image-text {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Border decoration with animation */
-.auth-image-container::after {
-    content: "";
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    z-index: 2;
-    opacity: 0;
-    transform: scale(0.9);
-    transition: all 0.5s ease;
-}
-
-.auth-image-container:hover::after {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Spotlight effect on hover */
-.auth-image-container:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -75%;
-    z-index: 2;
-    display: block;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
-    transform: skewX(-25deg);
-    transition: all 0.7s ease;
-    opacity: 0;
-}
-
-.auth-image-container:hover:before {
-    animation: shine 1.5s;
-    opacity: 1;
-}
-
-@keyframes shine {
-    100% {
-        left: 125%;
-    }
-}
-
-/* Add a subtle floating animation to the text */
-@keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-8px);
-    }
-    100% {
-        transform: translateY(0px);
-    }
-}
-
-.auth-image-container:hover .auth-image-title {
-    animation: float 3s ease-in-out infinite;
-}
-
-/* Contenedor del contenido del formulario (derecha) */
 .auth-content {
     flex: 1;
     padding: 2.5rem;
 }
 
-/* Header styles */
 .auth-header {
     text-align: center;
     margin-bottom: 2.5rem;
@@ -269,7 +110,6 @@
     transform: scaleX(1);
 }
 
-/* Pestañas de navegación mejoradas */
 .nav-tabs {
     border: none;
     background: rgba(249, 250, 251, 0.8);
@@ -323,7 +163,6 @@
     width: 80%;
 }
 
-/* Form labels mejorados */
 .form-label {
     font-weight: 500;
     color: var(--text-primary);
@@ -333,7 +172,6 @@
     font-size: 0.95rem;
 }
 
-/* Input groups mejorados */
 .input-group {
     margin-bottom: 1.5rem;
     position: relative;
@@ -369,7 +207,6 @@
     transform: scale(1.1);
 }
 
-/* Input controls mejorados */
 .form-control {
     border: 2px solid var(--border-color);
     border-radius: 0 12px 12px 0;
@@ -394,12 +231,10 @@
     background: var(--input-hover-bg);
 }
 
-/* Inputs sin grupo (completos) */
 .form-control.standalone {
     border-radius: 12px;
 }
 
-/* Floating labels - efecto moderno */
 .form-floating {
     position: relative;
     margin-bottom: 1.5rem;
@@ -441,7 +276,6 @@
     transform: scale(.85) translateY(-0.5rem);
 }
 
-/* Select styles mejorados */
 .form-select {
     appearance: none;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%239d2449' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/g%3e%3c/svg%3e");
@@ -471,7 +305,6 @@
     background-color: var(--input-hover-bg);
 }
 
-/* Checkbox styles mejorados */
 .form-check {
     margin-bottom: 1rem;
     display: flex;
@@ -506,7 +339,6 @@
     cursor: pointer;
 }
 
-/* Form button mejorado */
 .btn-primary {
     background: var(--primary-color) !important;
     border: none;
@@ -535,7 +367,6 @@
     box-shadow: 0 0 0 0.25rem rgba(var(--primary-color-rgb), 0.25);
 }
 
-/* Efecto de onda en botones */
 .btn-primary::after {
     content: '';
     position: absolute;
@@ -569,7 +400,6 @@
     }
 }
 
-/* Multi-step form buttons mejorados */
 .next-button,
 .back-button,
 .submit-button {
@@ -640,81 +470,320 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(var(--primary-color-rgb), 0.2);
 }
-
-/* Success modal mejorado */
-.success-icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background-color: #10b981;
-    margin: 0 auto;
-    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
-    animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), pulse 2s infinite ease-in-out;
-}
-
-.success-icon-container i {
-    font-size: 45px;
-    color: white;
-}
-
-@keyframes scaleIn {
-    0% { transform: scale(0); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+/* Styles for improved email sent modal */
+.modal-content {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 .modal-header {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    border-bottom: none;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.modal-header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.1), 
+        rgba(255, 255, 255, 0.4), 
+        rgba(255, 255, 255, 0.1));
+    opacity: 0.6;
+}
+
+.modal-title {
     color: white;
-    border-radius: 12px 12px 0 0;
-    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+    font-size: 1.3rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.modal-content {
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+.btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: all 0.2s ease;
 }
 
-.modal-footer {
-    border-top: 1px solid #f1f5f9;
-    padding: 1.25rem 1.5rem;
+.btn-close:hover {
+    opacity: 1;
+    transform: rotate(90deg);
 }
 
-/* Confetti animation */
-.confetti {
+.modal-body {
+    background-color: #fff;
+    padding: 2.5rem 2rem;
+}
+
+/* Email Animation */
+.email-animation-container {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 2rem;
+}
+
+.email-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(var(--primary-color-rgb), 0.25);
+    animation: iconPulse 2s infinite ease-in-out;
+}
+
+.email-icon i {
+    font-size: 40px;
+    color: var(--primary-color);
+    animation: iconScale 2s infinite ease-in-out;
+}
+
+.email-success-circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    animation: circleGrow 1s ease-out forwards, circleRotate 10s infinite linear 1s;
+}
+
+.email-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.particle {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #10b981;
-    opacity: 0.8;
-    animation: confetti 5s ease-in-out infinite;
+    background: var(--primary-color);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFly 1.5s ease-out forwards;
 }
 
-.confetti-left {
-    left: 30%;
-    transform-origin: left top;
+.particle.p1 { 
+    top: 20%; 
+    left: 0; 
+    animation-delay: 0.2s; 
+    background: #f0932b;
+}
+.particle.p2 { 
+    top: 10%; 
+    left: 50%; 
+    animation-delay: 0.3s; 
+    background: #eb4d4b;
+}
+.particle.p3 { 
+    top: 20%; 
+    right: 0; 
+    animation-delay: 0.4s; 
+    background: #6ab04c;
+}
+.particle.p4 { 
+    bottom: 20%; 
+    left: 0; 
+    animation-delay: 0.5s; 
+    background: #4834d4;
+}
+.particle.p5 { 
+    bottom: 10%; 
+    left: 50%; 
+    animation-delay: 0.6s; 
+    background: #be2edd;
+}
+.particle.p6 { 
+    bottom: 20%; 
+    right: 0; 
+    animation-delay: 0.7s; 
+    background: #22a6b3;
 }
 
-.confetti-right {
-    right: 30%;
-    transform-origin: right top;
+/* Success message */
+.success-title {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 0.8s forwards;
 }
 
-@keyframes confetti {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(200px) rotate(720deg); opacity: 0; }
+#passwordSentMessage {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 80%;
+    margin: 0 auto 2rem;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 1s forwards;
 }
 
-/* Animation para tab content */
+/* Next steps section */
+.email-next-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 1.2s forwards;
+}
+
+.next-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    width: 25%;
+    min-width: 110px;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 4px 10px rgba(var(--primary-color-rgb), 0.3);
+}
+
+.step-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-align: center;
+    font-weight: 500;
+}
+
+.step-arrow {
+    color: var(--primary-color);
+    animation: arrowPulse 1.5s infinite ease-in-out;
+    margin: 0 0.25rem;
+}
+
+.step-arrow i {
+    font-size: 1.2rem;
+}
+
+/* Modal footer */
+.modal-footer {
+    background-color: #f9fafb;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1.25rem;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    border: none;
+    border-radius: 50px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(var(--primary-color-rgb), 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(var(--primary-color-rgb), 0.3);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Animations */
+@keyframes iconPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes iconScale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+@keyframes circleGrow {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes circleRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes particleFly {
+    0% { transform: scale(0); opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 0.5; }
+    100% { transform: scale(1.5) translateY(-70px); opacity: 0; }
+}
+
+@keyframes fadeInUp {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes arrowPulse {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
+
+/* Make the modal responsive */
+@media (max-width: 576px) {
+    .email-next-steps {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .next-step {
+        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+    
+    .step-number {
+        margin-bottom: 0;
+    }
+    
+    .step-arrow {
+        transform: rotate(90deg);
+        margin: 0.5rem 0;
+    }
+    
+    #passwordSentMessage {
+        max-width: 100%;
+    }
+}
 .tab-pane.fade.show {
     animation: fadeIn 0.5s forwards;
 }
@@ -724,7 +793,6 @@
     100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Media queries para responsividad mejorada */
 @media (max-width: 991px) {
     .auth-container {
         padding: 2rem;
@@ -831,7 +899,6 @@
     }
 }
 
-/* Estilos para small mobile first */
 @media (max-width: 360px) {
     .auth-container {
         padding: 1rem;
@@ -853,20 +920,8 @@
         padding: 0.4rem 0.6rem;
         font-size: 0.8rem;
     }
-}/* Update to auth-container to better center content */
-.auth-container {
-    display: flex;
-    background: white;
-    border-radius: 24px;
-    box-shadow: var(--box-shadow);
-    overflow: hidden;
-    max-width: 1200px;
-    width: 100%;
-    margin: 2rem auto; /* Changed from just margin: 2rem to center it */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Add main wrapper centering */
 .auth-main-panel {
     display: flex;
     justify-content: center;
@@ -876,14 +931,14 @@
     padding: 1rem;
 }
 
-/* Adjust image height for registration tab */
 .auth-image-container {
     flex: 0 0 50%;
     position: relative;
     overflow: hidden;
     border-radius: 24px 0 0 24px;
     box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
-    max-height: 650px; /* Add max-height to prevent excessive stretching */
+    max-height: 650px;
+    background-color: var(--primary-color);
 }
 
 .auth-image {
@@ -892,114 +947,89 @@
     object-fit: cover;
     object-position: center;
     display: block;
-    transition: transform 1.2s ease-out, filter 0.8s ease;
-    filter: brightness(0.9) contrast(1.1);
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards, imageWave 15s ease-in-out infinite 0.8s;
+    filter: brightness(0.95) contrast(1.05);
 }
 
-/* Improved responsive styles */
-@media (max-width: 991px) {
-    .auth-container {
-        flex-direction: column;
-        max-width: 600px;
-    }
-    
-    .auth-image-container {
-        flex: 0 0 200px;
-        border-radius: 24px 24px 0 0;
-        max-height: 200px;
-    }
-    
-    .auth-content {
-        padding: 2rem;
-    }
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
-@media (max-width: 767px) {
-    .auth-container {
-        margin: 1rem;
-        border-radius: 16px;
+@keyframes imageWave {
+    0%, 100% {
+        transform: scale(1);
+        filter: brightness(0.95) contrast(1.05) saturate(1);
     }
-    
-    .auth-image-container {
-        display: none; /* Hide image on mobile */
+    33% {
+        transform: scale(1.03);
+        filter: brightness(1) contrast(1.1) saturate(1.05);
     }
-    
-    .auth-content {
-        padding: 1.5rem;
-    }
-    
-    /* Improved mobile styles for forms */
-    .input-group-text, .form-control {
-        padding: 0.7rem;
-    }
-    
-    .nav-tabs {
-        gap: 0.5rem;
-    }
-    
-    .nav-tabs .nav-link {
-        padding: 0.6rem 1rem;
-        font-size: 0.95rem;
+    66% {
+        transform: scale(1.01);
+        filter: brightness(0.98) contrast(1.07) saturate(1.02);
     }
 }
 
-/* Extra mobile improvements */
-@media (max-width: 480px) {
-    .auth-container {
-        margin: 0.5rem;
-        border-radius: 12px;
+.auth-image-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        rgba(255, 255, 255, 0) 0%, 
+        rgba(255, 255, 255, 0.3) 50%, 
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    animation: shine 3s infinite;
+    z-index: 1;
+}
+
+@keyframes shine {
+    0% {
+        left: -75%;
     }
-    
-    .auth-header img {
-        max-width: 180px !important;
-    }
-    
-    .auth-content {
-        padding: 1.25rem;
-    }
-    
-    .nav-tabs .nav-link {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.85rem;
-    }
-    
-    /* Mobile form button improvements */
-    .btn-primary, .next-button, .back-button, .submit-button {
-        width: 100%;
-        padding: 0.75rem;
-        font-size: 0.95rem;
-        margin-top: 0.5rem;
+    100% {
+        left: 125%;
     }
 }
 
-/* Make registration form more compact on mobile */
-@media (max-width: 767px) {
-    .tab-pane#registerForm .input-group {
-        margin-bottom: 1rem;
-    }
-    
-    .tab-pane#registerForm .form-label {
-        margin-bottom: 0.25rem;
-        font-size: 0.9rem;
-    }
+.auth-image-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(var(--primary-color-rgb), 0.4) 0%,
+        rgba(var(--primary-color-rgb), 0.1) 50%,
+        rgba(var(--primary-color-rgb), 0.4) 100%
+    );
+    z-index: 2;
+    animation: gradientPulse 4s ease-in-out infinite;
+    pointer-events: none;
 }
 
-/* Adjust modal for better mobile display */
-@media (max-width: 480px) {
-    .modal-dialog {
-        margin: 0.5rem;
+.auth-image-container {
+    animation: colorTransition 10s ease-in-out infinite;
+}
+
+@keyframes colorTransition {
+    0% { background-color: var(--primary-color); }
+    33% { background-color: #800000; }
+    66% { background-color:#616161; }
+    100% { background-color: var(--primary-color); }
+}
+
+@keyframes gradientPulse {
+    0%, 100% {
+        opacity: 0.4;
     }
-    
-    .modal-body {
-        padding: 1.25rem 1rem;
-    }
-    
-    .success-icon-container {
-        width: 70px;
-        height: 70px;
-    }
-    
-    .success-icon-container i {
-        font-size: 35px;
+    50% {
+        opacity: 0.2;
     }
 }

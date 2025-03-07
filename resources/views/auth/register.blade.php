@@ -2,9 +2,7 @@
     @csrf
 
     <div id="section1" class="position-relative pb-5">
-        <!-- Rejilla de 2 columnas para primera sección -->
         <div class="row">
-            <!-- Fila 1: Nombre y Primer Apellido -->
             <div class="col-md-6">
                 <div class="floating-input">
                     <label for="name" class="form-label">Nombre(s) *</label>
@@ -36,7 +34,6 @@
             </div>
         </div>
 
-        <!-- Fila 2: Segundo Apellido y Correo Electrónico -->
         <div class="row mt-2">
             <div class="col-md-6">
                 <div class="floating-input">
@@ -69,7 +66,6 @@
             </div>
         </div>
 
-        <!-- Fila 3: Confirmar Correo Electrónico -->
         <div class="row mt-2">
             <div class="col-md-12">
                 <div class="floating-input">
@@ -98,9 +94,7 @@
     </div>
 
     <div id="section2" class="position-relative pb-5" style="display: none;">
-        <!-- Rejilla de 2 columnas para segunda sección -->
         <div class="row">
-            <!-- Fila 4: Tipo de Persona y Razón Social -->
             <div class="col-md-6">
                 <div class="floating-input">
                     <label for="tipo_persona" class="form-label">Tipo de Persona *</label>
@@ -136,7 +130,6 @@
             </div>
         </div>
 
-        <!-- Fila 5: RFC -->
         <div class="row mt-2">
             <div class="col-md-6">
                 <div class="floating-input">
@@ -156,12 +149,8 @@
 
         <div class="d-flex justify-content-between mt-3">
             <button type="button" class="btn btn-secondary back-button" onclick="prevSection()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left me-2" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                </svg>
                 Regresar
             </button>
-
             <button type="submit" class="btn btn-primary submit-button">
                 Registrarse
             </button>

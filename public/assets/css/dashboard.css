@@ -712,6 +712,8 @@ footer {
     background: #888;
 }
 
+
+
 /* Diseño responsivo */
 @media (max-width: 1199px) {
     .sidebar {
@@ -801,3 +803,4 @@ footer {
 .animation-delay-2 { animation-delay: 0.2s; }
 .animation-delay-3 { animation-delay: 0.3s; }
 .animation-delay-4 { animation-delay: 0.4s; }
+

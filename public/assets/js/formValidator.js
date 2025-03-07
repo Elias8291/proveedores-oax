@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
-    const inputs = document.querySelectorAll('input, select');
+    const inputs = document.querySelectorAll('#section-1 input, #section-1 select, #section-2 input, #section-2 select,#section-3 input, #section-3 select');
 
     const expresiones = {
         letrasYEspacios: /^[a-zA-ZÀ-ÿ\s]{1,50}$/,
@@ -143,26 +143,54 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const restringirCaracteres = (e) => {
+        const { name, value } = e.target;
+        let regex;
+
+        switch (name) {
+            case 'contacto_nombre':
+            case 'contacto_cargo':
+            case 'nombre_notario':
+            case 'entidad_federativa':
+            case 'estado':
+            case 'municipio':
+            case 'colonia':
+                regex = /[^a-zA-ZÀ-ÿ\s]/g;
+                break;
+            case 'curp':
+                regex = /[^A-Z0-9]/g;
+                break;
+            case 'contacto_telefono':
+            case 'codigo_postal':
+            case 'numero_notario_2':
+            case 'numero_registro':
+                regex = /[^0-9]/g;
+                break;
+            case 'contacto_correo':
+                regex = /[^a-zA-Z0-9_.+-@]/g;
+                break;
+            case 'contacto_web':
+                regex = /[^a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]/g;
+                break;
+            default:
+                return;
+        }
+
+        if (regex) {
+            e.target.value = value.replace(regex, '');
+        }
+    };
+
     inputs.forEach(input => {
         input.addEventListener('keyup', validarFormulario);
         input.addEventListener('blur', validarFormulario);
+        input.addEventListener('input', restringirCaracteres);
         if (input.tagName === 'SELECT') {
             input.addEventListener('change', validarFormulario);
         }
     });
 
-    if (form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            inputs.forEach(input => validarFormulario({ target: input }));
-
-            if (Object.values(campos).every(valido => valido)) {
-                form.submit();
-            } else {
-                alert('Por favor, completa todos los campos correctamente.');
-            }
-        });
-    }
+  
 
     const style = document.createElement('style');
     style.textContent = `

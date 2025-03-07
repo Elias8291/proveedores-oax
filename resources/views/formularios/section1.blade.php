@@ -70,3 +70,5 @@
         </div>
     </div>
 </div>
+
+<script src="{{ asset('assets/js/formValidator.js') }}"></script>

@@ -8,8 +8,9 @@ use App\Http\Controllers\EconomicActivityController;
 use App\Http\Controllers\SettlementController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return auth()->check() ? redirect()->route('dashboard') : view('welcome');
 })->name('welcome');
+
 
 Route::get('/formulario1', [EconomicActivityController::class, 'showForm'])->name('formulario1');
 

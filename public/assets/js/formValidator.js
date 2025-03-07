@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
-    const inputs = document.querySelectorAll('#section-1 input, #section-1 select, #section-2 input, #section-2 select,#section-3 input, #section-3 select');
+    const inputs = document.querySelectorAll('#section-1 input, #section-1 select, #section-2 input, #section-2 select, #section-3 input, #section-3 select');
 
     const expresiones = {
         letrasYEspacios: /^[a-zA-ZÀ-ÿ\s]{1,50}$/,
@@ -181,16 +181,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const convertirAMayusculas = (e) => {
+        e.target.value = e.target.value.toUpperCase();
+    };
+
     inputs.forEach(input => {
         input.addEventListener('keyup', validarFormulario);
         input.addEventListener('blur', validarFormulario);
         input.addEventListener('input', restringirCaracteres);
+        input.addEventListener('input', convertirAMayusculas);
         if (input.tagName === 'SELECT') {
             input.addEventListener('change', validarFormulario);
         }
     });
-
-  
 
     const style = document.createElement('style');
     style.textContent = `

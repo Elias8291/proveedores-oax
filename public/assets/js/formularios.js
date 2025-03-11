@@ -1,383 +1,236 @@
-    let map;
-    let marker;
-    let geocoder;
 
-    function initMap() {
-        const defaultCenter = { lat: 19.4326, lng: -99.1332 };
-        
-        map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 15,
-            center: defaultCenter,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-        
-        geocoder = new google.maps.Geocoder();
-        
-        marker = new google.maps.Marker({
-            position: defaultCenter,
-            map: map,
-            draggable: true
-        });
-        
-        google.maps.event.addListener(marker, 'dragend', function() {
-            const position = marker.getPosition();
-            map.setCenter(position);
-            reverseGeocode(position);
-        });
-        
-        google.maps.event.addListener(map, 'click', function(event) {
-            placeMarker(event.latLng);
-            reverseGeocode(event.latLng);
-        });
+
+$(document).ready(function () {
+    let currentSection = 1;
+    let selectedActivities = [];
+
+    // Actualiza la barra de progreso
+    function updateProgressBar(section) {
+        $('.progress-step').removeClass('active');
+        $(`.progress-step:nth-child(${section})`).addClass('active');
     }
 
-    function placeMarker(location) {
-        if (marker) {
-            marker.setPosition(location);
+    function navigateToSection(section) {
+        $('#section-1').toggle(section === 1);
+        $('#section-2').toggle(section === 2);
+        $('#section-3').toggle(section === 3);
+        $('#section-4').toggle(section === 4);
+        
+        $('.btn-prev').toggle(section !== 1);
+        $('.btn-next').toggle(section !== 4);
+        $('.btn-submit').toggle(section === 4);
+        
+        // Redimensiona el mapa si está en la sección 2 o 3
+        if (window.map && (section === 2 || section === 3)) {
+            google.maps.event.trigger(window.map, 'resize');
+        }
+    }
+    
+    // Botón "Siguiente"
+    $('.btn-next').click(function () {
+        if (currentSection === 1) {
+            currentSection = 2;
+            updateProgressBar(2);
+            navigateToSection(2);
+        } else if (currentSection === 2) {
+            currentSection = 3;
+            updateProgressBar(3);
+            navigateToSection(3);
+        } else if (currentSection === 3) {
+            currentSection = 4;
+            updateProgressBar(4);
+            navigateToSection(4);
+        }
+    });
+    
+    // Botón "Anterior"
+    $('.btn-prev').click(function () {
+        if (currentSection === 2) {
+            currentSection = 1;
+            updateProgressBar(1);
+            navigateToSection(1);
+        } else if (currentSection === 3) {
+            currentSection = 2;
+            updateProgressBar(2);
+            navigateToSection(2);
+        } else if (currentSection === 4) {
+            currentSection = 3;
+            updateProgressBar(3);
+            navigateToSection(3);
+        }
+    });
+    // Carga actividades comerciales según el sector seleccionado
+    $('#sector').change(function () {
+        const sectorId = $(this).val();
+        $('#actividad_comercial').html('<option value="">Seleccione una actividad</option>');
+
+        if (sectorId) {
+            $.get('/economic-activities/' + sectorId, function (data) {
+                data.forEach(activity => {
+                    $('#actividad_comercial').append(`<option value="${activity.id}">${activity.name}</option>`);
+                });
+            });
+        }
+    });
+
+    // Evita el envío del formulario al presionar "Enter"
+    $('form').on('keydown', function (event) {
+        if (event.key === 'Enter' && !$(event.target).is('textarea')) {
+            event.preventDefault();
+            return false;
+        }
+    });
+
+    // Maneja el envío del formulario
+    $('form').submit(function () {
+        const entreCalle1 = $('#entre_calle_1').val();
+        const entreCalle2 = $('#entre_calle_2').val();
+
+        if ($('input[name="entre_calle_1"]').length === 0) {
+            $(this).append(`<input type="hidden" name="entre_calle_1" value="${entreCalle1}">`);
         } else {
-            marker = new google.maps.Marker({
-                position: location,
-                map: map,
-                draggable: true
-            });
-        }
-    }
-
-    function reverseGeocode(latlng) {
-        geocoder.geocode({ 'location': latlng }, function(results, status) {
-            if (status === 'OK') {
-                if (results[0]) {
-                    updateAddressFields(results[0]);
-                } else {
-                    console.log('No results found');
-                }
-            } else {
-                console.log('Geocoder failed due to: ' + status);
-            }
-        });
-    }
-
-    function updateAddressFields(result) {
-        const components = result.address_components;
-        let streetNumber = '';
-        let street = '';
-        let settlement = '';
-        let municipality = '';
-        let state = '';
-        let postalCode = '';
-        
-        for (let i = 0; i < components.length; i++) {
-            const component = components[i];
-            const types = component.types;
-            
-            if (types.includes('street_number')) {
-                streetNumber = component.long_name;
-            } else if (types.includes('route')) {
-                street = component.long_name;
-            } else if (types.includes('sublocality_level_1') || types.includes('locality')) {
-                settlement = component.long_name;
-            } else if (types.includes('administrative_area_level_2')) {
-                municipality = component.long_name;
-            } else if (types.includes('administrative_area_level_1')) {
-                state = component.long_name;
-            } else if (types.includes('postal_code')) {
-                postalCode = component.long_name;
-            }
-        }
-        
-        $('#codigo_postal').val(postalCode);
-        $('#estado').val(state);
-        $('#municipio').val(municipality);
-        
-        if (settlement) {
-            let found = false;
-            $('#colonia option').each(function() {
-                if ($(this).text().includes(settlement)) {
-                    $(this).prop('selected', true);
-                    found = true;
-                    return false;
-                }
-            });
-            
-            if (!found && postalCode.length === 5) {
-                $('#codigo_postal').trigger('input');
-            }
-        }
-        
-        $('#calle').val(street);
-        $('#numero').val(streetNumber);
-    }
-
-    function searchAddress() {
-        const postalCode = $('#codigo_postal').val();
-        const state = $('#estado').val();
-        const municipality = $('#municipio').val();
-        const settlement = $('#colonia option:selected').text();
-        const street = $('#calle').val();
-        const streetNumber = $('#numero').val();
-        
-        let address = '';
-        if (street) address += street + ' ';
-        if (streetNumber) address += streetNumber + ', ';
-        if (settlement) address += settlement + ', ';
-        if (municipality) address += municipality + ', ';
-        if (state) address += state + ', ';
-        if (postalCode) address += postalCode + ', ';
-        address += 'México';
-        
-        geocoder.geocode({ 'address': address }, function(results, status) {
-            if (status === 'OK') {
-                map.setCenter(results[0].geometry.location);
-                placeMarker(results[0].geometry.location);
-            } else {
-                console.log('Geocode was not successful for the following reason: ' + status);
-            }
-        });
-    }
-
-    $(document).ready(function () {
-        window.initMap = initMap;
-        
-        let currentSection = 1;
-        
-        // Actualizar la barra de progreso
-        function updateProgressBar(section) {
-            $('.progress-step').removeClass('active');
-            $(`.progress-step:nth-child(${section})`).addClass('active');
+            $('input[name="entre_calle_1"]').val(entreCalle1);
         }
 
-        $('.btn-next').click(function () {
-            if (currentSection === 1) {
-                $('#section-1').hide();
-                $('#section-2').show();
-                $('.btn-prev').show();
-                $('.btn-next').show();
-                $('.btn-submit').hide();
-                currentSection = 2;
-                updateProgressBar(2);
-                
-                if (map) {
-                    google.maps.event.trigger(map, 'resize');
-                }
-            } else if (currentSection === 2) {
-                $('#section-2').hide();
-                $('#section-3').show();
-                $('.btn-prev').show();
-                $('.btn-next').hide();
-                $('.btn-submit').show();
-                currentSection = 3;
-                updateProgressBar(3);
-            }
-        });
+        if ($('input[name="entre_calle_2"]').length === 0) {
+            $(this).append(`<input type="hidden" name="entre_calle_2" value="${entreCalle2}">`);
+        } else {
+            $('input[name="entre_calle_2"]').val(entreCalle2);
+        }
+    });
 
-        $('.btn-prev').click(function () {
-            if (currentSection === 2) {
-                $('#section-2').hide();
-                $('#section-1').show();
-                $('.btn-prev').hide();
-                $('.btn-next').show();
-                $('.btn-submit').hide();
-                currentSection = 1;
-                updateProgressBar(1);
-            } else if (currentSection === 3) {
-                $('#section-3').hide();
-                $('#section-2').show();
-                $('.btn-prev').show();
-                $('.btn-next').show();
-                $('.btn-submit').hide();
-                currentSection = 2;
-                updateProgressBar(2);
-                
-                if (map) {
-                    google.maps.event.trigger(map, 'resize');
-                }
-            }
-        });
+    // Carga actividades comerciales dinámicamente
+    $('#sector').change(function () {
+        const sectorId = $(this).val();
+        selectedActivities = [];
+        updateSelectedActivities();
 
-        $('#sector').change(function () {
-            var sectorId = $(this).val();
-
-            $('#actividad_comercial').html('<option value="">Seleccione una actividad</option>');
-
-            if (sectorId) {
-                $.get('/economic-activities/' + sectorId, function (data) {
-                    $.each(data, function (index, activity) {
-                        $('#actividad_comercial').append('<option value="' + activity.id + '">' + activity.name + '</option>');
+        if (sectorId) {
+            $.ajax({
+                url: `/api/actividades/${sectorId}`,
+                type: 'GET',
+                success: function (data) {
+                    let options = '<option value="">Seleccione una actividad</option>';
+                    data.forEach(activity => {
+                        options += `<option value="${activity.id}" data-nombre="${activity.name}">${activity.name}</option>`;
                     });
-                });
-            }
-        });
+                    $('#actividad_comercial').html(options);
+                }
+            });
+        }
+    });
 
-        $('form').on('keydown', function (event) {
-            if (event.key === 'Enter' && !$(event.target).is('textarea')) {
-                event.preventDefault();
-                return false;
-            }
-        });
+    // Agrega actividades seleccionadas
+    $('#actividad_comercial').change(function () {
+        const activityId = $(this).val();
+        const activityName = $(this).find('option:selected').text();
 
-        $('#search-map-button').click(function(e) {
-            e.preventDefault();
-            searchAddress();
-        });
-        
-        $('#codigo_postal').on('input', function() {
-            var zipCode = $(this).val();
-            
-            $('#estado').val('');
-            $('#municipio').val('');
-            $('#colonia').html('<option value="">Seleccione un Asentamiento</option>');
-            
-            if (zipCode.length === 5) {
-                $.ajax({
-                    url: '/settlements-by-zipcode',
-                    method: 'GET',
-                    data: {
-                        zip_code: zipCode
-                    },
-                    success: function(data) {
-                        console.log('Datos recibidos:', data);
-                        if (data.length > 0) {
-                            var firstSettlement = data[0];
-                            
-                            $('#estado').val(firstSettlement.state);
-                            $('#municipio').val(firstSettlement.municipality);
-                            
-                            var coloniaSelect = $('#colonia');
-                            coloniaSelect.empty();
-                            
-                            if (data.length === 1) {
-                                coloniaSelect.append(
-                                    $('<option>', {
-                                        value: firstSettlement.settlement_type + ' ' + firstSettlement.settlement_name,
-                                        text: firstSettlement.settlement_type + ' ' + firstSettlement.settlement_name,
-                                        selected: true
-                                    })
-                                );
-                            } else {
-                                coloniaSelect.append(
-                                    $('<option>', {
-                                        value: firstSettlement.settlement_type + ' ' + firstSettlement.settlement_name,
-                                        text: firstSettlement.settlement_type + ' ' + firstSettlement.settlement_name,
-                                        selected: true
-                                    })
-                                );
-                                
-                                for (var i = 1; i < data.length; i++) {
-                                    var settlement = data[i];
-                                    coloniaSelect.append(
-                                        $('<option>', {
-                                            value: settlement.settlement_type + ' ' + settlement.settlement_name,
-                                            text: settlement.settlement_type + ' ' + settlement.settlement_name
-                                        })
-                                    );
-                                }
-                            }
-                            
-                            searchAddress();
-                        } else {
-                            console.log('No se encontraron resultados para este código postal');
-                            alert('No se encontraron resultados para este código postal');
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error en la solicitud AJAX:', status, error, xhr.responseText);
-                        alert('Error al buscar información: ' + error + '\nPor favor, revise la consola para más detalles');
-                    }
-                });
+        if (activityId && activityName && activityName !== 'Seleccione una actividad') {
+            if (!selectedActivities.some(act => act.id === activityId)) {
+                selectedActivities.push({ id: activityId, nombre: activityName });
+                updateSelectedActivities();
+                $(this).val('');
             }
-        });
-        
-        $('#calle, #numero').on('change', function() {
-            if ($('#codigo_postal').val().length === 5) {
-                searchAddress();
-            }
-        });
-        
-        $('#colonia').on('change', function() {
-            if ($('#codigo_postal').val().length === 5 && $('#calle').val()) {
-                searchAddress();
-            }
-        });
-        
-        // Manejo de archivos para la sección 3
-        $('.custom-file-input').on('change', function() {
-            var fileName = $(this).val().split('\\').pop();
-            $(this).next('.custom-file-label').html(fileName);
-        });
-        
-        $(document).ready(function() {
-            let actividadesSeleccionadas = [];
-    
-            $('#sector').change(function() {
-                const sectorId = $(this).val();
-                actividadesSeleccionadas = [];
-                actualizarActividadesMostradas();
-    
-                if (sectorId) {
-                    $.ajax({
-                        url: `/api/actividades/${sectorId}`,
-                        type: 'GET',
-                        success: function(data) {
-                            let options = '<option value="">Seleccione una actividad</option>';
-                            data.forEach(function(actividad) {
-                                options += `<option value="${actividad.id}" data-nombre="${actividad.name}">${actividad.name}</option>`;
-                            });
-                            $('#actividad_comercial').html(options);
-                        }
-                    });
-                } else {
-                    $('#actividad_comercial').html('<option value="">Seleccione una actividad</option>');
-                }
+        }
+    });
+
+    // Actualiza la lista de actividades seleccionadas
+    function updateSelectedActivities() {
+        const container = $('#actividades_seleccionadas');
+        container.empty();
+
+        if (selectedActivities.length === 0) {
+            container.html('<div class="empty-message">No hay actividades seleccionadas</div>');
+        } else {
+            selectedActivities.forEach(activity => {
+                container.append(`
+                    <div class="actividad-item" data-id="${activity.id}">
+                        <span class="actividad-nombre">${activity.nombre}</span>
+                        <span class="eliminar"><i class="fas fa-times"></i></span>
+                    </div>
+                `);
             });
-    
-            $('#actividad_comercial').change(function() {
-                const actividadId = $(this).val();
-                const actividadNombre = $(this).find('option:selected').text();
-    
-                if (actividadId && actividadNombre && actividadNombre !== 'Seleccione una actividad') {
-                    if (!actividadesSeleccionadas.some(act => act.id === actividadId)) {
-                        actividadesSeleccionadas.push({ id: actividadId, nombre: actividadNombre });
-                        actualizarActividadesMostradas();
-                        $(this).val('');
-                    }
-                }
-            });
-    
-            function actualizarActividadesMostradas() {
-                const container = $('#actividades_seleccionadas');
-                container.empty();
-    
-                if (actividadesSeleccionadas.length === 0) {
-                    container.html('<div class="empty-message">No hay actividades seleccionadas</div>');
-                } else {
-                    actividadesSeleccionadas.forEach(function(actividad) {
-                        container.append(`
-                            <div class="actividad-item" data-id="${actividad.id}">
-                                <span class="actividad-nombre">${actividad.nombre}</span>
-                                <span class="eliminar"><i class="fas fa-times"></i></span>
-                            </div>
-                        `);
-                    });
-                }
-    
-                $('#actividades_comerciales_input').val(JSON.stringify(actividadesSeleccionadas.map(act => act.id)));
-            }
-    
-            $(document).on('click', '.actividad-item .eliminar', function(e) {
-                e.stopPropagation();
-                const item = $(this).closest('.actividad-item');
-                const actividadId = item.data('id');
-                const idToRemove = typeof actividadId === 'string' ? parseInt(actividadId, 10) : actividadId;
-    
-                item.addClass('removing');
-                actividadesSeleccionadas = actividadesSeleccionadas.filter(act => act.id !== idToRemove && act.id !== actividadId.toString());
-                $('#actividades_comerciales_input').val(JSON.stringify(actividadesSeleccionadas.map(act => act.id)));
-    
-                setTimeout(function() {
-                    actualizarActividadesMostradas();
-                }, 280);
-            });
-    
-            actualizarActividadesMostradas();
+        }
+
+        $('#actividades_comerciales_input').val(JSON.stringify(selectedActivities.map(act => act.id)));
+    }
+
+    // Elimina una actividad seleccionada
+    $(document).on('click', '.actividad-item .eliminar', function (e) {
+        e.stopPropagation();
+        const item = $(this).closest('.actividad-item');
+        const activityId = item.data('id');
+        const idToRemove = typeof activityId === 'string' ? parseInt(activityId, 10) : activityId;
+
+        item.addClass('removing');
+        selectedActivities = selectedActivities.filter(act => act.id !== idToRemove && act.id !== activityId.toString());
+        $('#actividades_comerciales_input').val(JSON.stringify(selectedActivities.map(act => act.id)));
+
+        setTimeout(() => {
+            updateSelectedActivities();
+        }, 280);
+    });
+
+    // Inicializa la lista de actividades seleccionadas
+    $(document).ready(function() {
+        navigateToSection(currentSection);
+        
+        // Inicializar contador de socios
+        window.socioCounter = 0;
+        
+        // Agregar socio al hacer clic en el botón
+        $('#agregar-socio').click(function() {
+            agregarFilaSocio();
+        });
+        
+        // Delegación de eventos para eliminar socios
+        $('#tabla-socios').on('click', '.eliminar-socio', function() {
+            $(this).closest('tr').remove();
         });
     });
+    function agregarFilaSocio() {
+        window.socioCounter++;
+        const newRow = `
+            <tr id="socio-row-${window.socioCounter}">
+                <td>
+                    <input type="text" name="socios[${window.socioCounter}][apellido_paterno]" class="form-control" placeholder="Apellido paterno" required>
+                </td>
+                <td>
+                    <input type="text" name="socios[${window.socioCounter}][apellido_materno]" class="form-control" placeholder="Apellido materno">
+                </td>
+                <td>
+                    <input type="text" name="socios[${window.socioCounter}][nombres]" class="form-control" placeholder="Nombre(s)" required>
+                </td>
+                <td>
+                    <div class="input-group">
+                        <input type="number" name="socios[${window.socioCounter}][porcentaje]" class="form-control" placeholder="0.00" min="0" max="100" step="0.01" required>
+                        <div class="input-group-append">
+                            <span class="input-group-text">%</span>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger eliminar-socio">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+        $('#tabla-socios tbody').append(newRow);
+    }
+    
+    // Carga actividades comerciales según el sector seleccionado
+    $('#sector').change(function () {
+        const sectorId = $(this).val();
+        $('#actividad_comercial').html('<option value="">Seleccione una actividad</option>');
+        
+        if (sectorId) {
+            $.get('/economic-activities/' + sectorId, function (data) {
+                data.forEach(activity => {
+                    $('#actividad_comercial').append(`<option value="${activity.id}">${activity.name}</option>`);
+                });
+            });
+        }
+    });
+    updateSelectedActivities();
+});

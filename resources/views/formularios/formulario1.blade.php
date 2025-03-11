@@ -7,7 +7,7 @@
                 <h1 class="form-title">Registro de Trámites</h1>
                 <p class="form-subtitle">Complete el formulario con la información solicitada para procesar su trámite de manera eficiente</p>
             </div>
-
+            
             <!-- Barra de Progreso -->
             <div class="progress-tracker">
                 <div class="progress-step active">
@@ -31,18 +31,24 @@
                     </div>
                     <div class="step-label">Datos de Constitución</div>
                 </div>
+                <div class="progress-step">
+                    <div class="step-indicator">
+                        <span class="step-number">4</span>
+                        <i class="step-icon fas fa-users"></i>
+                    </div>
+                    <div class="step-label">Socios o Accionistas</div>
+                </div>
             </div>
-
+            
             <!-- Contenido del Formulario -->
             <div class="form-content">
                 <form action="#" method="POST">
                     @csrf
-
-                    @include('formularios.section1') <!-- Sección 1 -->
-                    @include('formularios.section2') <!-- Sección 2 -->
-                    @include('formularios.section3') <!-- Sección 3 -->
-
-                    <!-- Navegación del Formulario -->
+                    @include('formularios.section1') 
+                    @include('formularios.section2') 
+                    @include('formularios.section3')
+                    @include('formularios.section4')
+                    
                     <div class="form-navigation">
                         <button type="button" class="btn-prev btn-primary" style="display: none;">Anterior</button>
                         <button type="button" class="btn-next btn-primary">Siguiente</button>

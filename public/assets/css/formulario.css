@@ -4,9 +4,9 @@
   --primary-darker: #550101;
   --primary-light: #9b9797;
   --primary-color-rgb: 122, 28, 28;
-  --secondary-color: #1B396A;
+  --secondary-color: #1b396a;
   --secondary-light: #2a4d85;
-  --accent-color: #C09F77;
+  --accent-color: #c09f77;
   --accent-hover: #b08e66;
   --neutral-light: #f8f9fa;
   --neutral-mid: #e9ecef;
@@ -14,7 +14,8 @@
   --text-color: #333333;
   --text-muted: #6c757d;
   --text-white: #ffffff;
-  --success-color: #B38E5D;
+
+  --success-color: #b38e5d;
   --border-radius: 4px;
   --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   --transition: all 0.3s ease;
@@ -27,13 +28,20 @@
 }
 
 body {
-  font-family: 'Montserrat', 'Segoe UI', sans-serif;
+  font-family: "Montserrat", "Segoe UI", sans-serif;
   line-height: 1.7;
   color: var(--text-color);
   background-color: #f7f7f7;
-  background-image: 
-    linear-gradient(135deg, rgba(157, 36, 73, 0.02) 0%, rgba(157, 36, 73, 0) 50%),
-    linear-gradient(45deg, rgba(157, 36, 73, 0) 50%, rgba(157, 36, 73, 0.02) 100%);
+  background-image: linear-gradient(
+          135deg,
+          rgba(157, 36, 73, 0.02) 0%,
+          rgba(157, 36, 73, 0) 50%
+      ),
+      linear-gradient(
+          45deg,
+          rgba(157, 36, 73, 0) 50%,
+          rgba(157, 36, 73, 0.02) 100%
+      );
   background-attachment: fixed;
   padding: 20px;
 }
@@ -70,7 +78,11 @@ body {
 
 /* Header Section */
 .form-header {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  background: linear-gradient(
+      135deg,
+      var(--primary-color),
+      var(--primary-dark)
+  );
   padding: 20px;
   text-align: center;
   position: relative;
@@ -85,7 +97,11 @@ body {
   right: -40%;
   width: 80%;
   height: 180%;
-  background: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+  background: radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0) 70%
+  );
   transform: rotate(-30deg);
   z-index: 1;
 }
@@ -280,7 +296,11 @@ body {
   left: 0;
   width: 100%;
   height: 4px;
-  background: linear-gradient(to right, var(--primary-color), var(--primary-light));
+  background: linear-gradient(
+      to right,
+      var(--primary-color),
+      var(--primary-light)
+  );
   border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
@@ -353,7 +373,7 @@ body {
   border-radius: var(--border-radius);
   transition: var(--transition);
   background-color: #f9fafb;
-  font-family: 'Montserrat', 'Segoe UI', sans-serif;
+  font-family: "Montserrat", "Segoe UI", sans-serif;
 }
 
 .form-control:focus {
@@ -373,7 +393,19 @@ body {
   margin-top: 20px;
 }
 
-.btn-next {
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: transparent;
+  border-top: 1px solid var(--neutral-mid);
+  margin-top: 20px;
+}
+
+.btn-prev,
+.btn-next,
+.btn-submit {
   background-color: transparent;
   color: var(--primary-color);
   border: 2px solid var(--primary-color);
@@ -389,32 +421,46 @@ body {
   letter-spacing: 0.5px;
 }
 
-.btn-next:hover {
+.btn-prev:hover,
+.btn-next:hover,
+.btn-submit:hover {
   background-color: var(--primary-color);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(157, 36, 73, 0.25);
 }
 
-.btn-next:focus {
+.btn-prev:focus,
+.btn-next:focus,
+.btn-submit:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(157, 36, 73, 0.3);
 }
 
+.btn-submit {
+  display: none;
+}
 
+.btn-next {
+  margin-left: auto;
+}
+
+.btn-prev {
+  display: none;
+  margin-right: auto;
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {
   .two-column-layout {
-    flex-direction: column;
+      flex-direction: column;
   }
-  
+
   .form-column {
-    width: 100%;
+      width: 100%;
   }
 }
 
-/* Estilo para el título de la subsección */
 .subsection-title {
   font-size: 1rem;
   font-weight: 700;
@@ -452,7 +498,6 @@ body {
   margin-bottom: 20px;
 }
 
-/* Ajustes para los grupos de formulario dentro de la subsección */
 .subsection-container .form-group {
   margin-bottom: 10px;
 }
@@ -471,7 +516,6 @@ body {
   padding: 8px 12px;
   font-size: 0.9rem;
 }
-
 
 .actividades-contenedor {
   margin-top: 15px;
@@ -565,12 +609,24 @@ body {
   background: #4c94eb;
 }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+      opacity: 0;
+      transform: translateY(5px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
 }
 @keyframes fadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(5px); }
+  from {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  to {
+      opacity: 0;
+      transform: translateY(5px);
+  }
 }
 .actividad-item {
   animation: fadeIn 0.3s ease-out;
@@ -578,4 +634,17 @@ body {
 .actividad-item.removing {
   animation: fadeOut 0.3s ease-out;
   pointer-events: none;
+}
+
+.formulario__input-error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+  display: none;
+}
+.is-invalid {
+  border-color: red !important;
+}
+.is-valid {
+  border-color: green !important;
 }

@@ -18,6 +18,8 @@
    
 
     <script src="{{ asset('assets/js/formularios.js') }}"></script>
+    <script src="{{ asset('assets/js/maps.js') }}"></script>
+    <script src="{{ asset('assets/js/letters.js') }}"></script>
 </head>
 <body>
     @include('layouts.header')

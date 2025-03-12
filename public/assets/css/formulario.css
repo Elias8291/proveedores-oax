@@ -763,7 +763,6 @@ body {
 #section-4 .table-bordered thead td {
   border-bottom-width: 2px;
 }
-
 /* Estilos para el campo de porcentaje */
 #section-4 .porcentaje-input {
   width: 80px; /* Ancho reducido para el campo de porcentaje */
@@ -777,39 +776,20 @@ body {
   color: var(--text-muted);
 }
 
-/* Estilos para el botón "Agregar Socio" */
-#section-4 .btn-gris {
-  background-color: #6c757d; /* Color gris */
+/* Estilos para el botón de eliminar */
+#section-4 .btn-danger {
+  background-color: #dc3545; /* Color rojo */
   color: white; /* Texto blanco */
   border: none;
-  padding: 10px 20px;
+  padding: 5px 10px;
   font-size: 0.9rem;
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: var(--transition);
 }
 
-#section-4 .btn-gris:hover {
-  background-color: #5a6268; /* Gris más oscuro al pasar el mouse */
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-}
-
-/* Estilos para el botón "Agregar Socio" */
-#section-4 .btn-secondary {
-  background-color: var(--neutral-mid); /* Cambia el color a gris */
-  color: var(--text-color); /* Texto oscuro para contrastar */
-  border: none;
-  padding: 10px 20px;
-  font-size: 0.9rem;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-#section-4 .btn-secondary:hover {
-  background-color: var(--neutral-dark); /* Gris más oscuro al pasar el mouse */
-  color: white; /* Texto blanco para contrastar */
+#section-4 .btn-danger:hover {
+  background-color: #c82333; /* Rojo más oscuro al pasar el mouse */
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }

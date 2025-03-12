@@ -18,11 +18,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Ejemplo de fila de socio -->
+                            <!-- Fila de ejemplo (este es el formato que se replicará) -->
                             <tr>
-                                <td><input type="text" class="form-control" placeholder="Apellido Paterno"></td>
-                                <td><input type="text" class="form-control" placeholder="Apellido Materno"></td>
-                                <td><input type="text" class="form-control" placeholder="Nombre(s)"></td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Apellido Paterno">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Apellido Materno">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Nombre(s)">
+                                </td>
                                 <td>
                                     <div style="display: flex; align-items: center;">
                                         <input type="text" class="form-control porcentaje-input" placeholder="Ej: 50" style="flex: 1; margin-right: 8px;">

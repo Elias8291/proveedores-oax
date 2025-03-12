@@ -4,61 +4,81 @@ $(document).ready(function () {
     let currentSection = 1;
     let selectedActivities = [];
 
-    // Actualiza la barra de progreso
-    function updateProgressBar(section) {
-        $('.progress-step').removeClass('active');
-        $(`.progress-step:nth-child(${section})`).addClass('active');
-    }
+// Actualiza la barra de progreso
+function updateProgressBar(section) {
+    $('.progress-step').removeClass('active');
+    $(`.progress-step:nth-child(${section})`).addClass('active');
+}
 
-    function navigateToSection(section) {
-        $('#section-1').toggle(section === 1);
-        $('#section-2').toggle(section === 2);
-        $('#section-3').toggle(section === 3);
-        $('#section-4').toggle(section === 4);
-        
-        $('.btn-prev').toggle(section !== 1);
-        $('.btn-next').toggle(section !== 4);
-        $('.btn-submit').toggle(section === 4);
-        
-        // Redimensiona el mapa si está en la sección 2 o 3
-        if (window.map && (section === 2 || section === 3)) {
-            google.maps.event.trigger(window.map, 'resize');
-        }
+function navigateToSection(section) {
+    // Oculta o muestra las secciones según el número de sección
+    $('#section-1').toggle(section === 1);
+    $('#section-2').toggle(section === 2);
+    $('#section-3').toggle(section === 3);
+    $('#section-4').toggle(section === 4);
+    $('#section-5').toggle(section === 5);
+    $('#section-6').toggle(section === 6); // Nueva sección 6
+
+    // Muestra u oculta los botones de navegación
+    $('.btn-prev').toggle(section !== 1); // Mostrar "Anterior" si no es la sección 1
+    $('.btn-next').toggle(section !== 6); // Mostrar "Siguiente" si no es la sección 6
+    $('.btn-submit').toggle(section === 6); // Mostrar "Enviar" solo en la sección 6
+
+    // Redimensiona el mapa si está en la sección 2 o 3
+    if (window.map && (section === 2 || section === 3)) {
+        google.maps.event.trigger(window.map, 'resize');
     }
-    
-    // Botón "Siguiente"
-    $('.btn-next').click(function () {
-        if (currentSection === 1) {
-            currentSection = 2;
-            updateProgressBar(2);
-            navigateToSection(2);
-        } else if (currentSection === 2) {
-            currentSection = 3;
-            updateProgressBar(3);
-            navigateToSection(3);
-        } else if (currentSection === 3) {
-            currentSection = 4;
-            updateProgressBar(4);
-            navigateToSection(4);
-        }
-    });
-    
-    // Botón "Anterior"
-    $('.btn-prev').click(function () {
-        if (currentSection === 2) {
-            currentSection = 1;
-            updateProgressBar(1);
-            navigateToSection(1);
-        } else if (currentSection === 3) {
-            currentSection = 2;
-            updateProgressBar(2);
-            navigateToSection(2);
-        } else if (currentSection === 4) {
-            currentSection = 3;
-            updateProgressBar(3);
-            navigateToSection(3);
-        }
-    });
+}
+
+// Botón "Siguiente"
+$('.btn-next').click(function () {
+    if (currentSection === 1) {
+        currentSection = 2;
+        updateProgressBar(2);
+        navigateToSection(2);
+    } else if (currentSection === 2) {
+        currentSection = 3;
+        updateProgressBar(3);
+        navigateToSection(3);
+    } else if (currentSection === 3) {
+        currentSection = 4;
+        updateProgressBar(4);
+        navigateToSection(4);
+    } else if (currentSection === 4) {
+        currentSection = 5;
+        updateProgressBar(5);
+        navigateToSection(5);
+    } else if (currentSection === 5) {
+        currentSection = 6; // Navegar a la sección 6
+        updateProgressBar(6);
+        navigateToSection(6);
+    }
+});
+
+// Botón "Anterior"
+$('.btn-prev').click(function () {
+    if (currentSection === 2) {
+        currentSection = 1;
+        updateProgressBar(1);
+        navigateToSection(1);
+    } else if (currentSection === 3) {
+        currentSection = 2;
+        updateProgressBar(2);
+        navigateToSection(2);
+    } else if (currentSection === 4) {
+        currentSection = 3;
+        updateProgressBar(3);
+        navigateToSection(3);
+    } else if (currentSection === 5) {
+        currentSection = 4;
+        updateProgressBar(4);
+        navigateToSection(4);
+    } else if (currentSection === 6) {
+        currentSection = 5; // Regresar a la sección 5
+        updateProgressBar(5);
+        navigateToSection(5);
+    }
+});
     // Carga actividades comerciales según el sector seleccionado
     $('#sector').change(function () {
         const sectorId = $(this).val();

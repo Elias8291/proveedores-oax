@@ -4,39 +4,32 @@
         Datos del Apoderado o Representante Legal
     </h2>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
-                <!-- Datos del Apoderado o Representante Legal -->
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <label for="nombre-apoderado">Nombre</label>
-                        <input type="text" class="form-control" id="nombre-apoderado" placeholder="Nombre completo del apoderado o representante legal">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="numero-escritura">Número de Escritura</label>
-                        <input type="text" class="form-control" id="numero-escritura" placeholder="Número de escritura">
-                    </div>
-                </div>
-                <div class="form-row mt-3">
-                    <div class="col-md-6">
-                        <label for="nombre-notario">Nombre del Notario</label>
-                        <input type="text" class="form-control" id="nombre-notario" placeholder="Nombre del notario">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="numero-notario">Número del Notario</label>
-                        <input type="text" class="form-control" id="numero-notario" placeholder="Número del notario">
-                    </div>
-                </div>
-                <div class="form-row mt-3">
-                    <div class="col-md-6">
-                        <label for="fecha-escritura">Fecha</label>
-                        <input type="date" class="form-control" id="fecha-escritura">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="entidad-federativa">Entidad Federativa</label>
-                        <input type="text" class="form-control" id="entidad-federativa" placeholder="Entidad federativa">
-                    </div>
-                </div>
+                <label class="form-label" for="nombre-apoderado">Nombre</label>
+                <input type="text" id="nombre-apoderado" name="nombre-apoderado" class="form-control" placeholder="Nombre completo del apoderado o representante legal">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="numero-escritura">Número de Escritura</label>
+                <input type="text" id="numero-escritura" name="numero-escritura" class="form-control" placeholder="Número de escritura">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="nombre-notario">Nombre del Notario</label>
+                <input type="text" id="nombre-notario" name="nombre-notario" class="form-control" placeholder="Nombre del notario">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="numero-notario">Número del Notario</label>
+                <input type="text" id="numero-notario" name="numero-notario" class="form-control" placeholder="Número del notario">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label" for="fecha-escritura">Fecha</label>
+                <input type="date" id="fecha-escritura" name="fecha-escritura" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="entidad-federativa">Entidad Federativa</label>
+                <input type="text" id="entidad-federativa" name="entidad-federativa" class="form-control" placeholder="Entidad federativa">
             </div>
         </div>
     </div>
@@ -47,18 +40,16 @@
         Datos de Inscripción en el Registro Público de Comercio o de la Propiedad
     </h2>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="form-group">
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <label for="numero-registro">Número de Registro o Folio Mercantil</label>
-                        <input type="text" class="form-control" id="numero-registro" placeholder="Número de registro o folio mercantil">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="fecha-inscripcion">Fecha de Inscripción</label>
-                        <input type="date" class="form-control" id="fecha-inscripcion">
-                    </div>
-                </div>
+                <label class="form-label" for="numero-registro">Número de Registro o Folio Mercantil</label>
+                <input type="text" id="numero-registro" name="numero-registro" class="form-control" placeholder="Número de registro o folio mercantil">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label class="form-label" for="fecha-inscripcion">Fecha de Inscripción</label>
+                <input type="date" id="fecha-inscripcion" name="fecha-inscripcion" class="form-control">
             </div>
         </div>
     </div>

@@ -45,6 +45,13 @@
                     </div>
                     <div class="step-label">Datos del Apoderado</div>
                 </div>
+                <div class="progress-step">
+                    <div class="step-indicator">
+                        <span class="step-number">6</span>
+                        <i class="step-icon fas fa-file-pdf"></i>
+                    </div>
+                    <div class="step-label">Documentación Requerida</div>
+                </div>
             </div> 
             
             <!-- Contenido del Formulario -->
@@ -56,6 +63,7 @@
                     @include('formularios.section3')
                     @include('formularios.section4')
                     @include('formularios.section5')
+                    @include('formularios.section6')
 
                     <div class="form-navigation">
                         <button type="button" class="btn-prev btn-primary" style="display: none;">Anterior</button>

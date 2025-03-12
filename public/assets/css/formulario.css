@@ -648,3 +648,168 @@ body {
 .is-valid {
   border-color: green !important;
 }
+#section-4 {
+  max-width: 1000px; /* Limita el ancho máximo del contenedor */
+  margin: 0 auto; /* Centra el contenedor en la página */
+  padding: 20px; /* Ajusta el padding para que no ocupe tanto espacio */
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--neutral-mid);
+  transition: var(--transition);
+}
+
+#section-4 .form-section {
+  padding: 15px; /* Reduce el padding interno */
+}
+
+#section-4 .section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--neutral-mid);
+  position: relative;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+}
+
+#section-4 .section-title i {
+  margin-right: 10px;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(157, 36, 73, 0.2);
+}
+
+#section-4 .form-group {
+  margin-bottom: 15px;
+}
+
+#section-4 .form-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 6px;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#section-4 .form-control {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  border: 1px solid var(--neutral-mid);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  background-color: #f9fafb;
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+}
+
+#section-4 .form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(157, 36, 73, 0.1);
+  background-color: white;
+}
+
+#section-4 .table-responsive {
+  overflow-x: auto;
+}
+
+#section-4 .table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  border-collapse: collapse;
+}
+
+#section-4 .table th,
+#section-4 .table td {
+  padding: 12px;
+  vertical-align: top;
+  border-top: 1px solid var(--neutral-mid);
+}
+
+#section-4 .table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid var(--neutral-mid);
+}
+
+#section-4 .table tbody + tbody {
+  border-top: 2px solid var(--neutral-mid);
+}
+
+#section-4 .table-bordered {
+  border: 1px solid var(--neutral-mid);
+}
+
+#section-4 .table-bordered th,
+#section-4 .table-bordered td {
+  border: 1px solid var(--neutral-mid);
+}
+
+#section-4 .table-bordered thead th,
+#section-4 .table-bordered thead td {
+  border-bottom-width: 2px;
+}
+
+/* Estilos para el campo de porcentaje */
+#section-4 .porcentaje-input {
+  width: 80px; /* Ancho reducido para el campo de porcentaje */
+  display: inline-block;
+  margin-right: 8px; /* Espacio entre el input y el símbolo % */
+}
+
+#section-4 .porcentaje-simbolo {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Estilos para el botón "Agregar Socio" */
+#section-4 .btn-gris {
+  background-color: #6c757d; /* Color gris */
+  color: white; /* Texto blanco */
+  border: none;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#section-4 .btn-gris:hover {
+  background-color: #5a6268; /* Gris más oscuro al pasar el mouse */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Estilos para el botón "Agregar Socio" */
+#section-4 .btn-secondary {
+  background-color: var(--neutral-mid); /* Cambia el color a gris */
+  color: var(--text-color); /* Texto oscuro para contrastar */
+  border: none;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#section-4 .btn-secondary:hover {
+  background-color: var(--neutral-dark); /* Gris más oscuro al pasar el mouse */
+  color: white; /* Texto blanco para contrastar */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}

@@ -18,11 +18,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Las filas de socios se agregarán aquí dinámicamente -->
+                            <!-- Ejemplo de fila de socio -->
+                            <tr>
+                                <td><input type="text" class="form-control" placeholder="Apellido Paterno"></td>
+                                <td><input type="text" class="form-control" placeholder="Apellido Materno"></td>
+                                <td><input type="text" class="form-control" placeholder="Nombre(s)"></td>
+                                <td>
+                                    <div style="display: flex; align-items: center;">
+                                        <input type="text" class="form-control porcentaje-input" placeholder="Ej: 50" style="flex: 1; margin-right: 8px;">
+                                        <span class="porcentaje-simbolo">%</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
-                <button type="button" id="agregar-socio" class="btn btn-secondary mt-2">
+                <button type="button" id="agregar-socio" class="btn btn-gris mt-2">
                     <i class="fas fa-plus"></i> Agregar Socio
                 </button>
             </div>

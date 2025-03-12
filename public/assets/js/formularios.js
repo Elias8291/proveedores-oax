@@ -251,3 +251,147 @@ $('.btn-prev').click(function () {
     });
     updateSelectedActivities();
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all file inputs
+    const fileInputs = document.querySelectorAll('.file-upload-input');
+    
+    // Handle file selection for each input
+    fileInputs.forEach(input => {
+        input.addEventListener('change', function(event) {
+            const fileId = this.id;
+            const file = this.files[0];
+            const nameDisplay = document.getElementById(`${fileId}_name`);
+            const progressBar = this.parentElement.querySelector('.upload-progress-bar');
+            const progressContainer = this.parentElement.querySelector('.upload-progress');
+            const successIcon = this.parentElement.querySelector('.upload-success');
+            const errorIcon = this.parentElement.querySelector('.upload-status');
+            
+            if (file) {
+                // Display file name
+                nameDisplay.textContent = file.name;
+                nameDisplay.classList.add('active');
+                
+                // Show progress animation
+                progressContainer.classList.add('active');
+                
+                // Simulate upload progress
+                let width = 0;
+                const interval = setInterval(() => {
+                    if (width >= 100) {
+                        clearInterval(interval);
+                        
+                        // After upload complete
+                        setTimeout(() => {
+                            progressContainer.classList.remove('active');
+                            successIcon.style.display = 'block';
+                            
+                            // Add to uploaded files list
+                            addToUploadedFiles(file.name, fileId);
+                        }, 400);
+                    } else {
+                        width += 5;
+                        progressBar.style.width = width + '%';
+                    }
+                }, 50);
+            }
+        });
+    });
+    
+    // Handle file upload area
+    const uploadButtons = document.querySelectorAll('.file-upload-button');
+    uploadButtons.forEach(button => {
+        button.addEventListener('dragover', function(event) {
+            event.preventDefault();
+            this.style.backgroundColor = '#e9edff';
+            this.style.borderColor = 'var(--primary-color)';
+        });
+        
+        button.addEventListener('dragleave', function(event) {
+            event.preventDefault();
+            this.style.backgroundColor = '#f5f7ff';
+            this.style.borderColor = '#ccd6f6';
+        });
+        
+        button.addEventListener('drop', function(event) {
+            event.preventDefault();
+            this.style.backgroundColor = '#f5f7ff';
+            this.style.borderColor = '#ccd6f6';
+            
+            // Trigger the hidden file input
+            const input = this.parentElement.querySelector('.file-upload-input');
+            const fileList = event.dataTransfer.files;
+            
+            if (fileList.length > 0) {
+                input.files = fileList;
+                
+                // Manually trigger change event
+                const changeEvent = new Event('change', { bubbles: true });
+                input.dispatchEvent(changeEvent);
+            }
+        });
+    });
+    
+    // Function to add file to the uploaded files list
+    function addToUploadedFiles(filename, fileId) {
+        const uploadedFilesList = document.querySelector('.uploaded-files-list');
+        const noFilesMessage = document.querySelector('.no-files-message');
+        
+        // Remove no files message if it exists
+        if (noFilesMessage) {
+            noFilesMessage.style.display = 'none';
+        }
+        
+        // Create file item element
+        const fileItem = document.createElement('div');
+        fileItem.className = 'uploaded-file-item';
+        fileItem.dataset.fileId = fileId;
+        
+        fileItem.innerHTML = `
+            <i class="fas fa-file-pdf uploaded-file-icon"></i>
+            <div class="uploaded-file-name">${filename}</div>
+            <div class="uploaded-file-actions">
+                <button class="uploaded-file-action view" title="Ver archivo">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="uploaded-file-action delete" title="Eliminar archivo">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        `;
+        
+        // Add event listener for delete button
+        const deleteButton = fileItem.querySelector('.delete');
+        deleteButton.addEventListener('click', function() {
+            // Get the file input
+            const input = document.getElementById(fileId);
+            
+            // Reset the file input
+            input.value = '';
+            
+            // Reset UI
+            const nameDisplay = document.getElementById(`${fileId}_name`);
+            nameDisplay.textContent = '';
+            nameDisplay.classList.remove('active');
+            
+            const successIcon = input.parentElement.querySelector('.upload-success');
+            successIcon.style.display = 'none';
+            
+            // Remove file item with animation
+            fileItem.classList.add('removing');
+            setTimeout(() => {
+                uploadedFilesList.removeChild(fileItem);
+                
+                // Show no files message if list is empty
+                if (uploadedFilesList.children.length === 0 || 
+                    (uploadedFilesList.children.length === 1 && uploadedFilesList.children[0].className === 'no-files-message')) {
+                    noFilesMessage.style.display = 'block';
+                }
+            }, 300);
+        });
+        
+        // Add file item to the list
+        uploadedFilesList.appendChild(fileItem);
+    }
+});

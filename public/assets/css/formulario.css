@@ -793,3 +793,300 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
+
+#section-5, #section-6 {
+  max-width: 1000px; /* Match section 4's width limit */
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Consistent padding */
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--neutral-mid);
+  transition: var(--transition);
+}
+
+#section-5 .form-section, #section-6 .form-section {
+  padding: 15px; /* Reduce internal padding */
+  box-shadow: none; /* Remove duplicate shadow */
+  border: none; /* Remove duplicate border */
+  margin-bottom: 0; /* Remove margin bottom */
+}
+
+#section-5 .section-title, #section-6 .section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--neutral-mid);
+  position: relative;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+}
+
+#section-5 .section-title i, #section-6 .section-title i,
+#section-5 .subsection-title i, #section-6 .subsection-title i {
+  margin-right: 10px;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(157, 36, 73, 0.2);
+}
+
+#section-5 .form-group, #section-6 .form-group {
+  margin-bottom: 15px;
+}
+
+#section-5 .form-label, #section-6 .form-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 6px;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#section-5 .form-control, #section-6 .form-control {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  border: 1px solid var(--neutral-mid);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  background-color: #f9fafb;
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+}
+
+#section-5 .form-control:focus, #section-6 .form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(157, 36, 73, 0.1);
+  background-color: white;
+}
+
+#section-5 .mt-4, #section-6 .mt-4 {
+  margin-top: 1.5rem;
+}
+
+/* Fix for the column layout */
+#section-5 .row, #section-6 .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+#section-5 .col-md-6, #section-6 .col-md-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+/* Estilos para la sección de documentos */
+#section-6 {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--neutral-mid);
+  transition: var(--transition);
+}
+
+#section-6 .form-section {
+  padding: 15px;
+  box-shadow: none;
+  border: none;
+  margin-bottom: 0;
+}
+
+#section-6 .section-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--neutral-mid);
+  position: relative;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+}
+
+#section-6 .section-title i {
+  margin-right: 10px;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(157, 36, 73, 0.2);
+}
+
+#section-6 .form-group {
+  margin-bottom: 15px;
+}
+
+#section-6 .form-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 6px;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#section-6 .form-control {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  border: 1px solid var(--neutral-mid);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  background-color: #f9fafb;
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+}
+
+#section-6 .form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(157, 36, 73, 0.1);
+  background-color: white;
+}
+
+#section-6 .form-text {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+#section-6 .subsection-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 20px 0 15px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--neutral-mid);
+  position: relative;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+}
+
+#section-6 .subsection-title i {
+  margin-right: 10px;
+  font-size: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(157, 36, 73, 0.2);
+}
+
+/* Estilos para los contenedores de documentos */
+.document-container {
+  background-color: rgba(157, 36, 73, 0.03);
+  padding: 15px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--neutral-mid);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  transition: var(--transition);
+}
+
+.document-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+.document-container .form-group {
+  margin-bottom: 10px;
+}
+
+.document-container .form-label {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.document-container .form-control {
+  background-color: white;
+  border: 1px solid var(--neutral-mid);
+  border-radius: var(--border-radius);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+}
+
+/* Estilos para los iconos de los documentos */
+.document-icon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-right: 10px;
+}
+
+/* Estilos para los botones de subir documentos */
+.upload-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.upload-button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(157, 36, 73, 0.25);
+}
+
+.upload-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(157, 36, 73, 0.3);
+}
+
+/* Estilos para los mensajes de error */
+.formulario__input-error {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+  display: none;
+}
+
+.is-invalid {
+  border-color: red !important;
+}
+
+.is-valid {
+  border-color: green !important;
+}

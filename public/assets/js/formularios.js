@@ -171,53 +171,50 @@ $(document).ready(function () {
         }, 280);
     });
 
-    // Inicializa la lista de actividades seleccionadas
-    $(document).ready(function() {
-        navigateToSection(currentSection);
-        
+    $(document).ready(function () {
         // Inicializar contador de socios
         window.socioCounter = 0;
-        
-        // Agregar socio al hacer clic en el botón
-        $('#agregar-socio').click(function() {
+    
+        // Función para agregar una nueva fila de socio
+        function agregarFilaSocio() {
+            window.socioCounter++;
+            const newRow = `
+                <tr id="socio-row-${window.socioCounter}">
+                    <td>
+                        <input type="text" name="socios[${window.socioCounter}][apellido_paterno]" class="form-control" placeholder="Apellido paterno" required>
+                    </td>
+                    <td>
+                        <input type="text" name="socios[${window.socioCounter}][apellido_materno]" class="form-control" placeholder="Apellido materno">
+                    </td>
+                    <td>
+                        <input type="text" name="socios[${window.socioCounter}][nombres]" class="form-control" placeholder="Nombre(s)" required>
+                    </td>
+                    <td>
+                        <div style="display: flex; align-items: center;">
+                            <input type="text" name="socios[${window.socioCounter}][porcentaje]" class="form-control porcentaje-input" placeholder="Ej: 50" style="flex: 1; margin-right: 8px;">
+                            <span class="porcentaje-simbolo">%</span>
+                        </div>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm eliminar-socio">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            `;
+            $('#tabla-socios tbody').append(newRow);
+        }
+    
+        // Evento para agregar socio
+        $('#agregar-socio').click(function () {
             agregarFilaSocio();
         });
-        
-        // Delegación de eventos para eliminar socios
-        $('#tabla-socios').on('click', '.eliminar-socio', function() {
+    
+        // Evento delegado para eliminar socio
+        $('#tabla-socios').on('click', '.eliminar-socio', function () {
             $(this).closest('tr').remove();
         });
     });
-    function agregarFilaSocio() {
-        window.socioCounter++;
-        const newRow = `
-            <tr id="socio-row-${window.socioCounter}">
-                <td>
-                    <input type="text" name="socios[${window.socioCounter}][apellido_paterno]" class="form-control" placeholder="Apellido paterno" required>
-                </td>
-                <td>
-                    <input type="text" name="socios[${window.socioCounter}][apellido_materno]" class="form-control" placeholder="Apellido materno">
-                </td>
-                <td>
-                    <input type="text" name="socios[${window.socioCounter}][nombres]" class="form-control" placeholder="Nombre(s)" required>
-                </td>
-                <td>
-                    <div class="input-group">
-                        <input type="number" name="socios[${window.socioCounter}][porcentaje]" class="form-control" placeholder="0.00" min="0" max="100" step="0.01" required>
-                        <div class="input-group-append">
-                            <span class="input-group-text">%</span>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-danger eliminar-socio">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </td>
-            </tr>
-        `;
-        $('#tabla-socios tbody').append(newRow);
-    }
     
     // Carga actividades comerciales según el sector seleccionado
     $('#sector').change(function () {

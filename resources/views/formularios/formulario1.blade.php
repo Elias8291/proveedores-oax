@@ -38,7 +38,14 @@
                     </div>
                     <div class="step-label">Socios o Accionistas</div>
                 </div>
-            </div>
+                <div class="progress-step">
+                    <div class="step-indicator">
+                        <span class="step-number">5</span>
+                        <i class="step-icon fas fa-user-tie"></i>
+                    </div>
+                    <div class="step-label">Datos del Apoderado</div>
+                </div>
+            </div> 
             
             <!-- Contenido del Formulario -->
             <div class="form-content">
@@ -48,7 +55,8 @@
                     @include('formularios.section2') 
                     @include('formularios.section3')
                     @include('formularios.section4')
-                    
+                    @include('formularios.section5')
+
                     <div class="form-navigation">
                         <button type="button" class="btn-prev btn-primary" style="display: none;">Anterior</button>
                         <button type="button" class="btn-next btn-primary">Siguiente</button>

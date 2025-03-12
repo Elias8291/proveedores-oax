@@ -36,7 +36,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-sm">
+                                    <button type="button" class="btn btn-danger btn-sm eliminar-socio">
                                         <i class="fas fa-trash"></i> Eliminar
                                     </button>
                                 </td>

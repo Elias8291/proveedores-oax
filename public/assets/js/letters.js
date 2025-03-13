@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
-   const inputs = document.querySelectorAll('#section-1 input, #section-1 select, #section-2 input, #section-2 select, #section-3 input, #section-3 select');
+    const inputs = document.querySelectorAll('#section-1 input, #section-1 select, #section-2 input, #section-2 select, #section-3 input, #section-3 select, #section-4 input, #section-4 select, #section-5 input, #section-5 select');
     const actividadesSeleccionadas = document.getElementById('actividades_seleccionadas');
     const actividadesInput = document.getElementById('actividades_comerciales_input');
 
@@ -155,4 +155,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     actividadesInput.addEventListener('change', validarActividades);
+
+    // Agregar eventos a los campos de la sección 4
+    const inputsSection4 = document.querySelectorAll('#section-4 input');
+    inputsSection4.forEach(input => {
+        if (input.classList.contains('porcentaje-input')) {
+            // Solo números para el campo de porcentaje
+            restringirCaracteres(input, restriccionesCaracteres.numeros);
+            input.addEventListener('input', () => {
+                if (input.value > 100) input.value = 100; // Limitar el valor máximo a 100
+            });
+        } else {
+            // Solo letras y espacios para los campos de texto
+            restringirCaracteres(input, restriccionesCaracteres.letrasYEspacios);
+            input.addEventListener('input', () => {
+                convertirTexto(input);
+            });
+        }
+        input.addEventListener('keyup', validarFormulario);
+        input.addEventListener('blur', validarFormulario);
+    });
+
+    // Agregar eventos a los campos de la sección 5
+    const inputsSection5 = document.querySelectorAll('#section-5 input');
+    inputsSection5.forEach(input => {
+        if (input.type !== 'date') {
+            if (input.name === 'nombre-apoderado' || input.name === 'nombre-notario' || input.name === 'entidad-federativa') {
+                // Solo letras y espacios para los campos de texto
+                restringirCaracteres(input, restriccionesCaracteres.letrasYEspacios);
+                input.addEventListener('input', () => {
+                    convertirTexto(input);
+                });
+            } else if (input.name === 'numero-escritura' || input.name === 'numero-notario' || input.name === 'numero-registro') {
+                // Solo alfanumérico para los campos de número de escritura, número de notario y número de registro
+                restringirCaracteres(input, restriccionesCaracteres.alfanumerico);
+                input.addEventListener('input', () => {
+                    convertirTexto(input);
+                });
+            }
+        }
+        input.addEventListener('keyup', validarFormulario);
+        input.addEventListener('blur', validarFormulario);
+    });
 });

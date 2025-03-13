@@ -891,85 +891,8 @@ body {
   padding-right: 15px;
   padding-left: 15px;
 }
-/* Estilos para la sección de documentos */
-#section-6 {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: white;
-  border-radius: var(--border-radius);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-  border: 1px solid var(--neutral-mid);
-  transition: var(--transition);
-}
 
-#section-6 .form-section {
-  padding: 15px;
-  box-shadow: none;
-  border: none;
-  margin-bottom: 0;
-}
-
-#section-6 .section-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-color);
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--neutral-mid);
-  position: relative;
-  display: flex;
-  align-items: center;
-  letter-spacing: 0.5px;
-}
-
-#section-6 .section-title i {
-  margin-right: 10px;
-  font-size: 1rem;
-  background-color: var(--primary-color);
-  color: white;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 8px rgba(157, 36, 73, 0.2);
-}
-
-#section-6 .form-group {
-  margin-bottom: 15px;
-}
-
-#section-6 .form-label {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-color);
-  margin-bottom: 6px;
-  transition: var(--transition);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-#section-6 .form-control {
-  width: 100%;
-  padding: 10px 14px;
-  font-size: 0.9rem;
-  border: 1px solid var(--neutral-mid);
-  border-radius: var(--border-radius);
-  transition: var(--transition);
-  background-color: #f9fafb;
-  font-family: "Montserrat", "Segoe UI", sans-serif;
-}
-
-#section-6 .form-control:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(157, 36, 73, 0.1);
-  background-color: white;
-}
-
+/* Style for small text under file inputs */
 #section-6 .form-text {
   display: block;
   margin-top: 5px;
@@ -978,6 +901,7 @@ body {
   font-style: italic;
 }
 
+/* Styles for subsection titles in section 6 */
 #section-6 .subsection-title {
   font-size: 1rem;
   font-weight: 700;
@@ -991,102 +915,225 @@ body {
   letter-spacing: 0.5px;
 }
 
-#section-6 .subsection-title i {
-  margin-right: 10px;
-  font-size: 1rem;
-  background-color: var(--primary-color);
-  color: white;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+/* Enhanced File Upload Styling */
+.file-upload-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.file-upload-item {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid var(--neutral-mid);
+  padding: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.file-upload-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary-color);
+}
+
+.file-upload-item:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--primary-color), var(--primary-dark));
+  border-radius: 2px 0 0 2px;
+}
+
+.file-upload-label {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 12px;
+}
+
+.file-upload-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 8px rgba(157, 36, 73, 0.2);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(157, 36, 73, 0.1);
+  color: var(--primary-color);
+  margin-right: 10px;
+  flex-shrink: 0;
 }
 
-/* Estilos para los contenedores de documentos */
-.document-container {
-  background-color: rgba(157, 36, 73, 0.03);
-  padding: 15px;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--neutral-mid);
-  margin-top: 10px;
-  margin-bottom: 20px;
-  transition: var(--transition);
-}
-
-.document-container:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-}
-
-.document-container .form-group {
-  margin-bottom: 10px;
-}
-
-.document-container .form-label {
-  color: var(--text-muted);
-  font-size: 0.8rem;
-  font-weight: 600;
+.file-upload-input-container {
+  position: relative;
   margin-bottom: 5px;
 }
 
-.document-container .form-control {
-  background-color: white;
+.file-upload-input {
+  width: 100%;
+  padding: 10px 12px;
+  padding-left: 38px;
+  font-size: 0.85rem;
   border: 1px solid var(--neutral-mid);
   border-radius: var(--border-radius);
-  padding: 8px 12px;
-  font-size: 0.9rem;
-}
-
-/* Estilos para los iconos de los documentos */
-.document-icon {
-  font-size: 1.5rem;
-  color: var(--primary-color);
-  margin-right: 10px;
-}
-
-/* Estilos para los botones de subir documentos */
-.upload-button {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 0.9rem;
-  border-radius: var(--border-radius);
-  cursor: pointer;
+  background-color: white;
   transition: var(--transition);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-family: "Montserrat", "Segoe UI", sans-serif;
+  cursor: pointer;
 }
 
-.upload-button:hover {
-  background-color: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(157, 36, 73, 0.25);
-}
-
-.upload-button:focus {
+.file-upload-input:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(157, 36, 73, 0.3);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(157, 36, 73, 0.1);
 }
 
-/* Estilos para los mensajes de error */
-.formulario__input-error {
-  color: red;
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
+.file-upload-input::file-selector-button {
   display: none;
 }
 
-.is-invalid {
-  border-color: red !important;
+.file-upload-button-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-color);
+  font-size: 18px;
+  pointer-events: none;
 }
 
-.is-valid {
-  border-color: green !important;
+.file-upload-help {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.file-upload-help i {
+  font-size: 12px;
+  margin-right: 5px;
+  color: var(--primary-color);
+}
+
+.file-upload-state {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  height: 20px;
+}
+
+.file-upload-state.has-file {
+  color: var(--success-color);
+}
+
+.file-upload-state i {
+  margin-right: 5px;
+}
+
+.file-status-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.file-status-icon.pending {
+  color: var(--text-muted);
+}
+
+.file-status-icon.uploaded {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+/* Document sections styling */
+.document-category {
+  margin-bottom: 30px;
+}
+
+.document-category-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--neutral-mid);
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.document-category-title i {
+  margin-right: 8px;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
+/* Compact design for smaller screens */
+@media (max-width: 768px) {
+  .file-upload-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* File type indicator */
+.file-type-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  background-color: rgba(157, 36, 73, 0.08);
+  color: var(--primary-color);
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.file-upload-item {
+  animation: fadeInUp 0.3s ease-out forwards;
+}
+
+/* File upload states */
+.file-upload-item.empty .file-upload-input {
+  border-style: dashed;
+}
+
+.file-upload-item.has-file .file-upload-input {
+  border-color: var(--success-color);
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+/* Drag and drop zone highlight */
+.file-upload-item.drag-over {
+  background-color: rgba(157, 36, 73, 0.05);
+  border-color: var(--primary-color);
+  border-style: dashed;
 }

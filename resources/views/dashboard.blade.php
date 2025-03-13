@@ -21,6 +21,7 @@
     <script src="{{ asset('assets/js/maps.js') }}"></script>
     <script src="{{ asset('assets/js/letters.js') }}"></script>
     <script src="{{ asset('assets/js/renapo.js') }}"></script>
+    <script src="{{ asset('assets/js/sat.js') }}"></script>
 </head>
 <body>
     @include('layouts.header')

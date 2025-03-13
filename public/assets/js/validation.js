@@ -240,7 +240,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     };
 
-    // Validación de Código Postal
     const validateCodigoPostal = (input) => {
         clearError(input);
         const regex = /^\d{5}$/;
@@ -255,14 +254,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     };
 
-    // Prevenir caracteres no numéricos en el código postal
     codigoPostalInput.addEventListener('keypress', (event) => {
         if (!/^\d$/.test(event.key)) {
             event.preventDefault();
         }
     });
 
-    // Prevenir pegar caracteres no numéricos en el código postal
     codigoPostalInput.addEventListener('paste', (event) => {
         const pasteData = (event.clipboardData || window.clipboardData).getData('text');
         if (!/^\d+$/.test(pasteData)) {
@@ -270,16 +267,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Validar código postal mientras se escribe
     codigoPostalInput.addEventListener('input', () => {
-        // Limitar a 5 dígitos
         if (codigoPostalInput.value.length > 5) {
             codigoPostalInput.value = codigoPostalInput.value.slice(0, 5);
         }
         validateCodigoPostal(codigoPostalInput);
     });
 
-    // Validar código postal al perder el foco
     codigoPostalInput.addEventListener('blur', () => {
         validateCodigoPostal(codigoPostalInput);
     });
@@ -313,6 +307,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const convertToUpperCase = (event) => {
         event.target.value = event.target.value.toUpperCase();
+    };
+
+    const validateRFCWithVerificamex = async (rfc, razonSocial, codigoPostal) => {
+        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTkwNmQwMTczMTcyZTY0MzE0NWI0ZDNhMTI0NjFmMzkwYzg1YTBjNmRiY2QwZTc5ODcwMGM3MzMzYTk4YThiNGJiZTkyZmNhMzFmZTA3ZDQiLCJpYXQiOjE3NDE3Mjk5MzcuNDk5MDQ3LCJuYmYiOjE3NDE3Mjk5MzcuNDk5MDY4LCJleHAiOjE3NzMyNjU5MzcuNDg4Nzc5LCJzdWIiOiI1MTIxIiwic2NvcGVzIjpbXX0.cmutxhBli-ZyQB-ZUSwXQriwqbYoZSktslniamI7AAH4kWvswPJNPRNP7IsfQdBCLp5E4ZwNUJScNR1MXYHf5D-eZUBdwJmxtAT0W1McuaZpO_RW92g4fw_Pdk8KLOywNt7rrnNJ2N9krOy_nDLn3pDQ66kdwSgyUHOxe8syWNjlxq16Q_BOqzQMbY6aSGObL88KXN2jExQ4IiRa0diiV4yFMub-kWwDdsihpkEfa5EJncFCiPKlEFYhcIQ89ORPSeZ30b8a95eoTSm_8aZqDINXbPu-Sh4C1Sa46FOekNJIMcVNOohEakuTycMyohoPi0_GvX8JIUnvh5NEfW8xkMGTcvlyK_5vmKNgiRBkxDIjeweJ2tenO4X18slCaLA-UTCUs3_tEB0F0AzlMwimSSW5M4xBxn7oPAWR6Voe3lwGPflytpfIeowrRQf0_XaSRlaA1Q21g5x4y0ZJyoAE-yXyJrHzGQorQofh3oT9aOsOo0UqlLMm8l-npalbHsWPV5BVBgNHVgS5eKSJOmTM34dplewxHDGjmITtOROyzs5h5SoFpYtrsxizkxfapMhH724GzWJlet0VE7qvguFBz_gso-AePtyWOkHo1QCOePxxmDB9IcqBBc1Jv690zRzjdPifvJ85lCmvwXPRO1XnMBxVF5iRH1M4rXOgBrlYeyo'; // Tu token aquí
+    
+        const response = await fetch('https://api.verificamex.com/identity/v1/miscellaneous/sat/rfc_extended', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                rfc: rfc,
+                razon_social: razonSocial,
+                codigo_postal: codigoPostal
+            })
+        });
+    
+        const data = await response.json();
+    
+        if (data.data.status) {
+            return true; // RFC válido
+        } else {
+            showError(rfcInput, 'El RFC no es válido o no coincide con la Razón Social y Código Postal proporcionados.');
+            return false;
+        }
     };
 
     nameInput.addEventListener('input', convertToUpperCase);
@@ -370,7 +391,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Navegación entre secciones
     window.nextSection = async function() {
         const isNameValid = validateName(nameInput);
         const isLastNameValid = validateLastName(lastNameInput);
@@ -390,22 +410,33 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('section2').style.display = 'block';
     };
 
-    // Prevenir envío del formulario si hay errores
     if (form) {
-        form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
             const isNameValid = validateName(nameInput);
             const isLastNameValid = validateLastName(lastNameInput);
             const isEmailValid = validateEmail(emailInput);
             const isConfirmEmailValid = validateConfirmEmail(confirmEmailInput);
             const isSection2Valid = validateSection2();
+            const isEmailUnique = await checkEmailExists(emailInput.value);
+            const isRFCValid = await validateRFCWithVerificamex(rfcInput.value, razonSocialInput.value, codigoPostalInput.value);
 
-            if (!isNameValid || !isLastNameValid || !isEmailValid || !isConfirmEmailValid || !isSection2Valid) {
-                event.preventDefault();
+            if (!isNameValid || !isLastNameValid || !isEmailValid || !isConfirmEmailValid || !isSection2Valid || isEmailDuplicate || !isRFCValid) {
+                if (!isNameValid) nameInput.focus();
+                else if (!isLastNameValid) lastNameInput.focus();
+                else if (!isEmailValid || isEmailDuplicate) emailInput.focus();
+                else if (!isConfirmEmailValid) confirmEmailInput.focus();
+                else if (!isSection2Valid) tipoPersonaInput.focus();
+                else if (!isRFCValid) rfcInput.focus();
+                return;
             }
+
+            // Si todo está correcto, enviar el formulario
+            form.submit();
         });
     }
 
-    // Regresar a la sección anterior
     window.prevSection = function() {
         document.getElementById('section1').style.display = 'block';
         document.getElementById('section2').style.display = 'none';

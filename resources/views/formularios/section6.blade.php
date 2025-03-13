@@ -5,14 +5,14 @@
     </h2>
     
     <!-- Documentos para Personas Físicas -->
-    <div class="document-category">
-        <h3 class="document-category-title">
-            <i class="fas fa-user"></i>
-            Documentos Personales
-        </h3>
-        
-        <div class="file-upload-container">
-            <!-- Constancia -->
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="document-category-title">
+                <i class="fas fa-user"></i>
+                Documentos Personales
+            </h3>
+        </div>
+        <div class="col-md-6">
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">
@@ -38,7 +38,6 @@
                 </div>
             </div>
             
-            <!-- Identificación -->
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">
@@ -64,7 +63,6 @@
                 </div>
             </div>
             
-            <!-- Curriculum -->
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">
@@ -89,8 +87,8 @@
                     Pendiente
                 </div>
             </div>
-            
-            <!-- Comprobante de Domicilio -->
+        </div>
+        <div class="col-md-6">
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">
@@ -116,7 +114,6 @@
                 </div>
             </div>
             
-            <!-- Acta de Nacimiento -->
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">
@@ -142,7 +139,6 @@
                 </div>
             </div>
             
-            <!-- CURP -->
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">
@@ -171,14 +167,14 @@
     </div>
     
     <!-- Documentos Fiscales -->
-    <div class="document-category">
-        <h3 class="document-category-title">
-            <i class="fas fa-file-invoice-dollar"></i>
-            Documentos Fiscales
-        </h3>
-        
-        <div class="file-upload-container">
-            <!-- Carta Poder -->
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="document-category-title">
+                <i class="fas fa-file-invoice-dollar"></i>
+                Documentos Fiscales
+            </h3>
+        </div>
+        <div class="col-md-6">
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">
@@ -203,8 +199,8 @@
                     Pendiente
                 </div>
             </div>
-            
-            <!-- Acuse de Recibo -->
+        </div>
+        <div class="col-md-6">
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">
@@ -233,14 +229,14 @@
     </div>
     
     <!-- Documentos para Personas Morales -->
-    <div class="document-category">
-        <h3 class="document-category-title">
-            <i class="fas fa-building"></i>
-            Documentos para Personas Morales
-        </h3>
-        
-        <div class="file-upload-container">
-            <!-- Acta Constitutiva -->
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="document-category-title">
+                <i class="fas fa-building"></i>
+                Documentos para Personas Morales
+            </h3>
+        </div>
+        <div class="col-md-6">
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">
@@ -266,7 +262,6 @@
                 </div>
             </div>
             
-            <!-- Modificaciones -->
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">
@@ -291,8 +286,8 @@
                     Pendiente
                 </div>
             </div>
-            
-            <!-- Poder Notariado -->
+        </div>
+        <div class="col-md-6">
             <div class="file-upload-item empty">
                 <span class="file-type-badge">PDF</span>
                 <label class="file-upload-label">

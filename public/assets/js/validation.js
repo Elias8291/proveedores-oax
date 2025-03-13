@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const razonSocialInput = document.getElementById('razon_social');
     const tipoPersonaInput = document.getElementById('tipo_persona');
     const secondLastNameInput = document.getElementById('second_last_name');
+    const codigoPostalInput = document.getElementById('codigo_postal');
 
     let emailCheckTimeout;
     let isEmailDuplicate = false;
@@ -239,6 +240,50 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     };
 
+    // Validación de Código Postal
+    const validateCodigoPostal = (input) => {
+        clearError(input);
+        const regex = /^\d{5}$/;
+        
+        if (input.value.trim() === '') {
+            showError(input, 'El código postal es obligatorio.');
+            return false;
+        } else if (!regex.test(input.value)) {
+            showError(input, 'El código postal debe tener exactamente 5 dígitos numéricos.');
+            return false;
+        }
+        return true;
+    };
+
+    // Prevenir caracteres no numéricos en el código postal
+    codigoPostalInput.addEventListener('keypress', (event) => {
+        if (!/^\d$/.test(event.key)) {
+            event.preventDefault();
+        }
+    });
+
+    // Prevenir pegar caracteres no numéricos en el código postal
+    codigoPostalInput.addEventListener('paste', (event) => {
+        const pasteData = (event.clipboardData || window.clipboardData).getData('text');
+        if (!/^\d+$/.test(pasteData)) {
+            event.preventDefault();
+        }
+    });
+
+    // Validar código postal mientras se escribe
+    codigoPostalInput.addEventListener('input', () => {
+        // Limitar a 5 dígitos
+        if (codigoPostalInput.value.length > 5) {
+            codigoPostalInput.value = codigoPostalInput.value.slice(0, 5);
+        }
+        validateCodigoPostal(codigoPostalInput);
+    });
+
+    // Validar código postal al perder el foco
+    codigoPostalInput.addEventListener('blur', () => {
+        validateCodigoPostal(codigoPostalInput);
+    });
+
     const validateSection2 = () => {
         let isValid = true;
         if (tipoPersonaInput) {
@@ -255,6 +300,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         if (rfcInput) {
             if (!validateRFC(rfcInput)) {
+                isValid = false;
+            }
+        }
+        if (codigoPostalInput) {
+            if (!validateCodigoPostal(codigoPostalInput)) {
                 isValid = false;
             }
         }
@@ -320,6 +370,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Navegación entre secciones
     window.nextSection = async function() {
         const isNameValid = validateName(nameInput);
         const isLastNameValid = validateLastName(lastNameInput);
@@ -339,6 +390,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('section2').style.display = 'block';
     };
 
+    // Prevenir envío del formulario si hay errores
     if (form) {
         form.addEventListener('submit', function (event) {
             const isNameValid = validateName(nameInput);
@@ -353,112 +405,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Regresar a la sección anterior
     window.prevSection = function() {
         document.getElementById('section1').style.display = 'block';
         document.getElementById('section2').style.display = 'none';
     };
 });
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Get all form sections
-    const formSections = document.querySelectorAll('.form-section');
-    // Get progress steps
-    const progressSteps = document.querySelectorAll('.progress-step');
-    // Get navigation buttons
-    const prevBtn = document.querySelector('.btn-prev');
-    const nextBtn = document.querySelector('.btn-next');
-    const submitBtn = document.querySelector('.btn-submit');
-    const resetBtn = document.querySelector('.btn-reset');
-    
-    // Initialize current step
-    let currentStep = 0;
-    
-    // Hide all sections except the first one
-    for (let i = 1; i < formSections.length; i++) {
-      formSections[i].style.display = 'none';
-    }
-    
-    // Hide previous button initially
-    prevBtn.style.display = 'none';
-    
-    // Show appropriate buttons based on current step
-    function updateButtons() {
-      // Show/hide previous button
-      if (currentStep === 0) {
-        prevBtn.style.display = 'none';
-      } else {
-        prevBtn.style.display = 'block';
-      }
-      
-      // Show/hide next button and submit button
-      if (currentStep === formSections.length - 1) {
-        nextBtn.style.display = 'none';
-        submitBtn.parentElement.style.display = 'flex';
-      } else {
-        nextBtn.style.display = 'block';
-        submitBtn.parentElement.style.display = 'none';
-      }
-    }
-    
-    // Update progress tracker
-    function updateProgressTracker() {
-      // Remove active class from all steps
-      progressSteps.forEach((step, index) => {
-        step.classList.remove('active');
-        step.classList.remove('completed');
-        
-        if (index < currentStep) {
-          step.classList.add('completed');
-        } else if (index === currentStep) {
-          step.classList.add('active');
-        }
-      });
-    }
-    
-    // Handle next button click
-    nextBtn.addEventListener('click', function() {
-      if (currentStep < formSections.length - 1) {
-        // Hide current section
-        formSections[currentStep].style.display = 'none';
-        // Increment current step
-        currentStep++;
-        // Show next section
-        formSections[currentStep].style.display = 'block';
-        // Update buttons and progress tracker
-        updateButtons();
-        updateProgressTracker();
-        // Scroll to top of form
-        document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-    
-    // Handle previous button click
-    prevBtn.addEventListener('click', function() {
-      if (currentStep > 0) {
-        // Hide current section
-        formSections[currentStep].style.display = 'none';
-        // Decrement current step
-        currentStep--;
-        // Show previous section
-        formSections[currentStep].style.display = 'block';
-        // Update buttons and progress tracker
-        updateButtons();
-        updateProgressTracker();
-        // Scroll to top of form
-        document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-    
-    // Handle reset button click
-    resetBtn.addEventListener('click', function() {
-      // Reset to first step
-      currentStep = 0;
-      // Hide all sections except the first one
-      for (let i = 0; i < formSections.length; i++) {
-        formSections[i].style.display = i === 0 ? 'block' : 'none';
-      }
-      // Update buttons and progress tracker
-      updateButtons();
-      updateProgressTracker();
-    });
-  });

@@ -1137,3 +1137,241 @@ body {
   border-color: var(--primary-color);
   border-style: dashed;
 }
+
+/* Estilos para la sección de documentos */
+.document-category {
+  margin-bottom: 2rem;
+}
+
+.document-category-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--neutral-mid);
+  display: flex;
+  align-items: center;
+}
+
+.document-category-title i {
+  margin-right: 0.5rem;
+  color: var(--primary-color);
+}
+
+.file-upload-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.file-upload-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--neutral-mid);
+  padding: 1.5rem;
+  transition: var(--transition);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.file-upload-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.file-upload-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.file-upload-header i {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-right: 0.75rem;
+}
+
+.file-upload-header h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.file-type-badge {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background-color: rgba(157, 36, 73, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+}
+
+.file-upload-body {
+  margin-bottom: 1rem;
+}
+
+.file-upload-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--neutral-light);
+  border: 2px dashed var(--neutral-mid);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.file-upload-label:hover {
+  background-color: rgba(157, 36, 73, 0.05);
+  border-color: var(--primary-color);
+}
+
+.file-upload-label i {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-right: 0.5rem;
+}
+
+.file-upload-label span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.file-upload-input {
+  display: none;
+}
+
+.file-upload-help {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.file-upload-help i {
+  margin-right: 0.5rem;
+  color: var(--primary-color);
+}
+
+.file-upload-state {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.file-status-icon {
+  margin-right: 0.5rem;
+}
+
+.file-status-icon.pending {
+  color: var(--text-muted);
+}
+
+.file-status-icon.uploaded {
+  color: var(--success-color);
+}
+
+.file-status-text {
+  font-weight: 500;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Estilos para las tarjetas */
+.file-upload-card {
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.file-upload-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.file-upload-card.upload-success {
+  border-color: #28a745;
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+/* Estilos para el estado de subida */
+.file-status-icon {
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+.file-status-icon.pending {
+  color: #6c757d;
+}
+
+.file-status-icon.uploaded {
+  color: #28a745;
+}
+
+.file-status-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Estilos para el botón de subida */
+.file-upload-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border: 2px dashed #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-upload-label:hover {
+  background-color: rgba(157, 36, 73, 0.05);
+  border-color: #7e1515;
+}
+
+.file-upload-label i {
+  font-size: 1.5rem;
+  color: #7e1515;
+  margin-right: 0.5rem;
+}
+
+.file-upload-label span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333333;
+}
+
+/* Estilos para el mensaje de ayuda */
+.file-upload-help {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.file-upload-help i {
+  margin-right: 0.5rem;
+  color: #7e1515;
+}

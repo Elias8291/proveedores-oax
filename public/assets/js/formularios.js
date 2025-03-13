@@ -218,4 +218,53 @@ $(document).ready(function () {
     });
 
     updateSelectedActivities();
+});document.addEventListener("DOMContentLoaded", function () {
+    // Selecciona todos los inputs de tipo file
+    const fileInputs = document.querySelectorAll(".file-upload-input");
+
+    fileInputs.forEach((input) => {
+        input.addEventListener("change", function (e) {
+            const file = e.target.files[0]; // Obtiene el archivo seleccionado
+            const card = input.closest(".file-upload-card"); // Encuentra la tarjeta contenedora
+            const stateIcon = card.querySelector(".file-status-icon");
+            const stateText = card.querySelector(".file-status-text");
+
+            if (file) {
+                // Validación básica del tipo de archivo (PDF)
+                if (file.type === "application/pdf") {
+                    // Cambia el estado a "Subido"
+                    stateIcon.classList.remove("pending");
+                    stateIcon.classList.add("uploaded");
+                    stateIcon.innerHTML = '<i class="fas fa-check"></i>';
+                    stateText.textContent = "Subido";
+
+                    // Añade una clase para resaltar la tarjeta
+                    card.classList.add("upload-success");
+
+                    // Muestra una animación de confirmación
+                    card.style.animation = "fadeInUp 0.5s ease-out";
+
+                    // Cambia el color del borde de la tarjeta
+                    card.style.borderColor = "#28a745";
+
+                    // Muestra un mensaje de éxito
+                    setTimeout(() => {
+                        alert(`Archivo "${file.name}" subido correctamente.`);
+                    }, 500);
+                } else {
+                    // Muestra un mensaje de error si no es un PDF
+                    alert("Solo se permiten archivos PDF.");
+                    input.value = ""; // Limpia el input
+                }
+            } else {
+                // Si no se selecciona un archivo, restablece el estado
+                stateIcon.classList.remove("uploaded");
+                stateIcon.classList.add("pending");
+                stateIcon.innerHTML = '<i class="fas fa-clock"></i>';
+                stateText.textContent = "Pendiente";
+                card.classList.remove("upload-success");
+                card.style.borderColor = "#e9ecef"; // Restablece el color del borde
+            }
+        });
+    });
 });

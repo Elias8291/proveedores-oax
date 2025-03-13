@@ -145,8 +145,23 @@
                     @enderror
                 </div>
             </div>
+        
+            <div class="col-md-6">
+                <div class="floating-input">
+                    <label for="codigo_postal" class="form-label">Código Postal del Contribuyente *</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </span>
+                        <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" value="{{ old('codigo_postal') }}" required>
+                    </div>
+                    @error('codigo_postal')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
         </div>
-
+        
         <div class="d-flex justify-content-between mt-3">
             <button type="button" class="btn btn-secondary back-button" onclick="prevSection()">
                 Regresar

@@ -94,74 +94,26 @@
     </div>
 
     <div id="section2" class="position-relative pb-5" style="display: none;">
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row mt-3">
+            <div class="col-md-12">
                 <div class="floating-input">
-                    <label for="tipo_persona" class="form-label">Tipo de Persona *</label>
+                    <label for="constancia_fiscal" class="form-label">Constancia de Situación Fiscal (PDF) *</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fas fa-users"></i> 
+                            <i class="fas fa-file-pdf"></i>
                         </span>
-                        <select id="tipo_persona" class="form-control" name="tipo_persona" required>
-                            <option value="" disabled {{ old('tipo_persona') ? '' : 'selected' }}>Selecciona una opción</option>
-                            <option value="fisica" {{ old('tipo_persona') == 'fisica' ? 'selected' : '' }}>Persona Física</option>
-                            <option value="moral" {{ old('tipo_persona') == 'moral' ? 'selected' : '' }}>Persona Moral</option>
-                        </select>
+                        <input type="file" class="form-control custom-file-input" id="constancia_fiscal" name="constancia_fiscal" accept="application/pdf" required>
                     </div>
-                    @error('tipo_persona')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="floating-input">
-                    <label for="razon_social" class="form-label">Razón Social *</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fas fa-building"></i> 
-                        </span>
-                        <input type="text" class="form-control" id="razon_social" name="razon_social" value="{{ old('razon_social') }}" required>
+                    <div class="file-upload-info mt-1">
+                        <small class="text-muted">Sube tu Constancia de Situación Fiscal en formato PDF</small>
                     </div>
-                    @error('razon_social')
+                    @error('constancia_fiscal')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
         </div>
 
-        <div class="row mt-2">
-            <div class="col-md-6">
-                <div class="floating-input">
-                    <label for="rfc" class="form-label">RFC *</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fas fa-id-card"></i>
-                        </span>
-                        <input type="text" class="form-control" id="rfc" name="rfc" value="{{ old('rfc') }}" required>
-                    </div>
-                    @error('rfc')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-        
-            <div class="col-md-6">
-                <div class="floating-input">
-                    <label for="codigo_postal" class="form-label">Código Postal del Contribuyente *</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </span>
-                        <input type="text" class="form-control" id="codigo_postal" name="codigo_postal" value="{{ old('codigo_postal') }}" required>
-                    </div>
-                    @error('codigo_postal')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-        </div>
-        
         <div class="d-flex justify-content-between mt-3">
             <button type="button" class="btn btn-secondary back-button" onclick="prevSection()">
                 Regresar

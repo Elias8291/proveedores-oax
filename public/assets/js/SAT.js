@@ -1,4 +1,3 @@
-// Add this script to your page
 document.addEventListener('DOMContentLoaded', function() {
     // Get the necessary form elements
     const codigoPostalInput = document.getElementById('codigo_postal');
@@ -13,23 +12,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Function to validate RFC using VerificaMEX API
     async function validateRFC() {
-        // Check if all required fields have values
         if (!rfcInput.value || !razonSocialInput.value || !codigoPostalInput.value) {
-            return; // Don't validate if any required field is empty
+            return;
         }
         
         try {
-            // Show loading indicator
             showValidationMessage('Validando RFC con el SAT...', 'warning');
             
-            // Prepare request data
             const requestData = {
                 rfc: rfcInput.value.trim(),
                 razon_social: razonSocialInput.value.trim(),
                 codigo_postal: codigoPostalInput.value.trim()
             };
             
-            // Make API request to VerificaMEX
             const response = await fetch('https://api.verificamex.com/identity/v1/miscellaneous/sat/rfc_extended', {
                 method: 'POST',
                 headers: {
@@ -42,44 +37,64 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const data = await response.json();
             
-            // Process the response
             if (response.ok) {
                 if (data.data && data.data.status === true) {
-                    // RFC validation successful
                     showValidationMessage('RFC validado correctamente con el SAT', 'success');
                     enableSubmitButton();
                 } else {
-                    // RFC validation failed (SAT record found but data doesn't match)
-                    showValidationMessage('El RFC no coincide con la Razón Social o Código Postal registrados en el SAT', 'danger');
+                    showValidationMessage('El RFC no coincide con la Razón Social o Código Postal registrados en el SAT', 'danger', 'https://api.verificamex.com/docs');
                     disableSubmitButton();
                 }
             } else {
-                // API request failed or RFC not found in SAT
-                showValidationMessage('El RFC no está registrado en el SAT o no existe', 'danger');
+                showValidationMessage('El RFC no está registrado en el SAT o no existe', 'danger', 'https://api.verificamex.com/docs');
                 disableSubmitButton();
             }
         } catch (error) {
             console.error('Error validating RFC:', error);
-            showValidationMessage('Error al validar el RFC. Por favor, intente nuevamente.', 'danger');
+            showValidationMessage('Error al validar el RFC. Por favor, intente nuevamente.', 'danger', 'https://api.verificamex.com/support');
             disableSubmitButton();
         }
     }
     
-    // Function to show validation message
-    function showValidationMessage(message, type) {
-        // Remove any existing validation message
+    // Function to show validation message with optional URL
+    function showValidationMessage(message, type, url = null) {
         const existingMessage = document.getElementById('rfc-validation-message');
         if (existingMessage) {
             existingMessage.remove();
         }
         
-        // Create and insert new validation message
         const messageElement = document.createElement('div');
         messageElement.id = 'rfc-validation-message';
-        messageElement.className = `alert alert-${type} mt-2`;
-        messageElement.textContent = message;
+        messageElement.className = `alert alert-${type} mt-2 custom-alert`;
         
-        // Insert after the RFC input group
+        // Message content
+        const messageText = document.createElement('span');
+        messageText.textContent = message;
+        messageElement.appendChild(messageText);
+        
+        // If there's a URL, add a toggleable link icon
+        if (url) {
+            const linkContainer = document.createElement('span');
+            linkContainer.className = 'link-container';
+            
+            const linkIcon = document.createElement('i');
+            linkIcon.className = 'fas fa-link link-icon'; // Using Font Awesome for the icon
+            linkContainer.appendChild(linkIcon);
+            
+            const urlElement = document.createElement('span');
+            urlElement.className = 'url-text';
+            urlElement.textContent = url;
+            urlElement.style.display = 'none'; // Hidden by default
+            
+            linkContainer.appendChild(urlElement);
+            messageElement.appendChild(linkContainer);
+            
+            // Toggle URL visibility on icon click
+            linkIcon.addEventListener('click', function() {
+                urlElement.style.display = urlElement.style.display === 'none' ? 'inline' : 'none';
+            });
+        }
+        
         rfcInput.closest('.floating-input').appendChild(messageElement);
     }
     
@@ -97,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add validation when fields change
     rfcInput.addEventListener('input', function() {
-        // Remove validation message when user starts typing
         const existingMessage = document.getElementById('rfc-validation-message');
         if (existingMessage) {
             existingMessage.remove();
@@ -105,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     razonSocialInput.addEventListener('input', function() {
-        // Remove validation message when user starts typing
         const existingMessage = document.getElementById('rfc-validation-message');
         if (existingMessage) {
             existingMessage.remove();

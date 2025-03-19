@@ -558,84 +558,6 @@
     display: block;
 }
 
-/* Refined Compact Alert Styling */
-.alert {
-    border: none;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-    font-size: 13px;
-    margin: 10px 0;
-    padding: 12px 14px;
-    position: relative;
-    transition: all 0.2s ease;
-  }
-  
-  .alert strong {
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-right: 6px;
-  }
-  
-  /* Error Alert - Compact Burgundy Theme */
-  .alert-danger.custom-error-alert {
-    background-color: #fff;
-    border-left: 3px solid #8B1C38; /* Burgundy/ginda color */
-    color: #444;
-    max-width: 400px;
-  }
-  
-  .alert-danger .error-title {
-    color: #8B1C38; /* Burgundy/ginda color */
-  }
-  
-  .alert-danger .error-title::before {
-    content: "⚠️ ";
-    font-size: 12px;
-  }
-  
-  .alert-danger .error-message {
-    display: inline-block;
-    line-height: 1.4;
-  }
-  
-  .alert-danger .url-container {
-    background-color: #f9f5f6; /* Light burgundy tint */
-    border-radius: 3px;
-    font-size: 12px;
-    margin-top: 8px;
-    padding: 6px 8px;
-  }
-  
-  .alert-danger .error-url {
-    color: #8B1C38; /* Burgundy/ginda color */
-    font-weight: 500;
-    text-decoration: none;
-    word-break: break-all;
-  }
-  
-  /* Success Alert - Compact Burgundy Theme */
-  .alert-success {
-    background-color: #fff;
-    border-left: 3px solid #570B1C; /* Deeper burgundy/ginda */
-    color: #444;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 400px;
-  }
-  
-  .alert-success strong {
-    color: #570B1C; /* Deeper burgundy/ginda */
-  }
-  
-  .alert-success strong::before {
-    content: "✓ ";
-    font-size: 12px;
-  }
-  
-  /* Button Styling */
   .btn-info {
     background-color: #8B1C38; /* Burgundy/ginda color */
     border: none;
@@ -657,3 +579,58 @@
     margin-right: 4px;
     font-size: 11px;
   }
+
+  /* Custom Alert Styling */
+.custom-alert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Link Container */
+.link-container {
+    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Link Icon */
+.link-icon {
+    color: #8B1C38; /* Match your burgundy theme */
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.link-icon:hover {
+    color: #6d1523; /* Darker shade on hover */
+}
+
+/* URL Text */
+.url-text {
+    margin-left: 6px;
+    color: #8B1C38;
+    font-size: 12px;
+    word-break: break-all; /* Break long URLs */
+    max-width: 200px; /* Limit width to save space */
+    display: none; /* Hidden by default */
+}
+
+/* Adjust alert types */
+.alert-success .link-icon,
+.alert-danger .link-icon,
+.alert-warning .link-icon {
+    color: inherit; /* Match alert type color if desired */
+}
+
+/* Modal compatibility */
+.modal-body .custom-alert {
+    width: 100%;
+    margin: 0;
+}

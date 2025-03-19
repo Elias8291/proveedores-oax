@@ -8,7 +8,7 @@
                     <label for="name" class="form-label">Nombre(s) *</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fas fa-user"></i> 
+                            <i class="fas fa-user"></i>
                         </span>
                         <input type="text" class="form-control" id="name" value="{{ old('name') }}" name="name" required autofocus>
                     </div>
@@ -23,7 +23,7 @@
                     <label for="last_name" class="form-label">Primer Apellido *</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fas fa-user-tag"></i> 
+                            <i class="fas fa-user-tag"></i>
                         </span>
                         <input type="text" class="form-control" id="last_name" value="{{ old('last_name') }}" name="last_name" required>
                     </div>
@@ -55,7 +55,7 @@
                     <label for="email" class="form-label">Correo electrónico *</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fas fa-envelope"></i> 
+                            <i class="fas fa-envelope"></i>
                         </span>
                         <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
                     </div>
@@ -72,7 +72,7 @@
                     <label for="email_confirmation" class="form-label">Confirmar Correo electrónico *</label>
                     <div class="input-group">
                         <span class="input-group-text">
-                            <i class="fas fa-envelope"></i> 
+                            <i class="fas fa-envelope"></i>
                         </span>
                         <input type="email" class="form-control" id="email_confirmation" name="email_confirmation" value="{{ old('email_confirmation') }}" required>
                     </div>
@@ -124,3 +124,27 @@
         </div>
     </div>
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="datosFiscalesModal" tabindex="-1" role="dialog" aria-labelledby="datosFiscalesModalLabel">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content" style="border-radius: 14px; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);">
+            <div class="modal-header" style="padding: 1rem; background: #9d2449;">
+                <h5 class="modal-title" id="datosFiscalesModalLabel" style="font-size: 1.04rem; color: white; font-weight: 600;">Datos Fiscales</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="datosFiscalesModalBody" style="padding: 1.6rem;">
+                <div class="text-center">
+                    <div class="spinner-border text-primary" role="status" style="width: 2rem; height: 2rem;">
+                        <span class="visually-hidden">Cargando...</span>
+                    </div>
+                    <p style="font-size: 0.88rem; margin-top: 0.8rem;">Procesando datos...</p>
+                </div>
+            </div>
+            <div class="modal-footer" style="padding: 0.8rem; background-color: #f9fafb; border-top: 1px solid rgba(0, 0, 0, 0.05);">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-size: 0.76rem; padding: 0.5rem 1rem; border-radius: 9px;">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="usarDatosBtn" style="font-size: 0.76rem; padding: 0.5rem 1rem; border-radius: 9px; background: #9d2449;">Usar estos datos</button>
+            </div>
+        </div>
+    </div>
+</div>

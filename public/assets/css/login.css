@@ -164,8 +164,8 @@
 
 .form-floating .form-control:focus ~ label,
 .form-floating .form-control:not(:placeholder-shown) ~ label {
-    opacity: .65;
-    transform: scale(.85) translateY(-0.4rem);
+    opacity: 0.65;
+    transform: scale(0.85) translateY(-0.4rem);
 }
 
 .form-select {
@@ -382,7 +382,7 @@
         flex-direction: column;
         gap: 0.4rem;
     }
-    
+
     .next-step {
         width: 100%;
         flex-direction: row;
@@ -390,15 +390,15 @@
         gap: 0.8rem;
         padding: 0.4rem;
     }
-    
+
     .step-number {
         margin-bottom: 0;
     }
-    
+
     .step-arrow {
         margin: 0.4rem 0;
     }
-    
+
     #passwordSentMessage {
         max-width: 100%;
     }
@@ -409,7 +409,7 @@
         padding: 1.6rem;
         border-radius: 16px;
     }
-    
+
     .auth-header {
         margin-bottom: 1.6rem;
     }
@@ -421,48 +421,48 @@
         border-radius: 12px;
         max-width: 100%;
     }
-    
+
     .auth-header {
         margin-bottom: 1.2rem;
     }
-    
+
     .auth-header img {
         width: 144px;
         margin-bottom: 0.8rem;
     }
-    
+
     .auth-header h1 {
         font-size: 1.08rem;
         margin-bottom: 0.4rem;
     }
-    
+
     .nav-tabs {
         margin-bottom: 1.2rem;
         gap: 0.6rem;
     }
-    
+
     .nav-tabs .nav-link {
         padding: 0.48rem 0.8rem;
         font-size: 0.76rem;
     }
-    
+
     .input-group {
         margin-bottom: 1rem;
     }
-    
+
     .input-group-text {
         padding: 0.56rem 0.72rem;
     }
-    
+
     .form-control {
         padding: 0.56rem 0.72rem;
     }
-    
+
     .btn-primary {
         width: 100%;
         padding: 0.6rem 0.8rem;
     }
-    
+
     .next-button,
     .back-button,
     .submit-button {
@@ -471,15 +471,15 @@
         padding: 0.56rem 0.8rem;
         margin-top: 0.4rem;
     }
-    
+
     .auth-image-container {
         display: none;
     }
-    
+
     .auth-container {
         display: block;
     }
-    
+
     .auth-content {
         padding: 1.4rem;
     }
@@ -490,20 +490,20 @@
         padding: 1rem;
         border-radius: 9px;
     }
-    
+
     .auth-header img {
         width: 112px;
     }
-    
+
     .auth-header h1 {
         font-size: 0.88rem;
     }
-    
+
     .nav-tabs .nav-link {
         padding: 0.4rem 0.6rem;
         font-size: 0.68rem;
     }
-    
+
     .form-label {
         font-size: 0.72rem;
     }
@@ -513,19 +513,19 @@
     .auth-container {
         padding: 0.8rem;
     }
-    
+
     .auth-header img {
         width: 96px;
     }
-    
+
     .auth-header h1 {
         font-size: 0.8rem;
     }
-    
+
     .nav-tabs {
         gap: 0.2rem;
     }
-    
+
     .nav-tabs .nav-link {
         padding: 0.32rem 0.48rem;
         font-size: 0.64rem;
@@ -558,8 +558,8 @@
     display: block;
 }
 
-  .btn-info {
-    background-color: #8B1C38; /* Burgundy/ginda color */
+.btn-info {
+    background-color: #8b1c38; 
     border: none;
     border-radius: 3px;
     color: #fff;
@@ -568,69 +568,318 @@
     margin-left: 10px;
     padding: 5px 10px;
     transition: all 0.2s ease;
-  }
-  
-  .btn-info:hover {
+}
+
+.btn-info:hover {
     background-color: #6d1523; /* Darker burgundy/ginda */
     box-shadow: 0 1px 4px rgba(139, 28, 56, 0.3);
-  }
-  
-  .btn-info i {
+}
+
+.btn-info i {
     margin-right: 4px;
     font-size: 11px;
-  }
-
-  /* Custom Alert Styling */
-.custom-alert {
+}
+.custom-error-alert.alert-danger {
+    background-color: #fff5f5;
+    border: 1px solid #9d2449;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-top: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    font-size: 0.85rem;
+    color: #9d2449;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px 12px;
-    font-size: 13px;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    gap: 8px;
     max-width: 100%;
+    line-height: 1.3;
+}
+
+.custom-error-alert.alert-danger::before {
+    content: '\f06a'; /* FontAwesome exclamation-circle */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #9d2449;
+    font-size: 1rem;
+}
+
+.error-title {
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+.error-message {
+    color: #555;
+}
+
+.url-container {
+    margin-left: 24px;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.error-url {
+    color: #9d2449;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.error-url:hover {
+    color: #c94f6f;
+    text-decoration: underline;
+}
+.alert-success {
+    background-color: #f9f7f3; /* Fondo crema suave */
+    border: 1px solid #9d2449; /* Borde granate elegante */
+    border-radius: 8px; /* Bordes más suaves */
+    padding: 12px 16px; /* Más espacio interno */
+    margin-top: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08); /* Sombra sutil */
+    font-family: 'Arial', sans-serif;
+    font-size: 0.9rem; /* Ligeramente más grande para legibilidad */
+    color: #2d2d2d; /* Gris oscuro suave */
+    display: flex;
+    flex-wrap: wrap; /* Adaptable a móviles */
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+    line-height: 1.4;
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Ícono antes del mensaje */
+.alert-success::before {
+    content: '\f058'; /* FontAwesome check-circle */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #9d2449;
+    font-size: 1.2rem; /* Ícono más destacado */
+    flex-shrink: 0; /* Evita que se reduzca */
+}
+
+/* Texto fuerte */
+.alert-success strong {
+    font-weight: 700;
+    color: #9d2449;
+    letter-spacing: 0.02em; /* Espaciado elegante */
+}
+
+/* Botón de información */
+.alert-success .btn-info {
+    background-color: #9d2449;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    color: #fff;
+    margin-left: auto; /* Se alinea a la derecha en pantallas grandes */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none; /* Sin subrayado */
+    box-shadow: 0 2px 4px rgba(157, 36, 73, 0.2); /* Sombra temática */
+}
+
+/* Efecto hover del botón */
+.alert-success .btn-info:hover {
+    background-color: #b33d5e; /* Tono más claro al pasar el ratón */
+    transform: translateY(-1px); /* Elevación sutil */
+    color: #fff;
+}
+
+/* Ícono dentro del botón */
+.alert-success .btn-info i {
+    margin-right: 5px;
+    font-size: 0.9rem;
+}
+
+/* Ajustes para formularios */
+.floating-input .custom-error-alert,
+.floating-input .alert-success {
+    margin-top: 8px;
+    width: 100%;
+    box-sizing: border-box; /* Respeta el ancho total */
+}
+
+/* Contenedor de resultados QR */
+#qr_result_container {
+    margin-top: 8px;
+    width: 100%;
     box-sizing: border-box;
 }
 
-/* Link Container */
-.link-container {
-    margin-left: 8px;
+/* Media queries para móviles */
+@media (max-width: 768px) {
+    .alert-success {
+        padding: 10px 12px;
+        font-size: 0.85rem; /* Ajuste para pantallas pequeñas */
+        flex-direction: column; /* Apila elementos verticalmente */
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .alert-success::before {
+        font-size: 1.1rem;
+    }
+
+    .alert-success .btn-info {
+        margin-left: 0; /* Centrado en móviles */
+        width: 100%; /* Botón ocupa todo el ancho */
+        justify-content: center; /* Centra el contenido del botón */
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .alert-success {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+    }
+
+    .alert-success::before {
+        font-size: 1rem;
+    }
+
+    .alert-success .btn-info {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+}/* Floating input base styling (assuming some existing styles) */
+.floating-input {
+    position: relative;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Input group styling */
+.floating-input .input-group {
+    transition: all 0.3s ease;
+}
+
+/* Default input styling */
+.floating-input .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Validated PDF input styling */
+.floating-input.validated .input-group {
+    border: 2px solid #28a745; /* Green border */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.3); /* Soft green glow */
+    background: linear-gradient(to right, rgba(40, 167, 69, 0.05), rgba(255, 255, 255, 0)); /* Subtle green fade */
+}
+
+/* Input focus state within validated */
+.floating-input.validated .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+}
+
+/* Confirmation message styling */
+.floating-input .validation-message {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #f9f7f3 0%, #fdfcfb 100%); /* Cream gradient */
+    border-left: 4px solid #9d2449; /* Maroon accent */
+    border-radius: 6px;
+    font-family: 'Arial', sans-serif;
+    font-size: 0.85rem;
+    color: #2d2d2d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Visible state for confirmation */
+.floating-input .validation-message.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Checkmark icon in confirmation */
+.floating-input .validation-message::before {
+    content: '\f058'; /* FontAwesome check-circle */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #28a745; /* Green checkmark */
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* Strong text in confirmation */
+.floating-input .validation-message strong {
+    font-weight: 700;
+    color: #9d2449; /* Maroon for emphasis */
+    letter-spacing: 0.02em;
+}
+
+/* Button in confirmation (if needed) */
+.floating-input .validation-message .btn-info {
+    background: linear-gradient(45deg, #9d2449, #b33d5e);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    color: #fff;
+    margin-left: auto;
+    transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 4px rgba(157, 36, 73, 0.2);
 }
 
-/* Link Icon */
-.link-icon {
-    color: #8B1C38; /* Match your burgundy theme */
-    font-size: 14px;
-    cursor: pointer;
-    transition: color 0.2s ease;
+.floating-input .validation-message .btn-info:hover {
+    background: linear-gradient(45deg, #b33d5e, #c75474);
+    transform: translateY(-1px);
 }
 
-.link-icon:hover {
-    color: #6d1523; /* Darker shade on hover */
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .floating-input .validation-message {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+
+    .floating-input .validation-message::before {
+        font-size: 1rem;
+    }
+
+    .floating-input .validation-message .btn-info {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 12px;
+    }
 }
 
-/* URL Text */
-.url-text {
-    margin-left: 6px;
-    color: #8B1C38;
-    font-size: 12px;
-    word-break: break-all; /* Break long URLs */
-    max-width: 200px; /* Limit width to save space */
-    display: none; /* Hidden by default */
+@media (max-width: 480px) {
+    .floating-input .validation-message {
+        font-size: 0.75rem;
+    }
+
+    .floating-input .validation-message::before {
+        font-size: 0.9rem;
+    }
 }
 
-/* Adjust alert types */
-.alert-success .link-icon,
-.alert-danger .link-icon,
-.alert-warning .link-icon {
-    color: inherit; /* Match alert type color if desired */
+.is-valid {
+    border-color: #28a745 !important;
 }
-
-/* Modal compatibility */
-.modal-body .custom-alert {
-    width: 100%;
-    margin: 0;
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+.formulario__input-error {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
 }

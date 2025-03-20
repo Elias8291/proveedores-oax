@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EconomicActivityController;
 use App\Http\Controllers\SettlementController;
+use App\Http\Controllers\ScrapingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,5 +35,6 @@ Route::get('register', [RegisteredUserController::class, 'create'])->name('regis
 Route::post('register', [RegisteredUserController::class, 'store']);
 Route::post('/check-email-exists', [\App\Http\Controllers\Auth\EmailCheckController::class, 'checkExists']);
 Route::post('/check-rfc-exists', [RegisteredUserController::class, 'checkRFCExists']);
-
+Route::post('/scraping/process-fiscal-document', [ScrapingController::class, 'processFiscalDocument'])->name('scraping.process.fiscal');
+Route::post('/register', [ScrapingController::class, 'register'])->name('register'); // Adjust if you have a separate register method
 require __DIR__.'/auth.php';

@@ -84,7 +84,7 @@
         </div>
 
         <div class="mt-3">
-            <button type="button" class="btn btn-primary next-button" onclick="nextSection()">
+            <button type="button" class="btn btn-primary next-button">
                 Siguiente
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -96,26 +96,31 @@
     <div id="section2" class="position-relative pb-5" style="display: none;">
         <div class="row mt-3">
             <div class="col-md-12">
-                <div class="floating-input">
-                    <label for="constancia_fiscal" class="form-label">Constancia de Situación Fiscal (PDF) *</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <input type="file" class="form-control custom-file-input" id="constancia_fiscal" name="constancia_fiscal" accept="application/pdf" required>
+                <div class="card pdf-upload-card">
+                    <div class="card-body">
+                        <div class="floating-input">
+                            <label for="constancia_fiscal" class="form-label">Constancia de Situación Fiscal (PDF) *</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-file-pdf"></i>
+                                </span>
+                                <input type="file" class="form-control custom-file-input" id="constancia_fiscal" name="constancia_fiscal" accept="application/pdf" required>
+                            </div>
+                            <div class="file-upload-info mt-1">
+                                <small class="text-muted">Sube tu Constancia de Situación Fiscal en formato PDF</small>
+                            </div>
+                            @error('constancia_fiscal')
+                                <div class="text-danger mt-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div id="qr_result_container" class="qr-result mt-3"></div>
                     </div>
-                    <div class="file-upload-info mt-1">
-                        <small class="text-muted">Sube tu Constancia de Situación Fiscal en formato PDF</small>
-                    </div>
-                    @error('constancia_fiscal')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
                 </div>
             </div>
         </div>
-
+    
         <div class="d-flex justify-content-between mt-3">
-            <button type="button" class="btn btn-secondary back-button" onclick="prevSection()">
+            <button type="button" class="btn btn-secondary back-button">
                 Regresar
             </button>
             <button type="submit" class="btn btn-primary submit-button">

@@ -25,7 +25,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <script src="{{ asset('assets/js/formStepNavigation.js') }}"></script>
-    <script src="{{ asset('assets/js/validation.js') }}"></script>
-    <script src="{{ asset('assets/js/RFC.js') }}"></script>
+    <script src="{{ asset('assets/js/welcomeVlidation/letters.js') }}"></script>
+    <script src="{{ asset('assets/js/qr-fiscal/qr-reader.js') }}"></script>
+    <script src="{{ asset('assets/js/qr-fiscal/data-scraper.js') }}"></script>
 </body>
 </html>

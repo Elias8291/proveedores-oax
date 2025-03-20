@@ -1,12 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const pdfjsScript = document.createElement("script");
-    pdfjsScript.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js";
-    document.head.appendChild(pdfjsScript);
-
-    const jsQRScript = document.createElement("script");
-    jsQRScript.src = "https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js";
-    document.head.appendChild(jsQRScript);
-
     const focusTrap = document.createElement("div");
     focusTrap.id = "accessibility-focus-trap";
     focusTrap.setAttribute("tabindex", "-1");
@@ -31,62 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener('load', patchBootstrapModal);
 
-    pdfjsScript.onload = function () {
-        window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js";
-        const constanciaInput = document.getElementById("constancia_fiscal");
-        if (constanciaInput)
-            constanciaInput.addEventListener("change", handleFileUpload);
-    };
-
-    function handleFileUpload(event) {
-        const file = event.target.files[0];
-        if (file && file.type === "application/pdf") {
-            let qrResultContainer = document.getElementById("qr_result_container");
-            if (!qrResultContainer) {
-                qrResultContainer = document.createElement("div");
-                qrResultContainer.id = "qr_result_container";
-                qrResultContainer.className = "mt-2";
-                event.target.parentNode.parentNode.appendChild(qrResultContainer);
-            }
-            qrResultContainer.innerHTML = '<div class="text-info">Procesando el documento...</div>';
-            const fileReader = new FileReader();
-            fileReader.onload = function () {
-                const typedArray = new Uint8Array(this.result);
-                window.pdfjsLib.getDocument(typedArray).promise.then(function (pdf) {
-                    processPages(pdf, 1, pdf.numPages, qrResultContainer);
-                }).catch(function (error) {
-                    qrResultContainer.innerHTML = '<div class="text-danger">Error al procesar el PDF: ' + error.message + "</div>";
-                });
-            };
-            fileReader.readAsArrayBuffer(file);
-        }
-    }
-
-    function processPages(pdf, pageNum, totalPages, resultContainer) {
-        if (pageNum > totalPages) {
-            resultContainer.innerHTML = '<div class="text-danger">No se encontró ningún código QR en el documento</div>';
-            return;
-        }
-        pdf.getPage(pageNum).then(function (page) {
-            const scale = 1.5;
-            const viewport = page.getViewport({ scale: scale });
-            const canvas = document.createElement("canvas");
-            const context = canvas.getContext("2d");
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-            const renderContext = { canvasContext: context, viewport: viewport };
-            page.render(renderContext).promise.then(function () {
-                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-                const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: "dontInvert" });
-                if (code) displayQRCodeResult(code.data, resultContainer);
-                else processPages(pdf, pageNum + 1, totalPages, resultContainer);
-            }).catch(function (error) {
-                resultContainer.innerHTML = '<div class="text-danger">Error al renderizar la página: ' + error.message + "</div>";
-            });
-        });
-    }
-
-    function displayQRCodeResult(url, container) {
+    window.displayQRCodeResult = function(url, container) {
         let hiddenInput = document.getElementById("qr_code_url");
         if (!hiddenInput) {
             hiddenInput = document.createElement("input");
@@ -134,20 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const firstFocusable = modalElement.querySelector('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])');
             if (firstFocusable) firstFocusable.focus();
             const closeBtn = modalElement.querySelector('.btn-close');
-            if (closeBtn) {
-                closeBtn.removeEventListener('click', handleCloseClick);
-                closeBtn.addEventListener('click', handleCloseClick);
-            }
+            if (closeBtn) closeBtn.addEventListener('click', handleCloseClick);
             const cerrarBtn = modalElement.querySelector('.btn-secondary');
-            if (cerrarBtn) {
-                cerrarBtn.removeEventListener('click', handleCloseClick);
-                cerrarBtn.addEventListener('click', handleCloseClick);
-            }
+            if (cerrarBtn) cerrarBtn.addEventListener('click', handleCloseClick);
             const usarDatosBtn = document.getElementById("usarDatosBtn");
-            if (usarDatosBtn) {
-                usarDatosBtn.removeEventListener('click', handleUsarDatosClick);
-                usarDatosBtn.addEventListener('click', handleUsarDatosClick);
-            }
+            if (usarDatosBtn) usarDatosBtn.addEventListener('click', handleUsarDatosClick);
         });
 
         function handleCloseClick(e) {
@@ -186,33 +114,28 @@ document.addEventListener("DOMContentLoaded", function () {
                 }, 10);
             }
         });
-    }
+    };
 
     function processFormData() {
         const rfc = document.getElementById("dato_rfc")?.value || "";
-        if (rfc) {
-            const rfcInput = document.getElementById("rfc");
-            if (rfcInput) rfcInput.value = rfc;
-        }
-        const codigoPostalInput = document.getElementById("codigo_postal");
-        if (codigoPostalInput) {
-            const cpValue = document.getElementById("dato_codigo_postal")?.value || document.getElementById("dato_cp")?.value || document.getElementById("dato_codigo_postal_fiscal")?.value;
-            if (cpValue) codigoPostalInput.value = cpValue;
-        }
+        if (rfc) document.getElementById("rfc").value = rfc;
+        const codigoPostal = document.getElementById("dato_codigo_postal")?.value || document.getElementById("dato_cp")?.value || document.getElementById("dato_codigo_postal_fiscal")?.value;
+        if (codigoPostal) document.getElementById("codigo_postal").value = codigoPostal;
         const razonSocialInput = document.getElementById("razon_social");
         if (razonSocialInput) {
             const razonSocialPF = document.getElementById("dato_razon_social")?.value || "";
-            if (razonSocialPF) {
-                razonSocialInput.value = razonSocialPF;
-            } else {
-                const rsValue = document.getElementById("dato_nombre_denominacion_razon_social")?.value || document.getElementById("dato_nombre")?.value;
-                if (rsValue) razonSocialInput.value = rsValue;
-            }
+            razonSocialInput.value = razonSocialPF || document.getElementById("dato_nombre_denominacion_razon_social")?.value || document.getElementById("dato_nombre")?.value || "";
         }
+        const calleInput = document.getElementById("calle");
+        if (calleInput) calleInput.value = document.getElementById("dato_nombre_de_la_vialidad")?.value || "";
+        const numExtInput = document.getElementById("numero_exterior");
+        if (numExtInput) numExtInput.value = document.getElementById("dato_numero_exterior")?.value || "";
+        const numIntInput = document.getElementById("numero_interior");
+        if (numIntInput) numIntInput.value = document.getElementById("dato_numero_interior")?.value || "";
     }
 
     function fetchDataFromURL(url, modalBody) {
-        fetch(url).then((response) => response.text()).then((html) => {
+        fetch(url).then(response => response.text()).then(html => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, "text/html");
             const sections = [];
@@ -223,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const sectionData = {};
                 if (dataTable) {
                     const rows = dataTable.querySelectorAll("tr");
-                    rows.forEach((row) => {
+                    rows.forEach(row => {
                         const cells = row.querySelectorAll("td");
                         if (cells.length >= 2) {
                             let label = cells[0].textContent.trim().replace(/:$/, "");
@@ -247,12 +170,29 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             let curp = "", nombre = "", apellidoPaterno = "", apellidoMaterno = "", razonSocialPF = "";
-            sections.forEach((section) => {
-                if (section.data["CURP"]) curp = section.data["CURP"];
-                if (section.data["Nombre"]) nombre = section.data["Nombre"];
-                if (section.data["Apellido Paterno"]) apellidoPaterno = section.data["Apellido Paterno"];
-                if (section.data["Apellido Materno"]) apellidoMaterno = section.data["Apellido Materno"];
+            let codigoPostal = "", nombreVialidad = "", numeroExterior = "", numeroInterior = "";
+
+            // Ampliar búsqueda de datos de domicilio
+            sections.forEach(section => {
+                const data = section.data;
+                if (data["CURP"]) curp = data["CURP"];
+                if (data["Nombre"]) nombre = data["Nombre"];
+                if (data["Apellido Paterno"]) apellidoPaterno = data["Apellido Paterno"];
+                if (data["Apellido Materno"]) apellidoMaterno = data["Apellido Materno"];
+
+                // Variaciones de Código Postal
+                codigoPostal = data["Código Postal"] || data["CP"] || data["Código Postal Fiscal"] || codigoPostal;
+
+                // Variaciones de Nombre de la Vialidad
+                nombreVialidad = data["Nombre de la Vialidad"] || data["Calle"] || data["Vialidad"] || nombreVialidad;
+
+                // Variaciones de Número Exterior
+                numeroExterior = data["Número Exterior"] || data["No. Exterior"] || data["Num. Exterior"] || numeroExterior;
+
+                // Variaciones de Número Interior
+                numeroInterior = data["Número Interior"] || data["No. Interior"] || data["Num. Interior"] || numeroInterior;
             });
+
             if (curp && nombre && apellidoPaterno && apellidoMaterno) {
                 razonSocialPF = `${nombre} ${apellidoPaterno} ${apellidoMaterno}`.trim();
             }
@@ -270,12 +210,26 @@ document.addEventListener("DOMContentLoaded", function () {
                         <h5 class="card-title" style="font-size: 1rem;">Datos Principales</h5>
                         <table class="table table-striped" style="font-size: 0.8rem;">
                             <tbody>
-                                <tr><th>RFC</th><td>${rfc || "No se encontró RFC en el documento"}</td></tr>
+                                <tr><th>RFC</th><td>${rfc || "No se encontró RFC"}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card mb-2" style="font-size: 0.88rem;">
+                    <div class="card-body" style="padding: 0.8rem;">
+                        <h5 class="card-title" style="font-size: 1rem;">Domicilio</h5>
+                        <table class="table table-striped" style="font-size: 0.8rem;">
+                            <tbody>
+                                <tr><th>Código Postal</th><td>${codigoPostal || "No disponible"}</td></tr>
+                                <tr><th>Nombre de la Vialidad</th><td>${nombreVialidad || "No disponible"}</td></tr>
+                                <tr><th>Número Exterior</th><td>${numeroExterior || "No disponible"}</td></tr>
+                                <tr><th>Número Interior</th><td>${numeroInterior || "No disponible"}</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>`;
-            sections.forEach((section) => {
+
+            sections.forEach(section => {
                 extractedData += `
                     <div class="card mb-2" style="font-size: 0.88rem;">
                         <div class="card-body" style="padding: 0.8rem;">
@@ -287,6 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 extractedData += `</tbody></table></div></div>`;
             });
+
             if (curp) {
                 extractedData += `
                     <div class="card mb-2" style="font-size: 0.88rem;">
@@ -309,7 +264,11 @@ document.addEventListener("DOMContentLoaded", function () {
             if (rfc) hiddenInputs += `<input type="hidden" id="dato_rfc" name="dato_rfc" value="${rfc}">`;
             if (curp) hiddenInputs += `<input type="hidden" id="dato_curp" name="dato_curp" value="${curp}">`;
             if (razonSocialPF) hiddenInputs += `<input type="hidden" id="dato_razon_social" name="dato_razon_social" value="${razonSocialPF}">`;
-            sections.forEach((section) => {
+            if (codigoPostal) hiddenInputs += `<input type="hidden" id="dato_codigo_postal" name="dato_codigo_postal" value="${codigoPostal}">`;
+            if (nombreVialidad) hiddenInputs += `<input type="hidden" id="dato_nombre_de_la_vialidad" name="dato_nombre_de_la_vialidad" value="${nombreVialidad}">`;
+            if (numeroExterior) hiddenInputs += `<input type="hidden" id="dato_numero_exterior" name="dato_numero_exterior" value="${numeroExterior}">`;
+            if (numeroInterior) hiddenInputs += `<input type="hidden" id="dato_numero_interior" name="dato_numero_interior" value="${numeroInterior}">`;
+            sections.forEach(section => {
                 for (const [label, value] of Object.entries(section.data)) {
                     const cleanLabel = label.toLowerCase().replace(/\s+/g, "_").replace(/[^a-z0-9_]/g, "");
                     hiddenInputs += `<input type="hidden" id="dato_${cleanLabel}" name="dato_${cleanLabel}" value="${value}">`;
@@ -323,9 +282,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!document.getElementById("hidden_inputs_container")) document.body.appendChild(hiddenInputsContainer);
 
             if (modalBody) modalBody.innerHTML = extractedData;
-        }).catch((error) => {
+        }).catch(error => {
             if (modalBody) modalBody.innerHTML = `<div class="alert alert-danger">Error al obtener los datos del URL: ${error.message}</div>`;
         });
     }
 });
-

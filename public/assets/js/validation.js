@@ -1,36 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('registerForm');
-    const nameInput = document.getElementById('name');
-    const lastNameInput = document.getElementById('last_name');
     const emailInput = document.getElementById('email');
     const confirmEmailInput = document.getElementById('email_confirmation');
-    const secondLastNameInput = document.getElementById('second_last_name');
 
     let emailCheckTimeout;
     let isEmailDuplicate = false;
-
-    const preventNumbers = (event) => {
-        if (/\d/.test(event.key)) {
-            event.preventDefault();
-        }
-    };
-
-    nameInput.addEventListener('keypress', preventNumbers);
-    lastNameInput.addEventListener('keypress', preventNumbers);
-
-    nameInput.addEventListener('paste', (event) => {
-        const pasteData = (event.clipboardData || window.clipboardData).getData('text');
-        if (/\d/.test(pasteData)) {
-            event.preventDefault();
-        }
-    });
-
-    lastNameInput.addEventListener('paste', (event) => {
-        const pasteData = (event.clipboardData || window.clipboardData).getData('text');
-        if (/\d/.test(pasteData)) {
-            event.preventDefault();
-        }
-    });
 
     const showError = (input, message) => {
         let error = input.nextElementSibling;
@@ -43,57 +17,11 @@ document.addEventListener('DOMContentLoaded', function () {
         error.style.color = 'red';
     };
 
-    secondLastNameInput.addEventListener('keypress', preventNumbers);
-    secondLastNameInput.addEventListener('paste', (event) => {
-        const pasteData = (event.clipboardData || window.clipboardData).getData('text');
-        if (/\d/.test(pasteData)) {
-            event.preventDefault();
-        }
-    });
-
-    const validateSecondLastName = (input) => {
-        clearError(input);
-        if (input.value.trim() !== '') {
-            const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]{2,}$/;
-            if (!regex.test(input.value)) {
-                showError(input, 'El segundo apellido debe contener solo letras y tener al menos 2 caracteres.');
-                return false;
-            }
-        }
-        return true;
-    };
-
-    const convertSecondLastNameToUpperCase = (event) => {
-        event.target.value = event.target.value.toUpperCase();
-    };
-
-    secondLastNameInput.addEventListener('input', convertSecondLastNameToUpperCase);
-
     const clearError = (input) => {
         let error = input.nextElementSibling;
         if (error && error.classList.contains('error-message')) {
             error.remove();
         }
-    };
-
-    const validateName = (input) => {
-        clearError(input);
-        const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]{2,}$/;
-        if (!regex.test(input.value)) {
-            showError(input, 'El nombre debe contener solo letras y tener al menos 2 caracteres.');
-            return false;
-        }
-        return true;
-    };
-
-    const validateLastName = (input) => {
-        clearError(input);
-        const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s]{2,}$/;
-        if (!regex.test(input.value)) {
-            showError(input, 'El apellido debe contener solo letras y tener al menos 2 caracteres.');
-            return false;
-        }
-        return true;
     };
 
     const validateEmail = (input) => {
@@ -159,15 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return true;
     };
 
-    const convertToUpperCase = (event) => {
-        event.target.value = event.target.value.toUpperCase();
-    };
-
-    nameInput.addEventListener('input', convertToUpperCase);
-    lastNameInput.addEventListener('input', convertToUpperCase);
-
-    nameInput.addEventListener('input', () => validateName(nameInput));
-    lastNameInput.addEventListener('input', () => validateLastName(lastNameInput));
     emailInput.addEventListener('input', () => {
         clearError(emailInput);
         validateEmail(emailInput);
@@ -179,62 +98,31 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }, 500);
     });
+
     emailInput.addEventListener('blur', () => {
         if (emailInput.value.trim() !== '' && validateEmail(emailInput)) {
             clearTimeout(emailCheckTimeout);
             checkEmailExists(emailInput.value);
         }
     });
+
     confirmEmailInput.addEventListener('input', () => validateConfirmEmail(confirmEmailInput));
-
-    window.nextSection = async function() {
-        const isNameValid = validateName(nameInput);
-        const isLastNameValid = validateLastName(lastNameInput);
-        const isEmailValid = validateEmail(emailInput);
-        const isConfirmEmailValid = validateConfirmEmail(confirmEmailInput);
-        const isSecondLastNameValid = validateSecondLastName(secondLastNameInput);
-        const isEmailUnique = await checkEmailExists(emailInput.value);
-
-        if (!isNameValid || !isLastNameValid || !isEmailValid || !isConfirmEmailValid || !isSecondLastNameValid || isEmailDuplicate) {
-            if (!isNameValid) nameInput.focus();
-            else if (!isLastNameValid) lastNameInput.focus();
-            else if (!isSecondLastNameValid) secondLastNameInput.focus();
-            else if (!isEmailValid || isEmailDuplicate) emailInput.focus();
-            else confirmEmailInput.focus();
-            return;
-        }
-
-        document.getElementById('section1').style.display = 'none';
-        document.getElementById('section2').style.display = 'block';
-    };
 
     if (form) {
         form.addEventListener('submit', async function (event) {
             event.preventDefault();
 
-            const isNameValid = validateName(nameInput);
-            const isLastNameValid = validateLastName(lastNameInput);
             const isEmailValid = validateEmail(emailInput);
             const isConfirmEmailValid = validateConfirmEmail(confirmEmailInput);
-            const isSecondLastNameValid = validateSecondLastName(secondLastNameInput);
             const isEmailUnique = await checkEmailExists(emailInput.value);
 
-            if (!isNameValid || !isLastNameValid || !isEmailValid || !isConfirmEmailValid || !isSecondLastNameValid || isEmailDuplicate) {
-                if (!isNameValid) nameInput.focus();
-                else if (!isLastNameValid) lastNameInput.focus();
-                else if (!isSecondLastNameValid) secondLastNameInput.focus();
-                else if (!isEmailValid || isEmailDuplicate) emailInput.focus();
+            if (!isEmailValid || !isConfirmEmailValid || isEmailDuplicate) {
+                if (!isEmailValid || isEmailDuplicate) emailInput.focus();
                 else confirmEmailInput.focus();
                 return;
             }
 
-            // Si todo está correcto, enviar el formulario
             form.submit();
         });
     }
-
-    window.prevSection = function() {
-        document.getElementById('section1').style.display = 'block';
-        document.getElementById('section2').style.display = 'none';
-    };
 });

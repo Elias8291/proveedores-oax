@@ -5,53 +5,6 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="floating-input">
-                    <label for="name" class="form-label">Nombre(s) *</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fas fa-user"></i>
-                        </span>
-                        <input type="text" class="form-control" id="name" value="{{ old('name') }}" name="name" required autofocus>
-                    </div>
-                    @error('name')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="floating-input">
-                    <label for="last_name" class="form-label">Primer Apellido *</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fas fa-user-tag"></i>
-                        </span>
-                        <input type="text" class="form-control" id="last_name" value="{{ old('last_name') }}" name="last_name" required>
-                    </div>
-                    @error('last_name')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-2">
-            <div class="col-md-6">
-                <div class="floating-input">
-                    <label for="second_last_name" class="form-label">Segundo Apellido</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="fas fa-user-tag"></i>
-                        </span>
-                        <input type="text" class="form-control" id="second_last_name" name="second_last_name" value="{{ old('second_last_name') }}">
-                    </div>
-                    @error('second_last_name')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="floating-input">
                     <label for="email" class="form-label">Correo electrónico *</label>
                     <div class="input-group">
                         <span class="input-group-text">
@@ -64,10 +17,8 @@
                     @enderror
                 </div>
             </div>
-        </div>
 
-        <div class="row mt-2">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="floating-input">
                     <label for="email_confirmation" class="form-label">Confirmar Correo electrónico *</label>
                     <div class="input-group">
@@ -83,17 +34,6 @@
             </div>
         </div>
 
-        <div class="mt-3">
-            <button type="button" class="btn btn-primary next-button" onclick="nextSection()">
-                Siguiente
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right ms-2" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                </svg>
-            </button>
-        </div>
-    </div>
-
-    <div id="section2" class="position-relative pb-5" style="display: none;">
         <div class="row mt-3">
             <div class="col-md-12">
                 <div class="floating-input">
@@ -104,9 +44,7 @@
                         </span>
                         <input type="file" class="form-control custom-file-input" id="constancia_fiscal" name="constancia_fiscal" accept="application/pdf" required>
                     </div>
-                    <div class="file-upload-info mt-1">
-                        <small class="text-muted">Sube tu Constancia de Situación Fiscal en formato PDF</small>
-                    </div>
+                   
                     @error('constancia_fiscal')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -114,10 +52,7 @@
             </div>
         </div>
 
-        <div class="d-flex justify-content-between mt-3">
-            <button type="button" class="btn btn-secondary back-button" onclick="prevSection()">
-                Regresar
-            </button>
+        <div class="mt-3">
             <button type="submit" class="btn btn-primary submit-button">
                 Registrarse
             </button>
